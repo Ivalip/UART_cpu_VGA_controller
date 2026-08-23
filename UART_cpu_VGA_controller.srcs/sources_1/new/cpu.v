@@ -7,14 +7,14 @@ module cpu #(
     parameter BUS_WIDTH = CMD_SIZE + LIT_SIZE
 )(
     input clk,
-    input reset,
+    input rst_n,
 
     input extern_command_ready,
     input [BUS_WIDTH - 1 : 0] extern_command,
+    output reg CPU_ready,
 
     input VGA_ready,
-
-    output reg endline,   // UART_endline
+    output reg endline,
 
     output reg [$clog2(`MAX_STRING_SIZE)-1:0] string_len,
     output reg [5:0] char,
@@ -26,16 +26,14 @@ module cpu #(
     output [11:0] color,
 
     output reg [1:0] command_flag,
-    output reg CPU_ready,
-
+    output reg start_draw,
+    
     output reg [9:0] x1_coord,
     output reg [9:0] y1_coord,
     output reg [9:0] x2_coord,
     output reg [9:0] y2_coord,
     output reg [9:0] x3_coord,
-    output reg [9:0] y3_coord,
-
-    output [4:0] pc
+    output reg [9:0] y3_coord
 );
 
 reg [3:0] vgaRed  ;
@@ -44,57 +42,68 @@ reg [3:0] vgaBlue ;
 
 assign color = {vgaRed, vgaGreen, vgaBlue};
 
-localparam CMD_MEM_SIZE = 32,
+localparam CMD_MEM_SIZE = 32, ////////////////////////// РАСШИРИТЬ //////////////////////////
            ADDR_CMD_MEM_SIZE = $clog2(CMD_MEM_SIZE),
-           CMD_SIZE = 34,
+           CMD_SIZE = ??, ////////////////////////// РАСШИРИТЬ //////////////////////////
            LIT_SIZE = 10,
-           COP_SIZE = 24;
+           COP_SIZE = ??; ////////////////////////// РАСШИРИТЬ //////////////////////////
 
-localparam CRX1 = 24'b001100_011011_100001_000001,
-           CRY1 = 24'b001100_011011_100010_000001,
-           CRX2 = 24'b001100_011011_100001_000010,
-           CRY2 = 24'b001100_011011_100010_000010,
-           CRX3 = 24'b001100_011011_100001_000011,
-           CRY3 = 24'b001100_011011_100010_000011,
-           CLRR = 24'b001100_010101_011011_011011,
-           CLRG = 24'b001100_010101_011011_010000,
-           CLRB = 24'b001100_010101_011011_001011,
-
-           PIXL = 24'b011001_010010_100001_010101,
-           ASCI = 24'b001010_011100_001100_010010,
-           TRIG = 24'b011101_011011_010010_010000,
-
-           LIT  = 24'b000000_010101_010010_011101,
-           STRL = 24'b011100_011101_011011_010101,
-           ENDL = 24'b001110_010111_001101_010101,
-           SYMB = 24'b011100_100010_010110_001011,
-
-           END  = 24'b000000_001110_010111_001101,
-           RST  = 24'b000000_011011_011100_011101,
-           WRST = 24'b100000_011011_011100_011101,
-           NRST = 24'b010111_011011_011100_011101;
+localparam PIXL = 24'b011001_010010_100001_010101, // P(25) I(18) X(33) L(21)
+           ASCI = 24'b001010_011100_001100_010010, // A(10) S(28) C(12) I(18)
+           TRIG = 24'b011101_011011_010010_010000, // T(29) R(27) I(18) G(16)
+           
+           SLEN = 24'b011100_010101_001110_010111, // S(28) L(21) E(14) N(23)
+           CHAR = 24'b001100_010001_001010_011011, // C(12) H(17) A(10) R(27)
+           
+           CLRR = 24'b001100_010101_011011_011011, // C(12) L(21) R(27) R(27)
+           CLRG = 24'b001100_010101_011011_010000, // C(12) L(21) R(27) G(16)
+           CLRB = 24'b001100_010101_011011_001011, // C(12) L(21) R(27) B(11)
+           
+           CRX1 = 24'b001100_011011_100001_000001, // C(12) R(27) X(33) 1(1)
+           CRX2 = 24'b001100_011011_100001_000010, // C(12) R(27) X(33) 2(2)
+           CRX3 = 24'b001100_011011_100001_000011, // C(12) R(27) X(33) 3(3)
+           
+           CRY1 = 24'b001100_011011_100010_000001, // C(12) R(27) Y(34) 1(1)
+           CRY2 = 24'b001100_011011_100010_000010, // C(12) R(27) Y(34) 2(2)
+           CRY3 = 24'b001100_011011_100010_000011, // C(12) R(27) Y(34) 3(3)
+           
+           EROR = 24'b001110_011011_011000_011011, // E(14) R(27) O(24) R(27)
+           RSTN = 24'b011011_011100_011101_010111, // R(27) S(28) T(29) N(23)
+           ENDL = 24'b001110_010111_010100_010101; // E(14) N(23) D(13) L(21)
 
 reg [CMD_SIZE - 1 : 0] cmd_mem [0 : CMD_MEM_SIZE - 1];
-reg [CMD_SIZE - 1 : 0] cmd;          // Current command
-reg [ADDR_CMD_MEM_SIZE - 1 : 0] pc;  // Program counter
-reg [LIT_SIZE - 1 : 0] res;          // Result register
-reg [2:0] stage_counter;
+reg [CMD_SIZE - 1 : 0] cmd;                 // Current command
+// reg [CMD_SIZE - 1 : 0] prev_extern_command; // Previous extern command
 
-reg [1:0] current_error;
+reg [ADDR_CMD_MEM_SIZE - 1 : 0] pc;         // Program counter
+reg [2:0] stage_counter;
 
 wire [COP_SIZE - 1 : 0] cop = cmd [CMD_SIZE - 1 -: COP_SIZE];
 wire [LIT_SIZE - 1 : 0] literal =  cmd [CMD_SIZE - 1 - COP_SIZE -: LIT_SIZE];
 
 initial begin
-    cmd <= 0;
-    res <= 0;
-    stage_counter <= 0;
-    pc <= 0;
+    CPU_ready <= 0;
 
-    draw_symb     <= 0;
     endline       <= 0;
+
+    string_len    <= 0;
+    char <= 0;
     write_char_en <= 0;
 
+    vgaX <= 0;
+    vgaY <= 0;
+
+    vgaRed   <= 0;
+    vgaGreen <= 0;
+    vgaBlue  <= 0;
+
+    command_flag  <= 0;
+    start_draw <= 0;
+
+    cmd <= 0;
+    stage_counter <= 0;
+    pc <= 0;
+    
     x1_coord <= 0;
     y1_coord <= 0;
     x2_coord <= 0;
@@ -102,14 +111,6 @@ initial begin
     x3_coord <= 0;
     y3_coord <= 0;
 
-    string_len    <= 0;
-    litera        <= 0;
-    command_flag  <= 0;
-    CPU_busy      <= 0;
-
-    vgaRed   <= 0;
-    vgaGreen <= 0;
-    vgaBlue  <= 0;
     $readmemb("CPU_mem.mem", cmd_mem);
 end
 

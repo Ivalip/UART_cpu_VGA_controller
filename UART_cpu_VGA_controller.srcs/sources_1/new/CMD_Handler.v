@@ -8,7 +8,7 @@ module CMD_Handler #(
 	input clk,
 	input rst_n,
 
-	input [5:0] symb,
+	input [5:0] symbol,
 	input symb_ready,
 
 	input CPU_ready,
@@ -23,48 +23,64 @@ reg [47:0] RES_CMD;
 wire Translator_busy;
 reg button_pending, end_command_pending;
 
-reg error;
-reg [1:0] error_code;
 reg [1:0] cmd_code;
-reg [3:0] param_counter;
 
 localparam STATES = 23;
 localparam ST_IDLE            = 0  ,
            PI                 = 1  ,
            PIX                = 2  ,
-           PIXL               = 3  ,
+           ST_PIXL               = 3  ,
            AS                 = 4  ,
            ASC                = 5  ,
-           ASCI               = 6  ,
+           ST_ASCI               = 6  ,
            TR                 = 7  ,
            TRI                = 8  ,
-           TRIG               = 9  ,
-           ST_FORM_ERROR      = 10 ,
-           INPUT_GREEN_CLR    = 11 ,
-           INPUT_RED_CLR      = 12 ,
-           INPUT_BLUE_CLR     = 13 ,
-           INPUT_X1_COORD     = 14 ,
-           INPUT_Y1_COORD     = 15 ,
-           INPUT_X2_COORD     = 16 ,
-           INPUT_Y2_COORD     = 17 ,
-           INPUT_X3_COORD     = 18 ,
-           INPUT_Y3_COORD     = 19 ,
-           INPUT_STRING_LEN   = 20 ,
-           INPUT_STRING       = 21 ,
-           WAIT_CPU_EXECUTION = 22 ,
-           ST_RESET           = 23 ;
+           ST_TRIG               = 9  ,
+           INPUT_GREEN_CLR    = 10 ,
+           INPUT_RED_CLR      = 11 ,
+           INPUT_BLUE_CLR     = 12 ,
+           INPUT_X1_COORD     = 13 ,
+           INPUT_Y1_COORD     = 14 ,
+           INPUT_X2_COORD     = 15 ,
+           INPUT_Y2_COORD     = 16 ,
+           INPUT_X3_COORD     = 17 ,
+           INPUT_Y3_COORD     = 18 ,
+           INPUT_STRING_LEN   = 19 ,
+           INPUT_STRING       = 20 ,
+           WAIT_CPU_EXECUTION = 21 ,
+           ST_RESET           = 22 ;
 
 reg [$clog2(STATES) - 1 : 0] state;
 
-initial begin
-    
-end
+// Кодирование 4-буквенных команд
+localparam PIXL = 24'b011001_010010_100001_010101, // P(25) I(18) X(33) L(21)
+           ASCI = 24'b001010_011100_001100_010010, // A(10) S(28) C(12) I(18)
+           TRIG = 24'b011101_011011_010010_010000, // T(29) R(27) I(18) G(16)
+           
+           SLEN = 24'b011100_010101_001110_010111, // S(28) L(21) E(14) N(23)
+           CHAR = 24'b001100_010001_001010_011011, // C(12) H(17) A(10) R(27)
+           
+           CLRR = 24'b001100_010101_011011_011011, // C(12) L(21) R(27) R(27)
+           CLRG = 24'b001100_010101_011011_010000, // C(12) L(21) R(27) G(16)
+           CLRB = 24'b001100_010101_011011_001011, // C(12) L(21) R(27) B(11)
+           
+           CRX1 = 24'b001100_011011_100001_000001, // C(12) R(27) X(33) 1(1)
+           CRX2 = 24'b001100_011011_100001_000010, // C(12) R(27) X(33) 2(2)
+           CRX3 = 24'b001100_011011_100001_000011, // C(12) R(27) X(33) 3(3)
+           
+           CRY1 = 24'b001100_011011_100010_000001, // C(12) R(27) Y(34) 1(1)
+           CRY2 = 24'b001100_011011_100010_000010, // C(12) R(27) Y(34) 2(2)
+           CRY3 = 24'b001100_011011_100010_000011, // C(12) R(27) Y(34) 3(3)
+           
+           EROR = 24'b001110_011011_011000_011011, // E(14) R(27) O(24) R(27)
+           RSTN = 24'b011011_011100_011101_010111, // R(27) S(28) T(29) N(23)
+           ENDL = 24'b001110_010111_010100_010101; // E(14) N(23) D(13) L(21)
 
-CMD_Translator command_translator #(
+CMD_Translator #(
 	.DIGIT_RANK (DIGIT_RANK),
 	.CMD_COUNT  (CMD_COUNT),
 	.LIT_SIZE   (LIT_SIZE)
-)(
+) translator (
 	.clk			  (clk),
 	.rst_n			  (rst_n),
 
@@ -78,11 +94,18 @@ CMD_Translator command_translator #(
 	.Translator_busy  (Translator_busy)
 );
 
-always @(posedge clk or posedge rst) begin
-	if(rst) begin
-		<= 0;
+initial begin
+    state <= ST_IDLE;
+    RES_CMD <= 0;
+    button_pending <= 0;
+    end_command_pending <= 0;
+    cmd_code <= 0;
+end
+
+always @(posedge clk or posedge rst_n) begin
+	if(rst_n) begin
 	end else begin
-        if (symbol_ready) begin
+        if (symb_ready) begin
             button_pending <= 1'b1; // Кнопка была нажата
         end
 
@@ -106,8 +129,9 @@ always @(posedge clk or posedge rst) begin
                     		state <= TR;
                     	end
                     	default : begin
-                            error_code <= 1;
-                            state <= ST_FORM_ERROR;
+                            RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
+                            end_command_pending <= 1;
+                            state <= ST_RESET;
                         end
                     endcase
             	end
@@ -119,8 +143,9 @@ always @(posedge clk or posedge rst) begin
                         RES_CMD <= { RES_CMD[41:0], symbol };
                         state <= PIX;
                     end else begin
-                        error_code <= 1;
-                        state <= ST_FORM_ERROR;
+                        RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
+                        end_command_pending <= 1;
+                        state <= ST_RESET;
                     end
                     button_pending <= 1'b0;
             	end
@@ -130,22 +155,24 @@ always @(posedge clk or posedge rst) begin
                 if (button_pending && !Translator_busy) begin
                     if (symbol == 6'd33) begin      // X
                         RES_CMD <= { RES_CMD[41:0], symbol };
-                        state <= PIXL;
+                        state <= ST_PIXL;
                     end else begin
-                        error_code <= 1;
-                        state <= ST_FORM_ERROR;
+                        RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
+                        end_command_pending <= 1;
+                        state <= ST_RESET;
                     end
                     button_pending <= 1'b0;
                 end
             end
 
-            PIXL: begin
+            ST_PIXL: begin
                 if (button_pending && !Translator_busy) begin
                     if (symbol == 6'd21) begin      // L
                         RES_CMD <= { {6{1'b0}}, RES_CMD[17:0], symbol, {18{1'b0}} };
                     end else begin
-                        error_code <= 1;
-                        state <= ST_FORM_ERROR;
+                        RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
+                        end_command_pending <= 1;
+                        state <= ST_RESET;
                     end
                     button_pending <= 1'b0;
                 end
@@ -162,8 +189,9 @@ always @(posedge clk or posedge rst) begin
                         RES_CMD <= { RES_CMD[41:0], symbol };
                         state <= ASC;
                     end else begin
-                        error_code <= 1;
-                        state <= ST_FORM_ERROR;
+                        RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
+                        end_command_pending <= 1;
+                        state <= ST_RESET;
                     end
                     button_pending <= 1'b0;
                 end
@@ -172,22 +200,24 @@ always @(posedge clk or posedge rst) begin
                 if (button_pending && !Translator_busy) begin
                     if (symbol == 6'd12) begin      // C
                         RES_CMD <= { RES_CMD[41:0], symbol };
-                        state <= ASCI;
+                        state <= ST_ASCI;
                     end else begin
-                        error_code <= 1;
-                        state <= ST_FORM_ERROR;
+                        RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
+                        end_command_pending <= 1;
+                        state <= ST_RESET;
                     end
                     button_pending <= 1'b0;
                 end
             end
 
-            ASCI: begin
+            ST_ASCI: begin
                 if (button_pending && !Translator_busy) begin
                     if (symbol == 6'd18) begin      // I
                         RES_CMD <= { {6{1'b0}}, RES_CMD[17:0], symbol, {18{1'b0}} };
                     end else begin
-                        error_code <= 1;
-                        state <= ST_FORM_ERROR;
+                        RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
+                        end_command_pending <= 1;
+                        state <= ST_RESET;
                     end
                     button_pending <= 1'b0;
                 end
@@ -204,8 +234,9 @@ always @(posedge clk or posedge rst) begin
                         RES_CMD <= { RES_CMD[41:0], symbol };
                         state <= TRI;
                     end else begin
-                        error_code <= 1;
-                        state <= ST_FORM_ERROR;
+                        RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
+                        end_command_pending <= 1;
+                        state <= ST_RESET;
                     end
                     button_pending <= 1'b0;
                 end
@@ -215,22 +246,24 @@ always @(posedge clk or posedge rst) begin
                 if (button_pending && !Translator_busy) begin
                     if (symbol == 6'd18) begin      // I
                         RES_CMD <= { RES_CMD[41:0], symbol };
-                        state <= TRIG;
+                        state <= ST_TRIG;
                     end else begin
-                        error_code <= 1;
-                        state <= ST_FORM_ERROR;
+                        RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
+                        end_command_pending <= 1;
+                        state <= ST_RESET;
                     end
                     button_pending <= 1'b0;
                 end
             end
 
-            TRIG: begin
-                if (button_pending && !Translator_busy) begin-
+            ST_TRIG: begin
+                if (button_pending && !Translator_busy) begin
                     if (symbol == 6'd16) begin      // G
                         RES_CMD <= { {6{1'b0}}, RES_CMD[17:0], symbol, {18{1'b0}} };
                     end else begin
-                        error_code <= 1;
-                        state <= ST_FORM_ERROR;
+                        RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
+                        end_command_pending <= 1;
+                        state <= ST_RESET;
                     end
                     button_pending <= 1'b0;
                 end
@@ -238,28 +271,6 @@ always @(posedge clk or posedge rst) begin
                     end_command_pending <= 0;
                     cmd_code <= 3;
                     state <= INPUT_X1_COORD;
-                end
-            end
-
-            ST_FORM_ERROR: begin
-                if (!Translator_busy) begin
-                    state <= ST_RESET;
-                    case (error_code)
-                        2'h0: begin
-                            RES_CMD <= { {6{1'b0}}, NULL, {16{1'b0}}, error_code };
-                            state <= ????????????;
-                        end
-                        2'h1: begin // Неверная команда
-                            RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, error_code };
-                            // Придумать для вывода сообщения
-                        end
-                        2'h2: begin // Неверный параметр
-                            RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, error_code };
-                        end
-                        2'h3: begin
-                            RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, error_code };
-                        end
-                    endcase
                 end
             end
 
@@ -381,8 +392,7 @@ always @(posedge clk or posedge rst) begin
                 end
             end
 
-            INPUT_STRING_LEN:
-            begin
+            INPUT_STRING_LEN: begin
                 if (button_pending && !Translator_busy) begin
                     RES_CMD <= { RES_CMD[41:0], symbol };
                     button_pending <= 1'b0;
@@ -394,8 +404,7 @@ always @(posedge clk or posedge rst) begin
                 end
             end
 
-            INPUT_STRING:
-            begin
+            INPUT_STRING: begin
                 if (button_pending && !Translator_busy) begin
                     RES_CMD <= { {6{1'b0}}, CHAR, {12{1'b0}}, symbol };
                     button_pending <= 1'b0;
@@ -407,22 +416,16 @@ always @(posedge clk or posedge rst) begin
                 end
             end
             
-            WAIT_CPU_EXECUTION:
-            begin
+            WAIT_CPU_EXECUTION: begin
                 if (!Translator_busy) begin
                     state <= ST_RESET;
                 end
             end
 
-            ST_RESET:
-            begin
-                // ПОДУМАЕМ чуть позже
-                if (!Translator_busy) begin
-                    RES_CMD <= { {6{1'b0}}, RSTN, {12{1'b0}}, symbol };
-                end
-                if (error) begin
-                    error <= 0;
-                end
+            ST_RESET: begin
+                end_command_pending <= 0;
+                RES_CMD <= 0;
+                state <= ST_IDLE;
             end
         endcase
     end

@@ -40,9 +40,10 @@ localparam PIXL = 24'b011001_010010_100001_010101, // P(25) I(18) X(33) L(21)
            
            EROR = 24'b001110_011011_011000_011011, // E(14) R(27) O(24) R(27)
            RSTN = 24'b011011_011100_011101_010111, // R(27) S(28) T(29) N(23)
-           ENDL = 24'b001110_010111_010100_010101; // E(14) N(23) D(13) L(21)
+           ENDL = 24'b001110_010111_010100_010101, // E(14) N(23) D(13) L(21)
+           END  = 24'b000000_001110_010111_010100;
 
-reg [33:0] command;
+reg [47:0] command;
 reg [$clog2(CMD_COUNT) - 1 : 0] cmd_code;
 reg [LIT_SIZE-1:0] literal;
 
@@ -55,55 +56,65 @@ localparam ST_IDLE           = 0 ,
            SEND_COMMAND      = 3 ;
 
 reg [$clog2(STATES)-1 : 0] state_r;
+reg [1:0] j;
 
-always @(posedge clk or posedge rst) begin
-	if(rst) begin
-		 <= 0;
+initial begin
+    state_r <= ST_IDLE;
+    j <= 0;
+    command_ready <= 0;
+    Translator_busy <= 0;
+    command <= 0;
+    cmd_code <= 0;
+    literal <= 0;
+end
+
+always @(posedge clk or posedge rst_n) begin
+	if(rst_n) begin
+		state_r <= ST_IDLE;
+		j <= 0;
+        command_ready <= 0;
+        Translator_busy <= 0;
+        command <= 0;
+        cmd_code <= 0;
+        literal <= 0;
 	end else begin
 		case (state_r)
 			ST_IDLE: begin
 				if (end_command) begin
 					Translator_busy <= 1;
+                    command <= UART_command;
                     cmd_code <= 0;
                     literal <= 0;
-                    command <= 0;
                     state_r <= ST_TRANSLATE_CMD;
 				end
 			end
 
-			ST_TRANSLATE_CMD: begin
+            ST_TRANSLATE_CMD: begin
                 if (j == 3) begin
-                    // Все три цифры обработаны
-                    command <= {UART_command[41:18], command[9:0]};
                     j       <= 4'b0;
-                    state   <= ST_CHECK_COMMAND;
+                    command[33:10] <= command[41:18];
+                    state_r <= ST_CHECK_COMMAND;
                 end else begin
-                    // Цифры идут в порядке: [5:0] - единицы, [11:6] - десятки, [17:12] - сотни
-                    // Число = сотни*100 + десятки*10 + единицы
                     case (j)
                         4'd0: begin
-                            // 6 бит из диапазона — это значение единиц
-                            command <= UART_command[5:0]; 
-                            j       <= j + 4'd1;
+                            command[9:0] <= {6'd0, command[3:0]}; 
+                            j            <= j + 4'd1;
                         end
                         4'd1: begin
-                            // Диапазон [11:6] — десятки. Выделяем младшие 4 бита цифры: [9:6]
-                            // Число * 10 = (Число << 3) + (Число << 1)
-                            command <= command + ({UART_command[9:6], 3'd0} + {UART_command[9:6], 1'd0});
-                            j       <= j + 4'd1;
+                            command[9:0] <= command[9:0] + ({command[9:6], 3'd0} + {command[9:6], 1'd0});
+                            j            <= j + 4'd1;
                         end
                         4'd2: begin
-                            // Диапазон [17:12] — сотни. Выделяем младшие 4 бита цифры: [15:12]
-                            // Число * 100 = (Число << 6) + (Число << 5) + (Число << 2)
-                            command <= command + ({UART_command[15:12], 6'd0} + {UART_command[15:12], 5'd0} + {UART_command[15:12], 2'd0});
-                            j       <= j + 4'd1;
+                            command[9:0] <= command[9:0] + ({command[15:12], 6'd0} + {command[15:12], 5'd0} + {command[15:12], 2'd0});
+                            j            <= j + 4'd1;
                         end
+                        default: j <= 4'b0;
                     endcase
                 end
-			end
+            end
 
-            ST_CHECK_COMMAND: begin
-                state         <= SEND_COMMAND;
+            ST_CHECK_COMMAND: begin ////////////// ДОДЕЛАТЬ
+                state_r         <= SEND_COMMAND;
                 command_ready <= 1'b1;
                 case (command[33:10])
                     SLEN:    cmd_code <= 5'd1;
@@ -156,7 +167,7 @@ always @(posedge clk or posedge rst) begin
                         end
                     end
                     
-                    default: begin
+                    default: begin ////////////// ДОДЕЛАТЬ
                         cmd_code <= 5'd15;
                         literal  <= 10'd2; 
                     end
@@ -167,10 +178,12 @@ always @(posedge clk or posedge rst) begin
                 if (CPU_ready) begin
                     command_ready <= 0;
                     Translator_busy <= 0;
-                    state <= ST_IDLE;
+                    command <= 0;
+                    state_r <= ST_IDLE;
                 end
             end
 		endcase
+	end
 end
 
 endmodule
