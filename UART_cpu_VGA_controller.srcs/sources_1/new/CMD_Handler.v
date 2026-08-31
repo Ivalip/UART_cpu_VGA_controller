@@ -168,7 +168,7 @@ always @(posedge clk or posedge rst_n) begin
             ST_PIXL: begin
                 if (button_pending && !Translator_busy) begin
                     if (symbol == 6'd21) begin      // L
-                        RES_CMD <= { {6{1'b0}}, RES_CMD[17:0], symbol, {18{1'b0}} };
+                        RES_CMD <= { {6{1'b0}}, CMD, 6'd1, {18{1'b0}} };
                     end else begin
                         RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
                         end_command_pending <= 1;
@@ -213,7 +213,7 @@ always @(posedge clk or posedge rst_n) begin
             ST_ASCI: begin
                 if (button_pending && !Translator_busy) begin
                     if (symbol == 6'd18) begin      // I
-                        RES_CMD <= { {6{1'b0}}, RES_CMD[17:0], symbol, {18{1'b0}} };
+                        RES_CMD <= { {6{1'b0}}, CMD, 6'd2, {18{1'b0}} };
                     end else begin
                         RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
                         end_command_pending <= 1;
@@ -259,7 +259,7 @@ always @(posedge clk or posedge rst_n) begin
             ST_TRIG: begin
                 if (button_pending && !Translator_busy) begin
                     if (symbol == 6'd16) begin      // G
-                        RES_CMD <= { {6{1'b0}}, RES_CMD[17:0], symbol, {18{1'b0}} };
+                        RES_CMD <= { {6{1'b0}}, CMD, 6'd3, {18{1'b0}} };
                     end else begin
                         RES_CMD <= { {6{1'b0}}, EROR, {16{1'b0}}, 2'd1 };
                         end_command_pending <= 1;

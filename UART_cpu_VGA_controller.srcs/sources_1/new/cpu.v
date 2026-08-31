@@ -76,7 +76,7 @@ reg [CMD_SIZE - 1 : 0] cmd;                 // Current command
 // reg [CMD_SIZE - 1 : 0] prev_extern_command; // Previous extern command
 
 reg [ADDR_CMD_MEM_SIZE - 1 : 0] pc;         // Program counter
-reg [2:0] stage_counter;
+reg [1:0] stage_counter;
 
 wire [COP_SIZE - 1 : 0] cop = cmd [CMD_SIZE - 1 -: COP_SIZE];
 wire [LIT_SIZE - 1 : 0] literal =  cmd [CMD_SIZE - 1 - COP_SIZE -: LIT_SIZE];
@@ -100,7 +100,7 @@ initial begin
     command_flag  <= 0;
     start_draw <= 0;
 
-    cmd <= 0;
+    
     stage_counter <= 0;
     pc <= 0;
     
@@ -112,78 +112,54 @@ initial begin
     y3_coord <= 0;
 
     $readmemb("CPU_mem.mem", cmd_mem);
+    cmd <= cmd_mem[0];
 end
 
 always @(posedge clk or posedge reset) begin
     if (reset) begin
-        cmd <= 0;
-        res <= 0;
-        stage_counter <= 0;
-        pc <= 0;
+        CPU_ready <= 0;
 
-        draw_symb     <= 0;
         endline       <= 0;
+
+        string_len    <= 0;
+        char <= 0;
         write_char_en <= 0;
 
+        vgaX <= 0;
+        vgaY <= 0;
+
+        vgaRed   <= 0;
+        vgaGreen <= 0;
+        vgaBlue  <= 0;
+
+        command_flag  <= 0;
+        start_draw <= 0;
+
+        cmd <= cmd_mem[0];
+        stage_counter <= 0;
+        pc <= 0;
+        
         x1_coord <= 0;
         y1_coord <= 0;
         x2_coord <= 0;
         y2_coord <= 0;
         x3_coord <= 0;
         y3_coord <= 0;
-
-        string_len   <= 0;
-        litera       <= 0;
-        command_flag <= 0;
-        CPU_busy     <= 0;
-
-        vgaRed   <= 0;
-        vgaGreen <= 0;
-        vgaBlue  <= 0;
     end else begin
         if (stage_counter == 0) begin
-            if (draw_symb) draw_symb <= 0;
-            if (endline) endline <= 0;
-            if (write_char_en) write_char_en <= 0;
-            
-            case (cop)
-                WAIT:
-                begin
-                    if (valid_in)
-                        if (error) begin
-                            current_error <= error;
-                            cmd <= WRST;
-                        end else cmd <= extern_command;
-                        CPU_busy <= 1;
-                    end else CPU_busy <= 0;
+            if (cop == WAIT) begin // Ожидание внешней команды если WAIT
+                if (extern_command_ready) begin
+                    cmd <= extern_command;
                 end
-                WRST:
-                begin
-                    cmd <= cmd_mem[pc];
-                    CPU_busy <= 1;
-                end
-                default:
-                    begin
-                        if (valid_in) begin
-                           if (error) begin
-                                current_error <= error;
-                                cmd <= WRST;
-                            end
-                        end else begin
-                            if (error) cmd <= WRST;
-                            else cmd <= cmd_mem[pc];
-                            pc <= pc + 1;
-                        end
-                        CPU_busy <= 1;
-                        stage_counter <= 1;
-                    end
-            endcase
+            end else begin
+                cmd <= cmd_mem[pc];
+                stage_counter <= stage_counter + 1;
+            end
         end
-        
+
         if (stage_counter == 1) begin
             case (cop)
-                WRST:
-                begin
+                WRST: begin
                     case (current_error)
                         2'b01: //pc <= ???;  // Jump to wait reset sequence
                         2'b10: //pc <= ???;  // Jump to wait reset sequence
@@ -203,8 +179,9 @@ always @(posedge clk or posedge reset) begin
                 CLRR: vgaRed   <= literal;
                 CLRG: vgaGreen <= literal;
                 CLRB: vgaBlue  <= literal;
-                LIT:  litera   <= literal;
-                SYMB: litera   <= literal;
+                CMD1:
+                CMD2:
+                CMD3:
                 PIXL: command_flag <= 1;
                 ASCI: command_flag <= 2;
                 TRIG: command_flag <= 3;
@@ -215,16 +192,13 @@ always @(posedge clk or posedge reset) begin
         
         if (stage_counter == 2) begin
             case (cop)
-                SYMB:
-                begin
+                SYMB: begin
                     draw_symb <= 1;
                 end
-                ENDL:
-                begin
+                ENDL: begin
                     endline <= 1;
                 end
-                LIT:
-                begin
+                LIT: begin
                     draw_symb <= 1;
                     write_char_en <= 1;
                 end

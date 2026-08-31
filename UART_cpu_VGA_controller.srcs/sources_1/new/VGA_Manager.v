@@ -81,8 +81,7 @@ localparam WAIT_COMMAND         = 4'd0,
 
 reg [STATE_SIZE-1:0] state;
 
-initial
-begin
+initial begin
     state <= WAIT_COMMAND;
     VGA_input_busy <= 1'd0;
     VGA_exec_busy  <= 1'd0;
