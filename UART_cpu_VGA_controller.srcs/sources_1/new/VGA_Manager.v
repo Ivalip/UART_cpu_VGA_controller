@@ -17,14 +17,17 @@ module VGA_Manager
     input  draw_symb                                ,
     input  draw_all                                 ,
     input  write_char_en                            ,
+    
     input  start_draw                               ,
-    input  command_flag                             ,
+    input  cpu_cmd_ready                            ,
+    input  [2:0] command_flag                       ,
     /*------------------------------------------------------------------------------
     --  MAIN PARAMETERS FOR DRAW
     ------------------------------------------------------------------------------*/
     input  [23:0] command                           ,
     input  [9:0]  litera                            ,
-    input  [$clog2(`MAX_STRING_SIZE)-1:0] string_len,
+    input  [$clog2(`MAX_STRING_SIZE)-1:0] sys_string_len ,
+    input  [$clog2(`MAX_STRING_SIZE)-1:0] user_string_len,
     input  [9:0] x1_coord                           ,
     input  [9:0] y1_coord                           ,
     input  [9:0] x2_coord                           ,

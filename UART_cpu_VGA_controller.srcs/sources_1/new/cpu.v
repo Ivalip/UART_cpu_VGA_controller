@@ -15,8 +15,12 @@ module cpu #(
 
     input VGA_ready,
     output reg endline,
+    output reg [2:0] command_flag,
+    output reg cmd_ready,
+    output reg start_draw,
 
-    output reg [$clog2(`MAX_STRING_SIZE)-1:0] string_len,
+    output reg [$clog2(`MAX_STRING_SIZE)-1:0] user_string_len,
+    output reg [$clog2(`MAX_STRING_SIZE)-1:0] sys_string_len,
     output reg [5:0] char,
     output reg write_char_en,
 
@@ -25,9 +29,6 @@ module cpu #(
 
     output [11:0] color,
 
-    output reg [1:0] command_flag,
-    output reg start_draw,
-    
     output reg [9:0] x1_coord,
     output reg [9:0] y1_coord,
     output reg [9:0] x2_coord,
@@ -100,10 +101,9 @@ initial begin
     command_flag  <= 0;
     start_draw <= 0;
 
-    
     stage_counter <= 0;
     pc <= 0;
-    
+
     x1_coord <= 0;
     y1_coord <= 0;
     x2_coord <= 0;
@@ -115,8 +115,8 @@ initial begin
     cmd <= cmd_mem[0];
 end
 
-always @(posedge clk or posedge reset) begin
-    if (reset) begin
+always @(posedge clk) begin
+    if (rst_n) begin
         CPU_ready <= 0;
 
         endline       <= 0;
@@ -147,9 +147,12 @@ always @(posedge clk or posedge reset) begin
         y3_coord <= 0;
     end else begin
         if (stage_counter == 0) begin
-            if (cop == WAIT) begin // Ожидание внешней команды если WAIT
+            if (cop == WAIT) begin
+                CPU_ready <= 1;
                 if (extern_command_ready) begin
                     cmd <= extern_command;
+                    CPU_ready <= 0;
+                    stage_counter <= stage_counter + 1;
                 end
             end else begin
                 cmd <= cmd_mem[pc];
@@ -159,16 +162,24 @@ always @(posedge clk or posedge reset) begin
 
         if (stage_counter == 1) begin
             case (cop)
-                WRST: begin
-                    case (current_error)
-                        2'b01: //pc <= ???;  // Jump to wait reset sequence
-                        2'b10: //pc <= ???;  // Jump to wait reset sequence
-                        2'b11: //pc <= ???;  // Jump to wait reset sequence
-                        default : /* default */;
+                DRAW: begin
+                    if (VGA_ready) begin
+                        start_draw <= 1;
+                    end
+                end
+                EROR: begin
+                    case (literal)
+                        2'b01: //pc <= ???;  // Jump to wait reset sequence (in cpu_mem.mem) after incorrect cmd
+                        2'b10: //pc <= ???;  // Jump to wait reset sequence (in cpu_mem.mem) after incorrect value
                     endcase
                 end
-                ENDL: pc <= ???;// Jump to draw "Input PARAM" sequence
-                ASCI: pc <= ???;// Jump to draw "Input SLEN NUM" sequence
+                ENDL: begin
+                    endline <= 1;
+                end
+                CHAR: begin
+                    char <= literal[5:0];
+                    write_char_en <= 1;
+                end
                 SLEN: string_len <= literal[4:0];
                 CRX1: x1_coord <= literal;
                 CRY1: y1_coord <= literal;
@@ -179,28 +190,34 @@ always @(posedge clk or posedge reset) begin
                 CLRR: vgaRed   <= literal;
                 CLRG: vgaGreen <= literal;
                 CLRB: vgaBlue  <= literal;
-                CMD1:
-                CMD2:
-                CMD3:
                 PIXL: command_flag <= 1;
                 ASCI: command_flag <= 2;
                 TRIG: command_flag <= 3;
-                WRST:
+
             endcase
             stage_counter <= 2;
         end
         
         if (stage_counter == 2) begin
             case (cop)
-                SYMB: begin
-                    draw_symb <= 1;
-                end
                 ENDL: begin
-                    endline <= 1;
+                    endline <= 0;
+                    pc <= pc + 1;
                 end
-                LIT: begin
-                    draw_symb <= 1;
-                    write_char_en <= 1;
+                CHAR: begin
+                    write_char_en <= 0;
+                    pc <= pc + 1;
+                end
+                DRAW: begin
+                    if (!VGA_ready) begin
+                        start_draw <= 0;
+                        pc <= pc + 1;
+                    end
+                end
+                ENDL, ASCI, TRIG, SLEN, CRX1, CRY1, CRX2, 
+                CRY2, CRX3, CRY3, CLRR, CLRG, CLRB, PIXL, 
+                WRST: begin
+                    pc <= pc + 1;
                 end
             endcase
             stage_counter <= 0;

@@ -8,17 +8,16 @@ module CMD_Translator #(
 	input  clk,
 	input  rst_n,
 
-	input  [47:0] UART_command,
+	input  [41:0] UART_command,
 	input  end_command        ,
 
-    input  CPU_ready          ,
-    output [BUS_WIDTH - 1 : 0] cpu_command,
-    output reg command_ready  ,
+	input  CPU_ready          ,
+	output [BUS_WIDTH - 1 : 0] cpu_command,
+	output reg command_ready  ,
 
-    output reg Translator_busy
+	output reg Translator_busy
 );
 
-// Кодирование 4-буквенных команд
 localparam PIXL = 24'b011001_010010_100001_010101, // P(25) I(18) X(33) L(21)
            ASCI = 24'b001010_011100_001100_010010, // A(10) S(28) C(12) I(18)
            TRIG = 24'b011101_011011_010010_010000, // T(29) R(27) I(18) G(16)
@@ -40,96 +39,101 @@ localparam PIXL = 24'b011001_010010_100001_010101, // P(25) I(18) X(33) L(21)
            
            EROR = 24'b001110_011011_011000_011011, // E(14) R(27) O(24) R(27)
            RSTN = 24'b011011_011100_011101_010111, // R(27) S(28) T(29) N(23)
-           ENDL = 24'b001110_010111_010100_010101, // E(14) N(23) D(13) L(21)
-           END  = 24'b000000_001110_010111_010100;
+           ENDL = 24'b001110_010111_010100_010101; // E(14) N(23) D(13) L(21)
 
-reg [47:0] command;
-reg [$clog2(CMD_COUNT) - 1 : 0] cmd_code;
+reg [41:0] command;
+reg [CMD_SIZE-1:0] cmd_code;
 reg [LIT_SIZE-1:0] literal;
 
 assign cpu_command = { cmd_code, literal };
 
-localparam STATES = 3;
-localparam ST_IDLE           = 0 ,
-           ST_TRANSLATE_CMD  = 1 ,
-           ST_CHECK_COMMAND  = 2 ,
-           SEND_COMMAND      = 3 ;
+localparam ST_IDLE           = 2'd0,
+           ST_TRANSLATE_CMD  = 2'd1,
+           ST_CHECK_COMMAND  = 2'd2,
+           SEND_COMMAND      = 2'd3;
 
-reg [$clog2(STATES)-1 : 0] state_r;
+reg [1:0] state_r;
 reg [1:0] j;
 
 initial begin
-    state_r <= ST_IDLE;
-    j <= 0;
-    command_ready <= 0;
+    state_r         <= ST_IDLE;
+    j               <= 0;
+    command_ready   <= 0;
     Translator_busy <= 0;
-    command <= 0;
-    cmd_code <= 0;
-    literal <= 0;
+    command         <= 0;
+    cmd_code        <= 0;
+    literal         <= 0;
 end
 
 always @(posedge clk or posedge rst_n) begin
 	if(rst_n) begin
-		state_r <= ST_IDLE;
-		j <= 0;
-        command_ready <= 0;
+		state_r         <= ST_IDLE;
+		j               <= 0;
+        command_ready   <= 0;
         Translator_busy <= 0;
-        command <= 0;
-        cmd_code <= 0;
-        literal <= 0;
+        command         <= 0;
+        cmd_code        <= 0;
+        literal         <= 0;
 	end else begin
 		case (state_r)
 			ST_IDLE: begin
 				if (end_command) begin
-					Translator_busy <= 1;
-                    command <= UART_command;
-                    cmd_code <= 0;
-                    literal <= 0;
-                    state_r <= ST_TRANSLATE_CMD;
+					Translator_busy <= 1'b1;
+                    command         <= UART_command;
+                    cmd_code        <= 0;
+                    literal         <= 0;
+                    state_r         <= ST_TRANSLATE_CMD;
 				end
 			end
 
             ST_TRANSLATE_CMD: begin
-                if (j == 3) begin
-                    j       <= 4'b0;
+                if (j == 2'd3) begin
+                    j              <= 2'd0;
                     command[33:10] <= command[41:18];
-                    state_r <= ST_CHECK_COMMAND;
+                    state_r        <= ST_CHECK_COMMAND;
                 end else begin
                     case (j)
-                        4'd0: begin
-                            command[9:0] <= {6'd0, command[3:0]}; 
-                            j            <= j + 4'd1;
+                        2'd0: begin
+                            j            <= j + 2'd1;
                         end
-                        4'd1: begin
-                            command[9:0] <= command[9:0] + ({command[9:6], 3'd0} + {command[9:6], 1'd0});
-                            j            <= j + 4'd1;
+                        2'd1: begin
+                            command[9:0] <= command[5:0] + ({command[9:6], 3'd0} + {command[9:6], 1'd0});
+                            j            <= j + 2'd1;
                         end
-                        4'd2: begin
+                        2'd2: begin
                             command[9:0] <= command[9:0] + ({command[15:12], 6'd0} + {command[15:12], 5'd0} + {command[15:12], 2'd0});
-                            j            <= j + 4'd1;
+                            j            <= j + 2'd1;
                         end
-                        default: j <= 4'b0;
+                        default: j <= 2'd0;
                     endcase
                 end
             end
 
-            ST_CHECK_COMMAND: begin ////////////// ДОДЕЛАТЬ
-                state_r         <= SEND_COMMAND;
+            ST_CHECK_COMMAND: begin
+                state_r       <= SEND_COMMAND;
                 command_ready <= 1'b1;
+                
                 case (command[33:10])
                     SLEN:    cmd_code <= 5'd1;
-                    CLRR:    cmd_code <= 5'd2;
-                    CLRG:    cmd_code <= 5'd3;
-                    CLRB:    cmd_code <= 5'd4;
-                    CRX1:    cmd_code <= 5'd5;
-                    CRX2:    cmd_code <= 5'd6;
-                    CRX3:    cmd_code <= 5'd7;
-                    CRY1:    cmd_code <= 5'd8;
-                    CRY2:    cmd_code <= 5'd9;
-                    CRY3:    cmd_code <= 5'd10;
-                    END:     cmd_code <= 5'd11;
+                    CHAR:    cmd_code <= 5'd2;
+                    CLRR:    cmd_code <= 5'd3;
+                    CLRG:    cmd_code <= 5'd4;
+                    CLRB:    cmd_code <= 5'd5;
+                    CRX1:    cmd_code <= 5'd6;
+                    CRX2:    cmd_code <= 5'd7;
+                    CRX3:    cmd_code <= 5'd8;
+                    CRY1:    cmd_code <= 5'd9;
+                    CRY2:    cmd_code <= 5'd10;
+                    CRY3:    cmd_code <= 5'd11;
+                    PIXL:    cmd_code <= 5'd12;
+                    ASCI:    cmd_code <= 5'd13;
+                    TRIG:    cmd_code <= 5'd14;
+                    EROR:    cmd_code <= 5'd15;
+                    RSTN:    cmd_code <= 5'd16;
+                    ENDL:    cmd_code <= 5'd17;
                     default: cmd_code <= 5'd15;
                 endcase
+                
                 case (command[33:10])
                     SLEN, CLRR, CLRG, CLRB: begin
                         if (command[9:0] > 15) begin
@@ -143,7 +147,7 @@ always @(posedge clk or posedge rst_n) begin
                     CRX1, CRX2, CRX3: begin
                         if (command[9:0] > 639) begin
                             cmd_code <= 5'd15;
-                            literal  <= 10'd2;
+                            literal  <= 10'd3; 
                         end else begin
                             literal  <= command[9:0];
                         end
@@ -152,34 +156,42 @@ always @(posedge clk or posedge rst_n) begin
                     CRY1, CRY2, CRY3: begin
                         if (command[9:0] > 479) begin
                             cmd_code <= 5'd15;
-                            literal  <= 10'd2;
+                            literal  <= 10'd4;
                         end else begin
                             literal  <= command[9:0];
                         end
                     end
                     
-                    END, EROR: begin
+                    PIXL, ASCI, TRIG, RSTN, ENDL: begin
                         if (command[9:0] != 0) begin 
                             cmd_code <= 5'd15;
-                            literal  <= 10'd2;
+                            literal  <= 10'd5;
                         end else begin
                             literal  <= command[9:0];
                         end
                     end
-                    
-                    default: begin ////////////// ДОДЕЛАТЬ
+
+                    CHAR: begin
+                        literal <= command[9:0];
+                    end
+
+                    EROR: begin
                         cmd_code <= 5'd15;
-                        literal  <= 10'd2; 
+                        literal  <= command[9:0];
+                    end
+
+                    default: begin
+                        cmd_code <= 5'd15;
+                        literal  <= 10'd1;
                     end
                 endcase
             end
 
             SEND_COMMAND: begin
                 if (CPU_ready) begin
-                    command_ready <= 0;
-                    Translator_busy <= 0;
-                    command <= 0;
-                    state_r <= ST_IDLE;
+                    command_ready   <= 1'b0;
+                    Translator_busy <= 1'b0;
+                    state_r         <= ST_IDLE;
                 end
             end
 		endcase
