@@ -383,14 +383,14 @@ always @(posedge clk or posedge rst_n) begin
                 end
 
                 if (end_command_pending && !Translator_busy) begin
-                    RES_CMD <= { SLEN, RES_CMD[17:0] };
+                    RES_CMD <= { USLN, RES_CMD[17:0] };
                     state <= INPUT_STRING;
                 end
             end
 
             INPUT_STRING: begin
                 if (button_pending && !Translator_busy) begin
-                    RES_CMD <= { CHAR, {12{1'b0}}, symbol };
+                    RES_CMD <= { UCHR, {12{1'b0}}, symbol };
                     button_pending <= 1'b0;
                 end
 

@@ -1,51 +1,52 @@
 `timescale 1ns / 1ps
 
-`define CHAR_WIDTH  9           // Ширина буквы (в пикселях)
-`define CHAR_HEIGHT 12          // Высота буквы (в пикселях)
+`define CHAR_WIDTH  9
+`define CHAR_HEIGHT 12
 
-`define ALPHABET_SIZE   25      // Размер алфавита
+`define ALPHABET_SIZE   35
 
-`define MAX_STRING_SIZE 15      // Максимальный размер строки (в количестве символов)
+`define KERNING         1
+`define MAX_STRING_SIZE 30
 
-module VGA_Manager
-(
-    input  clk                                      ,
-    input  reset                                    ,
+module VGA_Manager #(
+    parameter LIT_SIZE = 10
+)(
+    input  clk   ,
+    input  reset ,
     /*------------------------------------------------------------------------------
     --  FLAGS FOR EXECUTING
     ------------------------------------------------------------------------------*/
-    input  draw_symb                                ,
-    input  draw_all                                 ,
-    input  write_char_en                            ,
-    
-    input  start_draw                               ,
-    input  cpu_cmd_ready                            ,
-    input  [2:0] command_flag                       ,
+    input  cpu_cmd_ready     , // 3 priority - for executing cpu_cmd
+                               // (draw string, endline, draw all)
+    input  [2:0] cpu_command ,
     /*------------------------------------------------------------------------------
     --  MAIN PARAMETERS FOR DRAW
     ------------------------------------------------------------------------------*/
-    input  [23:0] command                           ,
-    input  [9:0]  litera                            ,
+    input  usr_symb_rdy      , // 0 priority - for draw symbols from UART_input immediately
+    input  [5:0] usr_symb    , // user_input
+    input  cpu_char_rdy      , // 1 priority - for draw symbols from cpu (CCHR)
+    input  write_char_en     , // 2 priority - for save symbols from user_input (UCHR) via cpu
+    input  [5:0] sys_char    , // cpu_input (cpu_char_rdy/write_char_en)
+    input  [11:0] color ,
     input  [$clog2(`MAX_STRING_SIZE)-1:0] sys_string_len ,
     input  [$clog2(`MAX_STRING_SIZE)-1:0] user_string_len,
-    input  [9:0] x1_coord                           ,
-    input  [9:0] y1_coord                           ,
-    input  [9:0] x2_coord                           ,
-    input  [9:0] y2_coord                           ,
-    input  [9:0] x3_coord                           ,
-    input  [9:0] y3_coord                           ,
+    input  [9:0] x1_coord ,
+    input  [9:0] y1_coord ,
+    input  [9:0] x2_coord ,
+    input  [9:0] y2_coord ,
+    input  [9:0] x3_coord ,
+    input  [9:0] y3_coord ,
     /*------------------------------------------------------------------------------
     --  OUTPUTS FOR DRAWING
     ------------------------------------------------------------------------------*/
-    output reg [18:0] vram_address                  ,
-    output reg VGA_input_busy                       ,
-    output reg VGA_exec_busy                        ,
+    output reg [18:0] vram_address ,
+    output reg VGA_busy            ,
     output reg write_enable
 );
 
 parameter WIDTH = 640, HEIGHT = 480;
 
-parameter MAX_PIXEL_COUNT = WIDTH * HEIGHT; // Общее количество пикселей на экране
+parameter MAX_PIXEL_COUNT = WIDTH * HEIGHT;
 
 /*------------------------------------------------------------------------------
 --  PREVIOUS/CURRENT VALUES FOR SAVING FRAME INFO
@@ -53,17 +54,18 @@ parameter MAX_PIXEL_COUNT = WIDTH * HEIGHT; // Общее количество �
 reg [9:0]  x_coord      ;
 reg [9:0]  y_coord      ;
 reg [11:0] current_color;
-reg [23:0] draw_command ;
+reg [1:0] user_command ;
 
-integer i, j, k;                                                                   // 32-разрядные регистры для хранения переменных
+integer i, j, k;
 /*------------------------------------------------------------------------------
 --  STRING/CHAR REGISTERS FOR DRAW
 ------------------------------------------------------------------------------*/
-reg [$clog2(`MAX_STRING_SIZE)-1:0] 	char_counter                      ;                               // Счётчик символов в строке
-reg [0:$clog2(`ALPHABET_SIZE)-1] 	string_reg [0:`MAX_STRING_SIZE-1] ;			// Регистр для хранения размещаемой в памяти строки в виде адресов символов алфавита
-reg [$clog2(`MAX_STRING_SIZE)-1:0] 	string_size                       ;								// Регистр для хранения размера текущей размещаемой строки
-reg [0:`CHAR_WIDTH-1] char_reg [0:`CHAR_HEIGHT-1]                     ;                              // Регистр для хранения текущего размещаемого символа
-reg [0:`CHAR_WIDTH-1] alphabet [0:`CHAR_HEIGHT-1] [0:`ALPHABET_SIZE-1];         // Регистр для хранения всех символов, из которых может состоять строка для отображения
+reg [$clog2(`MAX_STRING_SIZE)-1:0] 	char_counter                      ;
+reg [0:$clog2(`ALPHABET_SIZE)-1] 	usr_string_reg [0:`MAX_STRING_SIZE-1];
+reg [0:$clog2(`ALPHABET_SIZE)-1] 	sys_string_reg [0:`MAX_STRING_SIZE-1];
+reg [$clog2(`MAX_STRING_SIZE)-1:0] 	string_size                       ;
+reg [0:`CHAR_WIDTH-1] char_reg [0:`CHAR_HEIGHT-1]                     ;
+reg [0:`CHAR_WIDTH-1] alphabet [0:`CHAR_HEIGHT-1] [0:`ALPHABET_SIZE-1];
 
 /*------------------------------------------------------------------------------
 --  REGISTERS FOR STORAGE X/Y COORDS FOR CURRENT CHAR
@@ -91,10 +93,7 @@ initial begin
     write_enable   <= 1'd0;
     $readmemb("alphabet.mem", alphabet);
     for (i = 0; i < `MAX_STRING_SIZE; i = i + 1)
-		begin
-			string_reg[i] <= 0;
-		end
-    // Сброс памяти для символа	(char_reg)
+        string_reg[i] <= 0;
 	for (j = 0; j < `CHAR_HEIGHT; j = j + 1)
 		char_reg[j] <= 0;
     i <= 0;
@@ -102,64 +101,15 @@ initial begin
 	k <= 0;
 end
 
-always @(posedge clk)
-begin
-
-    WAIT_COMMAND: begin
-        VGA_exec_busy <= 1'b0;
-        write_enable  <= 1'b0;
-        
-        // ЛОГИКА ДЛЯ ОДНОГО СИМВОЛА
-        if (draw_symb) begin
-            x_coord       <= x1_coord;
-            y_coord       <= y1_coord;
-            char_counter  <= 0;
-            string_size   <= 1;      // Рисуем только один символ
-            string_reg[0] <= litera; // Записываем текущую литеру
-            
-            VGA_exec_busy <= 1'b1;
-            state         <= DRAW_SYMBOLS; // Входим в твой готовый цикл
-        end else if (command_flag && command == ASCI) begin
-            x_coord       <= x1_coord;
-            y_coord       <= y1_coord;
-            char_counter  <= 0;
-            string_size   <= string_len; // Берем длину всей строки
-            // Здесь предполагается, что string_reg уже заполнен через write_char_en
-            VGA_exec_busy <= 1'b1;
-            state         <= DRAW_SYMBOLS;
-        end
-    end
-
-    DRAW_SYMBOLS: begin
-        // ТВОЙ КОД БЕЗ ИЗМЕНЕНИЙ
-        write_enable <= 1'd0;
-        if (char_counter == string_size) begin
-            state <= END_EXEC; 
-        end else begin
-            for (i = 0; i < `CHAR_HEIGHT; i = i + 1)
-                char_reg[i] <= alphabet[i][string_reg[char_counter]];
-            x_char <= 0;
-            y_char <= 0;
-            vram_address <= y_coord * WIDTH + x_coord;
-            state <= DRAW_ONE_SYMBOL;
-        end
-    end
-
-    DRAW_ONE_SYMBOL: begin
-        // ТВОЙ КОД БЕЗ ИЗМЕНЕНИЙ
-        // ... (вся твоя логика с x_char, y_char и vram_address + 1)
-    end
-
-
+always @(posedge clk) begin
     if (reset) begin
         VGA_input_busy <= 1'd0;
         VGA_exec_busy  <= 1'd0;
-        write_enable   <= 1'd0;
+        write_enable   <= 1 'd0;
         for (i = 0; i < `MAX_STRING_SIZE; i = i + 1)
         begin
             string_reg[i] <= 0;
         end
-        // Сброс памяти для символа	(char_reg)
         for (j = 0; j < `CHAR_HEIGHT; j = j + 1)
             char_reg[j] <= 0;
         i <= 0;
@@ -167,127 +117,119 @@ begin
         k <= 0;
     end else begin
         case (state)
-        
-            WAIT_COMMAND:
-                begin
-                    if (command_flag)
-                    begin
-                        draw_command <= command;
-                        state <= WAIT_START_FLAG;
-                    end
-                end
-
-            WAIT_START_FLAG:
-                begin
-                    if (start_draw)
-                    begin
-                        VGA_exec_busy <= 1'd1;
-                        state <= START_DRAW;
-                    end
-                end
-
-            START_DRAW:
-                begin
-                    case(draw_command)
-                        PIXL:
-                        begin
-                            vram_address <= y1_coord * WIDTH + x1_coord;
-                            write_enable <= 1'd1;
-                            state <= END_EXEC;
+            WAIT_COMMAND: begin
+                if (usr_symb_rdy) begin
+                    VGA_busy <= 1'b1;
+                    string_size   <= 1;
+                    string_reg[0] <= usr_symb;
+                    state <= DRAW_SYMBOL;
+                end else if (cpu_char_rdy) begin
+                    VGA_busy <= 1'b1;
+                    string_size   <= 1;
+                    string_reg[0] <= sys_char;
+                    state <= DRAW_SYMBOL;
+                end else if (cpu_cmd_ready) begin
+                    case (cpu_command)
+                        3'd1: begin // PIXL
+                            user_command <= 1;
                         end
-
-                        ASCI:
-                        begin
-                            y_coord <= y1_coord;
-                            x_coord <= x1_coord;
-                            char_counter <= 0;
-                            y_char <= 0;
-                            x_char <= 0;
-                            string_size <= string_len;  // !!!!!ДОДЕЛАТЬ ПОЛУЧЕНИЕ РАЗМЕРА СТРОКИ!!!!!!!
+                        3'd2: begin // ASCI
+                            user_command <= 2;
+                        end
+                        3'd3: begin // TRIG
+                            user_command <= 3;
+                        end
+                        3'd4: begin // CPU ASCI (CSTR)
                             state <= DRAW_SYMBOLS;
                         end
-                        TRIG:
-                        begin
-                        
+                        3'd5: begin // endline
+                            x_coord <= 5; // start left position
+                            y_coord <= y_coord - (CHAR_HEIGHT + KERNING); // new string
+                        end
+                        3'd6: begin // reset frame and draw usr_structure
+                            
                         end
                     endcase
+                    VGA_busy <= 1'b1;
+                end else begin
+                    VGA_busy <= 1'b0;
                 end
-            // ЦИКЛИЧЕСКОЕ СОСТОЯНИЕ ДЛЯ ОТРИСОВКИ СИМВОЛОВ
-            DRAW_SYMBOLS:
-                begin
-                    write_enable <= 1'd0;
-                    // Если все символы строки были размещены в памяти кадра
-                    if (char_counter == string_size)
-                    begin
-                        y_coord <= y_coord + `CHAR_HEIGHT; // подсчёт новой координаты по оси ординат для следующей строки
+            end
+
+            START_DRAW: begin
+                case(cpu_command)
+                    PIXL: begin
+                        vram_address <= y1_coord * WIDTH + x1_coord;
+                        write_enable <= 1'd1;
                         state <= END_EXEC;
-                        // ПОКА НЕ ОСОБО ВАЖНО, НО МОЖЕТ ПРИГОДИТСЯ
-                    end else begin
-                        // Для символа формируется его очертание (из алфавита)
-                        for (i = 0; i < `CHAR_HEIGHT; i = i + 1)
-                            char_reg[i] <= alphabet[i][string_reg[char_counter]];
-                        // Сброс координат пикселей внутри символа в ноль
-                        x_char <= 0;
-                        y_char <= 0;
-                        // Счётчик пикселей определяется порядковым номером стартового пикселя текущего символа
-                        vram_address <= y_coord * WIDTH + x_coord;
-                        // Переходим к отрисовке одного символа
-                        state <= DRAW_ONE_SYMBOL;
                     end
-                end
-            
-            // СОСТОЯНИЕ ОТРИСОВКИ ОДНОГО СИМВОЛА
-            DRAW_ONE_SYMBOL:
-                begin
-                    if (y_char == `CHAR_HEIGHT)
-                    begin
-                        char_counter <= char_counter + 1;     // Увеличение счётчика символов в строке на единицу
-                        x_coord <= x_coord + `CHAR_WIDTH;     // Определение новой координаты по оси абсцисс для следующего символа
-                        write_enable <= 1'd0;
+
+                    ASCI: begin
+                        y_coord <= y1_coord;
+                        x_coord <= x1_coord;
+                        char_counter <= 0;
+                        y_char <= 0;
+                        x_char <= 0;
+                        string_size <= string_len;
                         state <= DRAW_SYMBOLS;
                     end
-                    // Символ ещё не полностью размещён в памяти
-                    else if (x_char == `CHAR_WIDTH)
-                    begin
-                        write_enable <= 1'd0;
-                        y_char <= y_char + 1;                                  // Переход к следующей строке пикселей в текущем символе
-                        x_char <= 0;                                           // Координата по оси абсцисс в рамках символа сбрасывается в ноль
-                        vram_address <= vram_address + WIDTH - `CHAR_WIDTH;    // Расчёт координаты следующей ячейки памяти для заполнения
-                        state <= DRAW_ONE_SYMBOL;
-                    end 
-                    // Первый пиксель в строке символа - специальная обработка
-                    else if (x_char == 0)
-                    begin
-                        // Обрабатываем первый пиксель строки
-                        if(char_reg[y_char][0])
-                        begin
-                            write_enable <= 1'd1;
-                        end else begin
-                            write_enable <= 1'd0;
-                        end
-                        // Адрес НЕ увеличиваем - запись произойдет по текущему адресу на следующем такте
-                        x_char <= 1;  // Готовимся к следующему пикселю
-                        state <= DRAW_ONE_SYMBOL;  // Остаемся в том же состоянии
+
+                    TRIG: begin
+                    
                     end
-                    else
-                    begin
-                        // Обрабатываем все остальные пиксели (со 2-го до последнего)
-                        if(char_reg[y_char][x_char])
-                        begin
-                            write_enable <= 1'd1;
-                        end else begin
-                            write_enable <= 1'd0;
-                        end
-                        // Переход к следующему пикселю в текущей строке символа
-                        x_char <= x_char + 1;             // Переход к следующему пикселю в текущей строке
-                        vram_address <= vram_address + 1; // Расчёт следующего адреса в памяти для записи
-                    end
-                end
-            END_EXEC:
+                endcase
+            end
+            
+            DRAW_SYMBOLS: begin
+                write_enable <= 1'd0;
+                if (char_counter == string_size)
                 begin
-                    write_enable <= 1'd0;
-                    state <= WAIT_COMMAND;
+                    y_coord <= y_coord + `CHAR_HEIGHT;
+                    state <= END_EXEC;
+                end else begin
+                    for (i = 0; i < `CHAR_HEIGHT; i = i + 1)
+                        char_reg[i] <= alphabet[i][string_reg[char_counter]];
+                    x_char <= 0;
+                    y_char <= 0;
+                    vram_address <= y_coord * WIDTH + x_coord;
+                    state <= DRAW_ONE_SYMBOL;
                 end
+            end
+            
+            DRAW_ONE_SYMBOL: begin
+                if (y_char == `CHAR_HEIGHT) begin
+                    char_counter <= char_counter + 1;
+                    x_coord <= x_coord + `CHAR_WIDTH;
+                    write_enable <= 1'd0;
+                    state <= DRAW_SYMBOLS;
+                end else if (x_char == `CHAR_WIDTH) begin
+                    write_enable <= 1'd0;
+                    y_char <= y_char + 1;                              
+                    x_char <= 0;                                       
+                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH;
+                    state <= DRAW_ONE_SYMBOL;
+                end else if (x_char == 0) begin
+                    if(char_reg[y_char][0]) begin
+                        write_enable <= 1'd1;
+                    end else begin
+                        write_enable <= 1'd0;
+                    end
+                    x_char <= 1;
+                    state <= DRAW_ONE_SYMBOL;
+                end else begin
+                    if(char_reg[y_char][x_char]) begin
+                        write_enable <= 1'd1;
+                    end else begin
+                        write_enable <= 1'd0;
+                    end
+                    x_char <= x_char + 1;
+                    vram_address <= vram_address + 1;
+                end
+            end
+            END_EXEC: begin
+                write_enable <= 1'd0;
+                state <= WAIT_COMMAND;
+            end
         endcase
     end
 end

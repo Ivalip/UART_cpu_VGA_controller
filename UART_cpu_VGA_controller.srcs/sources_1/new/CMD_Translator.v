@@ -23,7 +23,7 @@ localparam PIXL = 24'b011001_010010_100001_010101, // P(25) I(18) X(33) L(21)
            TRIG = 24'b011101_011011_010010_010000, // T(29) R(27) I(18) G(16)
            
            SLEN = 24'b011100_010101_001110_010111, // S(28) L(21) E(14) N(23)
-           CHAR = 24'b001100_010001_001010_011011, // C(12) H(17) A(10) R(27)
+           UCHR = 24'b001100_010001_011011, // C(12) H(17) A(10) R(27)
            
            CLRR = 24'b001100_010101_011011_011011, // C(12) L(21) R(27) R(27)
            CLRG = 24'b001100_010101_011011_010000, // C(12) L(21) R(27) G(16)
@@ -79,10 +79,10 @@ always @(posedge clk or posedge rst_n) begin
 			ST_IDLE: begin
 				if (end_command) begin
 					Translator_busy <= 1'b1;
-                    command         <= UART_command;
-                    cmd_code        <= 0;
-                    literal         <= 0;
-                    state_r         <= ST_TRANSLATE_CMD;
+                    command  <= UART_command;
+                    cmd_code <= 0;
+                    literal  <= 0;
+                    state_r  <= ST_TRANSLATE_CMD;
 				end
 			end
 
@@ -114,8 +114,8 @@ always @(posedge clk or posedge rst_n) begin
                 command_ready <= 1'b1;
                 
                 case (command[33:10])
-                    SLEN:    cmd_code <= 5'd1;
-                    CHAR:    cmd_code <= 5'd2;
+                    USLN:    cmd_code <= 5'd1;
+                    UCHR:    cmd_code <= 5'd2;
                     CLRR:    cmd_code <= 5'd3;
                     CLRG:    cmd_code <= 5'd4;
                     CLRB:    cmd_code <= 5'd5;
@@ -129,13 +129,12 @@ always @(posedge clk or posedge rst_n) begin
                     ASCI:    cmd_code <= 5'd13;
                     TRIG:    cmd_code <= 5'd14;
                     EROR:    cmd_code <= 5'd15;
-                    RSTN:    cmd_code <= 5'd16;
                     ENDL:    cmd_code <= 5'd17;
                     default: cmd_code <= 5'd15;
                 endcase
                 
                 case (command[33:10])
-                    SLEN, CLRR, CLRG, CLRB: begin
+                    CLRR, CLRG, CLRB: begin
                         if (command[9:0] > 15) begin
                             cmd_code <= 5'd15;
                             literal  <= 10'd2;
@@ -143,7 +142,15 @@ always @(posedge clk or posedge rst_n) begin
                             literal  <= command[9:0];
                         end
                     end
-                    
+                    USLN: begin
+                        if (command[9:0] > 30) begin
+                            cmd_code <= 5'd15;
+                            literal  <= 10'd2;
+                        end else begin
+                            literal  <= command[9:0];
+                        end
+                    end
+
                     CRX1, CRX2, CRX3: begin
                         if (command[9:0] > 639) begin
                             cmd_code <= 5'd15;
@@ -162,16 +169,16 @@ always @(posedge clk or posedge rst_n) begin
                         end
                     end
                     
-                    PIXL, ASCI, TRIG, RSTN, ENDL: begin
+                    PIXL, ASCI, TRIG, ENDL: begin
                         if (command[9:0] != 0) begin 
                             cmd_code <= 5'd15;
-                            literal  <= 10'd5;
+                            literal  <= 10'd1;
                         end else begin
                             literal  <= command[9:0];
                         end
                     end
 
-                    CHAR: begin
+                    UCHR: begin
                         literal <= command[9:0];
                     end
 
