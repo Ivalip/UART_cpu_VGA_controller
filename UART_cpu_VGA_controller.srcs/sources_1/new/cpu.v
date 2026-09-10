@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module cpu #(
-    parameter CMD_COUNT = 45,
+    parameter CMD_COUNT = 22,
     parameter LIT_SIZE = 10,
     parameter CMD_SIZE  = $clog2(CMD_COUNT),
     parameter BUS_WIDTH = CMD_SIZE + LIT_SIZE
@@ -43,33 +43,38 @@ reg [3:0] vgaBlue ;
 
 assign color = {vgaRed, vgaGreen, vgaBlue};
 
-localparam CMD_MEM_SIZE = 127,
+localparam CMD_MEM_SIZE = 128,
            ADDR_CMD_MEM_SIZE = $clog2(CMD_MEM_SIZE),
-           LIT_SIZE = 10,
            COP_SIZE = $clog2(CMD_COUNT);
 
-localparam PIXL = 24'b011001_010010_100001_010101, // P(25) I(18) X(33) L(21)
-           ASCI = 24'b001010_011100_001100_010010, // A(10) S(28) C(12) I(18)
-           TRIG = 24'b011101_011011_010010_010000, // T(29) R(27) I(18) G(16)
+localparam PIXL = 0 ,
+           ASCI = 1 ,
+           TRIG = 2 ,
+
+           CSLN = 3 ,
+           CCHR = 4 ,
+           CSTR = 5 ,
            
-           USLN = 
-           CHAR = 24'b001100_010001_001010_011011, // C(12) H(17) A(10) R(27)
+           DRAW = 6 ,
+           WAIT = 7 ,
+
+           USLN = 8 ,
+           UCHR = 9 ,
            
-           CLRR = 24'b001100_010101_011011_011011, // C(12) L(21) R(27) R(27)
-           CLRG = 24'b001100_010101_011011_010000, // C(12) L(21) R(27) G(16)
-           CLRB = 24'b001100_010101_011011_001011, // C(12) L(21) R(27) B(11)
+           CLRR = 10,
+           CLRG = 11,
+           CLRB = 12,
            
-           CRX1 = 24'b001100_011011_100001_000001, // C(12) R(27) X(33) 1(1)
-           CRX2 = 24'b001100_011011_100001_000010, // C(12) R(27) X(33) 2(2)
-           CRX3 = 24'b001100_011011_100001_000011, // C(12) R(27) X(33) 3(3)
+           CRX1 = 13,
+           CRX2 = 14,
+           CRX3 = 15,
            
-           CRY1 = 24'b001100_011011_100010_000001, // C(12) R(27) Y(34) 1(1)
-           CRY2 = 24'b001100_011011_100010_000010, // C(12) R(27) Y(34) 2(2)
-           CRY3 = 24'b001100_011011_100010_000011, // C(12) R(27) Y(34) 3(3)
+           CRY1 = 16,
+           CRY2 = 17,
+           CRY3 = 18,
            
-           EROR = 24'b001110_011011_011000_011011, // E(14) R(27) O(24) R(27)
-           RSTN = 24'b011011_011100_011101_010111, // R(27) S(28) T(29) N(23)
-           ENDL = 24'b001110_010111_010100_010101; // E(14) N(23) D(13) L(21)
+           EROR = 19,
+           ENDL = 20;
 
 reg [BUS_WIDTH - 1 : 0] cmd_mem [0 : CMD_MEM_SIZE - 1];
 reg [BUS_WIDTH - 1 : 0] cmd;                 // Current command
@@ -140,6 +145,7 @@ always @(posedge clk) begin
         user_string_len <= 0;
         sys_string_len  <= 0;
 
+        cmd <= cmd_mem[0];
         stage_counter <= 0;
         pc <= 0;
 
@@ -149,6 +155,7 @@ always @(posedge clk) begin
         y2_coord <= 0;
         x3_coord <= 0;
         y3_coord <= 0;
+        
     end else begin
         if (stage_counter == 0) begin
             if (cop == WAIT) begin
@@ -169,8 +176,8 @@ always @(posedge clk) begin
                 case (cop)
                     EROR: begin
                         case (literal)
-                            10'd1: //pc <= ???;  // Jump to wait reset sequence (in cpu_mem.mem) after incorrect cmd
-                            10'd2: //pc <= ???;  // Jump to wait reset sequence (in cpu_mem.mem) after incorrect value
+                            10'd1: pc <= 10;  // Jump to wait reset sequence (in cpu_mem.mem) after incorrect cmd
+                            10'd2: pc <= 100; // Jump to wait reset sequence (in cpu_mem.mem) after incorrect value
                         endcase
                     end
                     CRX1: x1_coord <= literal[9:0];
@@ -236,9 +243,9 @@ always @(posedge clk) begin
                     write_char_en <= 0;
                     pc <= pc + 1;
                 end
-                USLN, CSLN,CRX1, CRY1, CRX2, 
-                CRY2, CRX3, CRY3, CLRR, 
-                CLRG, CLRB, PIXL, WRST: begin
+                USLN, CSLN,CRX1, CRY1,
+                CRX2, CRY2, CRX3, CRY3,
+                CLRR, CLRG, CLRB: begin
                     pc <= pc + 1;
                 end
             endcase

@@ -4,6 +4,7 @@
 # Vivado(TM)
 # runme.sh: a Vivado-generated Runs Script for UNIX
 # Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # 
 
 echo "This script was generated under a different operating system."
@@ -11,9 +12,9 @@ echo "Please update the PATH and LD_LIBRARY_PATH variables below, before executi
 exit
 
 if [ -z "$PATH" ]; then
-  PATH=E:/Xilinx_Windows_2022/Vitis/2022.2/bin;E:/Xilinx_Windows_2022/Vivado/2022.2/ids_lite/ISE/bin/nt64;E:/Xilinx_Windows_2022/Vivado/2022.2/ids_lite/ISE/lib/nt64:E:/Xilinx_Windows_2022/Vivado/2022.2/bin
+  PATH=C:/Xilinx/2025.1/Vitis/bin;C:/Xilinx/2025.1/Vivado/ids_lite/ISE/bin/nt64;C:/Xilinx/2025.1/Vivado/ids_lite/ISE/lib/nt64:C:/Xilinx/2025.1/Vivado/bin
 else
-  PATH=E:/Xilinx_Windows_2022/Vitis/2022.2/bin;E:/Xilinx_Windows_2022/Vivado/2022.2/ids_lite/ISE/bin/nt64;E:/Xilinx_Windows_2022/Vivado/2022.2/ids_lite/ISE/lib/nt64:E:/Xilinx_Windows_2022/Vivado/2022.2/bin:$PATH
+  PATH=C:/Xilinx/2025.1/Vitis/bin;C:/Xilinx/2025.1/Vivado/ids_lite/ISE/bin/nt64;C:/Xilinx/2025.1/Vivado/ids_lite/ISE/lib/nt64:C:/Xilinx/2025.1/Vivado/bin:$PATH
 fi
 export PATH
 
@@ -24,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='E:/PracticeWorks/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/BRAM_mem_gen_12x307200_synth_1'
+HD_PWD='C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/BRAM_mem_gen_12x307200_synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

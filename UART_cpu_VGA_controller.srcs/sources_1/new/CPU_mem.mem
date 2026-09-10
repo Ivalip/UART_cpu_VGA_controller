@@ -1,87 +1,26 @@
-CLRR 15
-CLRB 15
-CLRG 15
-CRX1 10
-CRY1 10
-ASCI
-SLEN 18
-LIT I
-LIT N
-LIT P
-LIT U
-LIT T
-LIT SPACE
-LIT M
-LIT A
-LIT I
-LIT N
-LIT SPACE
-LIT C
-LIT O
-LIT M
-LIT M
-LIT A
-LIT N
-LIT D
-DRAW 0
-ENDL
-WAIT
-WAIT
-WRST //WAIT RESET SEQUENCE
-CLRR 15
-CLRB 0
-CLRG 0
-CRX1 10
-CRY1 10
-SLEN 22
-LIT I
-LIT N
-LIT C
-LIT O
-LIT R
-LIT R
-LIT E
-LIT C
-LIT T
-LIT SPACE
-LIT C
-LIT O
-LIT M
-LIT M
-LIT A
-LIT N
-LIT D
-LIT SPACE
-LIT T
-LIT Y
-LIT P
-LIT E
-DRAW
-CRX1 10
-CRY1 24
-SLEN 22
-LIT W
-LIT R
-LIT I
-LIT T
-LIT E
-LIT SPACE
-LIT R
-LIT S
-LIT T
-LIT SPACE
-LIT T
-LIT O
-LIT SPACE
-LIT C
-LIT O
-LIT N
-LIT T
-LIT I
-LIT N
-LIT U
-LIT E
-DRAW
-ENDL
-WAIT
-WAIT //END WAIT RESET SEQUENCE
+01101_0000000101 // CRX1 5   (Координата X = 5, cop = 5'd13)
+10000_0000000101 // CRY1 5   (Координата Y = 5, cop = 5'd16)
+01010_0000001111 // CLRR 15  (Цвет: Белый R = 15, cop = 5'd10)
+01011_0000001111 // CLRG 15  (G = 15, cop = 5'd11)
+01100_0000001111 // CLRB 15  (B = 15, cop = 5'd12)
+00011_0000000011 // CSLN 3   (Длина системной строки = 3, cop = 5'd3)
+00100_0000001100 // CCHR 12  (Буква 'C', cop = 5'd4)
+00100_0000002201 // CCHR 22  (Буква 'M')
+00100_0000001101 // CCHR 13  (Буква 'D')
+00101_0000000000 // CSTR     (Выводим забитую строку процессора, cop = 5'd5)
+10100_0000000000 // ENDL     (Перевод каретки видеокарты, cop = 5'd20)
+00111_0000000000 // WAIT     (Процессор засыпает, cop = 5'd7. В случае удачи UART протолкнет pc на адрес 12. В случае EROR — pc аппаратно переключится на 40)
+00110_0000000000 // DRAW     (Ждем команду отрисовки полного кадра, cop = 5'd6)
+00111_0000000000 // WAIT     (Ждем следующего ввода)
+01010_0000001111 // CLRR 15  (Переключаем цвет на Красный, cop = 5'd10)
+01011_0000000000 // CLRG 0   (G = 0, cop = 5'd11)
+01100_0000000000 // CLRB 0   (B = 0, cop = 5'd12)
+00011_0000000011 // CSLN 3   (Длина строки ошибки = 3, cop = 5'd3)
+00100_0000001110 // CCHR 14  (Буква 'E', cop = 5'd4)
+00100_0000002701 // CCHR 27  (Буква 'R')
+00100_0000002701 // CCHR 27  (Буква 'R')
+00101_0000000000 // CSTR     (Выводим "ERR" на экран, cop = 5'd5)
+10100_0000000000 // ENDL     (Сброс каретки, cop = 5'd20)
+01101_0000000101 // CRX1 5   (Принудительный аппаратный сброс: сдвигаем X обратно в 5)
+10000_0000000101 // CRY1 5   (Сдвигаем Y обратно в 5)
+00111_0000000000 // WAIT     (Снова засыпаем на вводе новой команды пользователя)

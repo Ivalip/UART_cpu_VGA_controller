@@ -1,0 +1,16 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Tue Sep  8 20:53:57 2026
+| Host         : Samsung-Galaxybook-4 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7a100tcsg324-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'BRAM_mem_gen_12x307200'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of BRAM_mem_gen_12x307200 (xilinx.com:ip:blk_mem_gen:8.4) from (Rev. 5) to (Rev. 11)
+

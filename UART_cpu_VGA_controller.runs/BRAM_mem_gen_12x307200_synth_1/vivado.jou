@@ -1,13 +1,24 @@
 #-----------------------------------------------------------
-# Vivado v2022.2 (64-bit)
-# SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
-# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
-# Start of session at: Thu Jul 30 20:06:58 2026
-# Process ID: 14028
-# Current directory: E:/PracticeWorks/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/BRAM_mem_gen_12x307200_synth_1
-# Command line: vivado.exe -log BRAM_mem_gen_12x307200.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source BRAM_mem_gen_12x307200.tcl
-# Log file: E:/PracticeWorks/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/BRAM_mem_gen_12x307200_synth_1/BRAM_mem_gen_12x307200.vds
-# Journal file: E:/PracticeWorks/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/BRAM_mem_gen_12x307200_synth_1\vivado.jou
-# Running On: HOME-PC, OS: Windows, CPU Frequency: 3493 MHz, CPU Physical cores: 12, Host memory: 34285 MB
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Wed Sep  9 13:56:17 2026
+# Process ID         : 9044
+# Current directory  : C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/BRAM_mem_gen_12x307200_synth_1
+# Command line       : vivado.exe -log BRAM_mem_gen_12x307200.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source BRAM_mem_gen_12x307200.tcl
+# Log file           : C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/BRAM_mem_gen_12x307200_synth_1/BRAM_mem_gen_12x307200.vds
+# Journal file       : C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/BRAM_mem_gen_12x307200_synth_1\vivado.jou
+# Running On         : Samsung-Galaxybook-4
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : Intel(R) Core(TM) 5 120U
+# CPU Frequency      : 2496 MHz
+# CPU Physical cores : 10
+# CPU Logical cores  : 12
+# Host memory        : 16847 MB
+# Swap memory        : 3355 MB
+# Total Virtual      : 20203 MB
+# Available Virtual  : 9502 MB
 #-----------------------------------------------------------
 source BRAM_mem_gen_12x307200.tcl -notrace

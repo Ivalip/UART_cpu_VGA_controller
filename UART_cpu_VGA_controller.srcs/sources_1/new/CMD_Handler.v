@@ -1,6 +1,6 @@
 module CMD_Handler #(
 	parameter DIGIT_RANK = 6,
-	parameter CMD_COUNT = 45,
+	parameter CMD_COUNT = 22,
 	parameter LIT_SIZE = 10,
 	parameter CMD_SIZE  = $clog2(CMD_COUNT),
 	parameter BUS_WIDTH = CMD_SIZE + LIT_SIZE
@@ -30,13 +30,13 @@ localparam STATES = 23;
 localparam ST_IDLE            = 0  ,
            PI                 = 1  ,
            PIX                = 2  ,
-           ST_PIXL               = 3  ,
+           ST_PIXL            = 3  ,
            AS                 = 4  ,
            ASC                = 5  ,
-           ST_ASCI               = 6  ,
+           ST_ASCI            = 6  ,
            TR                 = 7  ,
            TRI                = 8  ,
-           ST_TRIG               = 9  ,
+           ST_TRIG            = 9  ,
            INPUT_GREEN_CLR    = 10 ,
            INPUT_RED_CLR      = 11 ,
            INPUT_BLUE_CLR     = 12 ,
@@ -58,9 +58,6 @@ localparam PIXL = 24'b011001_010010_100001_010101, // P(25) I(18) X(33) L(21)
            ASCI = 24'b001010_011100_001100_010010, // A(10) S(28) C(12) I(18)
            TRIG = 24'b011101_011011_010010_010000, // T(29) R(27) I(18) G(16)
            
-           SLEN = 24'b011100_010101_001110_010111, // S(28) L(21) E(14) N(23)
-           CHAR = 24'b001100_010001_001010_011011, // C(12) H(17) A(10) R(27)
-           
            CLRR = 24'b001100_010101_011011_011011, // C(12) L(21) R(27) R(27)
            CLRG = 24'b001100_010101_011011_010000, // C(12) L(21) R(27) G(16)
            CLRB = 24'b001100_010101_011011_001011, // C(12) L(21) R(27) B(11)
@@ -73,9 +70,10 @@ localparam PIXL = 24'b011001_010010_100001_010101, // P(25) I(18) X(33) L(21)
            CRY2 = 24'b001100_011011_100010_000010, // C(12) R(27) Y(34) 2(2)
            CRY3 = 24'b001100_011011_100010_000011, // C(12) R(27) Y(34) 3(3)
            
+           ENDL = 24'b001110_010111_010100_010101, // E(14) N(23) D(13) L(21)
            EROR = 24'b001110_011011_011000_011011, // E(14) R(27) O(24) R(27)
-           RSTN = 24'b011011_011100_011101_010111, // R(27) S(28) T(29) N(23)
-           ENDL = 24'b001110_010111_010100_010101; // E(14) N(23) D(13) L(21)
+           USLN = 24'b011110_011100_010101_010111, // U(30) S(28) L(21) N(23)
+           UCHR = 24'b011110_001100_010001_011011; // U(30) C(12) H(17) R(27)
 
 CMD_Translator #(
 	.DIGIT_RANK (DIGIT_RANK),
