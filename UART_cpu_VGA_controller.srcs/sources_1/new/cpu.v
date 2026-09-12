@@ -23,9 +23,7 @@ module cpu #(
     output reg  cpu_char_rdy   , // 1 priority - for draw symbols from cpu (CCHR)
     output reg  write_char_en  , // 2 priority - for save symbols from user_input (UCHR)
     output reg  [5:0] sys_char , // cpu_input (cpu_char_rdy/write_char_en)
-    
-    output reg [9:0] vgaX,
-    output reg [9:0] vgaY,
+
 
     output [11:0] color,
 
@@ -91,9 +89,6 @@ initial begin
 
     write_char_en <= 0;
 
-    vgaX <= 0;
-    vgaY <= 0;
-
     vgaRed   <= 0;
     vgaGreen <= 0;
     vgaBlue  <= 0;
@@ -127,9 +122,6 @@ always @(posedge clk) begin
         CPU_ready <= 0;
 
         write_char_en <= 0;
-
-        vgaX <= 0;
-        vgaY <= 0;
 
         vgaRed   <= 0;
         vgaGreen <= 0;

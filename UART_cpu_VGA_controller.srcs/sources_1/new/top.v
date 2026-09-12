@@ -2,104 +2,120 @@
 
 module top #
 (
-    localparam CLOCK_RATE  = 100_000_000,    // Частота ПЛ�?С XC7A100T-1CSG324 семейства Artix-7 (в Гц)
-    localparam BAUD_RATE   = 9600,           // Скорость передачи данных по UART (в бод)
+    localparam CLOCK_RATE  = 100_000_000,
+    localparam BAUD_RATE   = 9600,       
     localparam DIGIT_RANK  = 6,
     localparam LED_DELITEL = 8192
 ) (
-    input  clk,        // Синхросигнал
-    input  RsRx,       // Бит принимаемых данных (UART_RX)
-    output [7:0] AN,
-    output [6:0] SEG,
+    input  clk,             
+    input  RsRx,            
+    output [7:0] AN,        
+    output [6:0] SEG,       
     
-    output [3:0] vgaRed,    // Глубина красного цвета, закодированного четырьмя битами
-    output [3:0] vgaGreen,  // Глубина зелёного цвета, закодированного четырьмя битами
-    output [3:0] vgaBlue,   // Глубина синего цвета, закодированного четырьмя битами
+    output [3:0] vgaRed,    
+    output [3:0] vgaGreen,  
+    output [3:0] vgaBlue,   
     
-    output  Hsync,  // Выход для сигнала горизонтальной синхронизации
-    output  Vsync   // Выход для сигнала вертикальной синхронизации
+    output  Hsync,
+    output  Vsync
 );
 
-wire [11:0] VGA_color;                       // Шина для цвета, получаемая с выхода процессора
+parameter CMD_COUNT = 22,
+parameter LIT_SIZE = 10,
+parameter CMD_SIZE  = $clog2(CMD_COUNT),
+parameter BUS_WIDTH = CMD_SIZE + LIT_SIZE;
+
+wire [11:0] VGA_color;
 
 // UART-Manager connections
-wire UART_Input_Ready;                       // Сигнал о готовности данных на UART
-wire UART_end_command;                       // Сигнал о приеме команды с UART (CR)
-wire [DIGIT_RANK - 1:0] UART_Data_In;        // Шина для приема данных с UART (6 bit)
+wire UART_Input_Ready;               
+wire UART_end_command;               
+wire [DIGIT_RANK - 1:0] UART_Data_In;
 
-wire [33:0] CPU_command;
+// Handler connections
+wire end_command, CPU_ready, command_ready;
+// CPU connections
+wire [BUS_WIDTH - 1 :0] CPU_command;
 
-// SevenSegmentLED connections
-reg [47:0] shift_register;
-reg [7:0] an_mask;
+input extern_command_ready,
+input [BUS_WIDTH - 1 : 0] extern_command,
+output reg CPU_ready,
 
-reg reset = 0;
-reg [33:0] command;
-reg [4:0] string_len;
+input VGA_ready,
+output reg [2:0] vga_command_flag,
+output reg vga_cmd_ready,
 
-reg [2:0] state;
+output reg [$clog2(`MAX_STRING_SIZE)-1:0] user_string_len,
+output reg [$clog2(`MAX_STRING_SIZE)-1:0] sys_string_len,
 
-localparam  INPUT_COMMAND       = 0,
-            INIT_PARAM_COUNTER  = 1,
-            INPUT_PARAMS        = 2,
-            INPUT_PARAM         = 3,
-            INPUT_END_COMMAND   = 4,
-            TRANSLATE_COMMAND   = 5,
-            DELAY_COMMAND       = 6,
-            WAIT_CPU_EXECUTION  = 7;
+output reg  cpu_char_rdy   , // 1 priority - for draw symbols from cpu (CCHR)
+output reg  write_char_en  , // 2 priority - for save symbols from user_input (UCHR)
+wire [5:0] sys_char , // cpu_input (cpu_char_rdy/write_char_en)
 
-localparam CMD_COUNT = 10,
-           LIT_SIZE  = 10;
+wire [11:0] cpu_color, vga_color;
 
-reg [3:0] i;
-reg [3:0] j;
+wire [9:0]  x1_coord,
+            y1_coord,
+            x2_coord,
+            y2_coord,
+            x3_coord,
+            y3_coord;
 
 initial begin
+
 end
+
+UART_Input_Manager #(
+    .CLOCK_RATE (CLOCK_RATE),
+    .BAUD_RATE  (BAUD_RATE),
+    .DIGIT_RANK (DIGIT_RANK)
+) uart_input_manager (
+    .clk(clk),                    
+    .reset(reset),                
+    .RsRx(RsRx),                  
+    .out(UART_Data_In),           
+    .ready_out(UART_Input_Ready), 
+    .end_command(UART_end_command)
+);
 
 CMD_Handler #(
     .DIGIT_RANK (DIGIT_RANK),
     .CMD_COUNT  (CMD_COUNT ),
     .LIT_SIZE   (LIT_SIZE  )
 ) cmd_handler (
-    .clk            (),
+    .clk            (clk),
     .rst_n          (reset),
+
     .symbol         (UART_Data_In),
     .symb_ready     (UART_Input_Ready),
-    .CPU_ready      (),
     .end_command    (UART_end_command),
+
+    .CPU_ready      (CPU_ready),
     .cpu_command    (CPU_command),
-    .command_ready  ()
+    .command_ready  (command_ready)
 );
 
 cpu VGA_cpu (
     .clk                  (clk                ),              
-    .rst_n                (reset              ),
+    .reset                (reset              ),
 
-    .extern_command_ready (CPU_command        ),
-    .extern_command       (CPU_command),
+    .extern_command_ready (),
+    .extern_command       (),
     .CPU_ready            (),
-
     .VGA_ready            (),
-    .endline              (),
-
-    .string_len           (),
-    .char                 (),
+    .vga_command_flag     (),
+    .vga_cmd_ready        (),
+    .user_string_len      (),
+    .sys_string_len       (),
     .write_char_en        (),
-
-    .vgaX                 (),
-    .vgaY                 (),
-    .color                (VGA_color),
-
-    .command_flag         (),
-    .start_draw           (),
-    
-    .x1_coord             (),
-    .y1_coord             (),
-    .x2_coord             (),
-    .y2_coord             (),
-    .x3_coord             (),
-    .y3_coord             ()
+    .cpu_char_rdy         (),
+    .sys_char             (),
+    .x1_coord             (x1_coord),
+    .y1_coord             (y1_coord),
+    .x2_coord             (x2_coord),
+    .y2_coord             (y2_coord),
+    .x3_coord             (x3_coord),
+    .y3_coord             (y3_coord)
 );
 
 wire seg_clk_div_out;
@@ -118,25 +134,6 @@ SevenSegmentLED seg(
     .AN(AN),
     .SEG(SEG)
 );
-
-wire [4:0]  prog_counter;
-wire [9:0]  next_y;
-wire [9:0]  next_x;
-wire [18:0] vram_address;
-wire [9:0]  vgaY;
-wire [9:0]  vgaX;
-wire [18:0] VGA_address;
-wire [11:0] color;
-
-
-wire write_parameter, command_flag, VGA_input_busy, VGA_exec_busy, vga_blank, start_exec;
-wire [23:0] VGA_Manager_command;
-wire [9:0] litera;
-wire write_enable;
-
-wire vio_write;
-wire [18:0] vio_address;
-assign vram_address = next_y * 10'd640 + next_x;
 
 divider #(.MOD(4)) VGA_divider
 (
@@ -173,34 +170,57 @@ BRAM_mem_gen_12x307200 VGA_MEM
     .doutb (VGA_color    )
 );
 
+input  cpu_cmd_ready     , // 3 priority - for executing cpu_cmd
+                            // (draw string, endline, draw all)
+input  [2:0] cpu_command ,
+/*------------------------------------------------------------------------------
+--  MAIN PARAMETERS FOR DRAW
+------------------------------------------------------------------------------*/
+input  usr_symb_rdy      , // 0 priority - for draw symbols from UART_input immediately
+input  [5:0] usr_symb    , // user_input
+input  cpu_char_rdy      , // 1 priority - for draw symbols from cpu (CCHR)
+input  write_char_en     , // 2 priority - for save symbols from user_input (UCHR) via cpu
+input  [5:0] sys_char    , // cpu_input (cpu_char_rdy/write_char_en)
+input  [11:0] color ,
+input  [$clog2(`MAX_STRING_SIZE)-1:0] sys_string_len ,
+input  [$clog2(`MAX_STRING_SIZE)-1:0] user_string_len,
+input  [9:0] x1_coord ,
+input  [9:0] y1_coord ,
+input  [9:0] x2_coord ,
+input  [9:0] y2_coord ,
+input  [9:0] x3_coord ,
+input  [9:0] y3_coord ,
+/*------------------------------------------------------------------------------
+--  OUTPUTS FOR DRAWING
+------------------------------------------------------------------------------*/
+output reg [18:0] vram_address ,
+output reg VGA_busy            ,
+output reg write_enable        ,
+output reg [11:0] current_color
+
 VGA_Manager VGA_manager (
     .clk                (clk                ),
     .reset              (reset              ),
-    .vga_blank          (vga_blank          ),
-    .start_exec         (start_exec         ),
-    .command_flag       (command_flag       ),
-    .command            (VGA_Manager_command),
-    .color_in           (color              ),
-    .vgaX               (vgaX               ),
-    .vgaY               (vgaY               ),
-    .write_parameter    (write_parameter    ),
-    .litera             (litera             ),
-    
-    .vram_address       (VGA_address        ),
-    .VGA_input_busy     (VGA_input_busy     ),
-    .VGA_exec_busy      (VGA_exec_busy      ),
-    .write_enable       (write_enable       )
+
+    .cpu_cmd_ready
+    .cpu_command
+    .usr_symb_rdy
+    .usr_symb
+    .cpu_char_rdy
+    .write_char_en
+    .sys_char
+    .color
+    .sys_string_len
+    .user_string_len
+    .x1_coord
+    .y1_coord
+    .x2_coord
+    .y2_coord
+    .x3_coord
+    .y3_coord
 );
 
-// Автомат, занимающийся менеджментом входных данных с UART на ПЛ�?С
-UART_Input_Manager #(.DIGIT_RANK(DIGIT_RANK)) uart_input_manager 
-(
-    .clk(clk),                        // Вход синхросигнала
-    .reset(reset),
-    .RsRx(RsRx),
-    .out(UART_Data_In),                // Выходные данные с UART
-    .ready_out(UART_Input_Ready),      // Выход - сигнал о том, что символ на выходе UART сформирован
-    .end_command(UART_end_command)     // Сигнал о принятии полной команды
-);
+
+
 
 endmodule

@@ -8,9 +8,7 @@
 `define KERNING         1
 `define MAX_STRING_SIZE 30
 
-module VGA_Manager #(
-    parameter LIT_SIZE = 10
-)(
+module VGA_Manager (
     input  clk   ,
     input  reset ,
     /*------------------------------------------------------------------------------
@@ -72,7 +70,7 @@ reg [0:`CHAR_WIDTH-1] alphabet [0:`CHAR_HEIGHT-1] [0:`ALPHABET_SIZE-1];
 ------------------------------------------------------------------------------*/
 reg [3:0] x_char, y_char;
 
-localparam  STATES = 9,
+localparam  STATES = 7,
             STATE_SIZE = $clog2(STATES);
 
 localparam WAIT_COMMAND             = 4'd0, 
@@ -81,8 +79,8 @@ localparam WAIT_COMMAND             = 4'd0,
            DRAW_CPU_STRING_SYMBOL   = 4'd3,
            DRAW_USER_STRING         = 4'd4,
            DRAW_USER_STRING_SYMBOL  = 4'd5,
-           END_EXEC                 = 4'd6,
-           DRAW_SYMBOL              = 4'd7;
+           DRAW_SYMBOL              = 4'd6,
+           END_EXEC                 = 4'd7;
 
 reg [STATE_SIZE-1:0] state;
 
@@ -120,10 +118,14 @@ always @(posedge clk) begin
             WAIT_COMMAND: begin
                 if (usr_symb_rdy) begin
                     VGA_busy <= 1'b1;
-                    // state <= ;
+                    for (i = 0; i < `CHAR_HEIGHT; i = i + 1)
+                        char_reg[i] <= alphabet[i][usr_symb];
+                    state <= DRAW_SYMBOL;
                 end else if (cpu_char_rdy) begin
                     VGA_busy <= 1'b1;
-                    // state <= ;
+                    for (i = 0; i < `CHAR_HEIGHT; i = i + 1)
+                        char_reg[i] <= alphabet[i][sys_char];
+                    state <= DRAW_SYMBOL;
                 end else if (cpu_cmd_ready) begin
                     VGA_busy <= 1'b1;
                     case (cpu_command)
@@ -302,6 +304,8 @@ always @(posedge clk) begin
             end
 
             END_EXEC: begin
+                y_char <= 0;
+                x_char <= 0;
                 write_enable <= 1'd0;
                 VGA_busy <= 0;
                 state <= WAIT_COMMAND;
