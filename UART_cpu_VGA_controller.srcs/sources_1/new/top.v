@@ -21,11 +21,11 @@ module top #
 );
 
 parameter CMD_COUNT = 22,
-parameter LIT_SIZE = 10,
-parameter CMD_SIZE  = $clog2(CMD_COUNT),
+          LIT_SIZE = 10,
+          CMD_SIZE  = $clog2(CMD_COUNT);
 parameter BUS_WIDTH = CMD_SIZE + LIT_SIZE;
 
-wire [11:0] VGA_color;
+wire [11:0] CPU_to_VGA_color, current_color, VGA_color;
 
 // UART-Manager connections
 wire UART_Input_Ready;               
@@ -37,22 +37,13 @@ wire end_command, CPU_ready, command_ready;
 // CPU connections
 wire [BUS_WIDTH - 1 :0] CPU_command;
 
-input extern_command_ready,
-input [BUS_WIDTH - 1 : 0] extern_command,
-output reg CPU_ready,
+wire VGA_ready;
 
-input VGA_ready,
-output reg [2:0] vga_command_flag,
-output reg vga_cmd_ready,
+wire cpu_cmd_ready, cpu_char_rdy, write_char_en;
+wire [2:0] cpu_to_vga_command;
+wire [5:0] sys_char;
 
-output reg [$clog2(`MAX_STRING_SIZE)-1:0] user_string_len,
-output reg [$clog2(`MAX_STRING_SIZE)-1:0] sys_string_len,
-
-output reg  cpu_char_rdy   , // 1 priority - for draw symbols from cpu (CCHR)
-output reg  write_char_en  , // 2 priority - for save symbols from user_input (UCHR)
-wire [5:0] sys_char , // cpu_input (cpu_char_rdy/write_char_en)
-
-wire [11:0] cpu_color, vga_color;
+wire  [$clog2(`MAX_STRING_SIZE)-1:0] sys_string_len , user_string_len;
 
 wire [9:0]  x1_coord,
             y1_coord,
@@ -60,10 +51,6 @@ wire [9:0]  x1_coord,
             y2_coord,
             x3_coord,
             y3_coord;
-
-initial begin
-
-end
 
 UART_Input_Manager #(
     .CLOCK_RATE (CLOCK_RATE),
@@ -95,21 +82,29 @@ CMD_Handler #(
     .command_ready  (command_ready)
 );
 
-cpu VGA_cpu (
+cpu #(
+    .CMD_COUNT (CMD_COUNT),
+    .LIT_SIZE  (LIT_SIZE )
+) VGA_cpu (
     .clk                  (clk                ),              
     .reset                (reset              ),
 
-    .extern_command_ready (),
-    .extern_command       (),
-    .CPU_ready            (),
-    .VGA_ready            (),
-    .vga_command_flag     (),
-    .vga_cmd_ready        (),
-    .user_string_len      (),
-    .sys_string_len       (),
-    .write_char_en        (),
-    .cpu_char_rdy         (),
-    .sys_char             (),
+    .extern_command_ready (command_ready),
+    .extern_command       (CPU_command),
+    .CPU_ready            (CPU_ready),
+
+    .VGA_ready            (!VGA_ready),
+    .vga_command_flag     (cpu_to_vga_command),
+    .vga_cmd_ready        (cpu_cmd_ready),
+    .color                (CPU_to_VGA_color),
+
+    .user_string_len      (user_string_len),
+    .sys_string_len       (sys_string_len),
+    .write_char_en        (write_char_en),
+
+    .cpu_char_rdy         (cpu_char_rdy),
+    .sys_char             (sys_char),
+
     .x1_coord             (x1_coord),
     .y1_coord             (y1_coord),
     .x2_coord             (x2_coord),
@@ -129,8 +124,8 @@ divider #(.MOD(LED_DELITEL)) clk_LED_divider (
 SevenSegmentLED seg(
     .clk(seg_clk_div_out),
     .RESET(1'b0),
-    .NUMBER(shift_register),
-    .AN_MASK(an_mask),
+    .NUMBER(8'h00),
+    .AN_MASK(8'hFF),
     .AN(AN),
     .SEG(SEG)
 );
@@ -141,10 +136,15 @@ divider #(.MOD(4)) VGA_divider
     .clk_out (vga_clk)
 );
 
+wire [9:0] next_x, next_y;
+wire write_enable;
+wire [18:0] vram_address, VGA_address;
+assign VGA_address = next_y * 640 + next_x;
+
 VGA vga(
    .clk          (vga_clk    ),     // 25 MHz
    .reset        (reset      ),     // Active high
-   .color_in     (VGA_color  ),                                                  
+   .color_in     (VGA_color  ),
    .next_x       (next_x     ),     // x-coordinate of NEXT pixel that will be drawn
    .next_y       (next_y     ),     // y-coordinate of NEXT pixel that will be drawn
    .hsync        (Hsync      ),     // HSYNC (to VGA connector)
@@ -153,74 +153,50 @@ VGA vga(
    .vga_green    (vgaGreen   ),     // GREEN (to resistor DAC to VGA connector)
    .vga_blue     (vgaBlue    ),     // BLUE (to resistor DAC to VGA connector)
    .sync         (           ),     // SYNC to VGA connector
-   .blank        (vga_blank  )      // BLANK to VGA connector
+   .blank        (           )      // BLANK to VGA connector
 );
 
 BRAM_mem_gen_12x307200 VGA_MEM
 (
     .clka  (clk          ),
     .wea   (write_enable ),
-    .addra (VGA_address  ),
-    .dina  (color        ),
+    .addra (vram_address ),
+    .dina  (current_color),
     .douta (1'b0         ),
     .clkb  (vga_clk      ),
     .web   (1'b0         ),
-    .addrb (vram_address ),
+    .addrb (VGA_address  ),
     .dinb  (1'b0         ),
     .doutb (VGA_color    )
 );
-
-input  cpu_cmd_ready     , // 3 priority - for executing cpu_cmd
-                            // (draw string, endline, draw all)
-input  [2:0] cpu_command ,
-/*------------------------------------------------------------------------------
---  MAIN PARAMETERS FOR DRAW
-------------------------------------------------------------------------------*/
-input  usr_symb_rdy      , // 0 priority - for draw symbols from UART_input immediately
-input  [5:0] usr_symb    , // user_input
-input  cpu_char_rdy      , // 1 priority - for draw symbols from cpu (CCHR)
-input  write_char_en     , // 2 priority - for save symbols from user_input (UCHR) via cpu
-input  [5:0] sys_char    , // cpu_input (cpu_char_rdy/write_char_en)
-input  [11:0] color ,
-input  [$clog2(`MAX_STRING_SIZE)-1:0] sys_string_len ,
-input  [$clog2(`MAX_STRING_SIZE)-1:0] user_string_len,
-input  [9:0] x1_coord ,
-input  [9:0] y1_coord ,
-input  [9:0] x2_coord ,
-input  [9:0] y2_coord ,
-input  [9:0] x3_coord ,
-input  [9:0] y3_coord ,
-/*------------------------------------------------------------------------------
---  OUTPUTS FOR DRAWING
-------------------------------------------------------------------------------*/
-output reg [18:0] vram_address ,
-output reg VGA_busy            ,
-output reg write_enable        ,
-output reg [11:0] current_color
 
 VGA_Manager VGA_manager (
     .clk                (clk                ),
     .reset              (reset              ),
 
-    .cpu_cmd_ready
-    .cpu_command
-    .usr_symb_rdy
-    .usr_symb
-    .cpu_char_rdy
-    .write_char_en
-    .sys_char
-    .color
-    .sys_string_len
-    .user_string_len
-    .x1_coord
-    .y1_coord
-    .x2_coord
-    .y2_coord
-    .x3_coord
-    .y3_coord
+    .cpu_cmd_ready   (cpu_cmd_ready),
+    .cpu_command     (cpu_to_vga_command),
+
+    .usr_symb_rdy    (UART_Input_Ready),
+    .usr_symb        (UART_Data_In),
+
+    .cpu_char_rdy    (cpu_char_rdy),
+    .write_char_en   (write_char_en),
+    .sys_char        (sys_char),
+
+    .color           (CPU_to_VGA_color),
+    .sys_string_len  (sys_string_len),
+    .user_string_len (user_string_len),
+    .x1_coord        (x1_coord),
+    .y1_coord        (y1_coord),
+    .x2_coord        (x2_coord),
+    .y2_coord        (y2_coord),
+    .x3_coord        (x3_coord),
+    .y3_coord        (y3_coord),
+    .vram_address    (vram_address),
+    .VGA_busy        (VGA_ready),
+    .write_enable    (write_enable),
+    .current_color   (current_color)
 );
-
-
-
 
 endmodule

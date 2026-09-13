@@ -24,7 +24,6 @@ module cpu #(
     output reg  write_char_en  , // 2 priority - for save symbols from user_input (UCHR)
     output reg  [5:0] sys_char , // cpu_input (cpu_char_rdy/write_char_en)
 
-
     output [11:0] color,
 
     output reg [9:0] x1_coord,
@@ -41,9 +40,9 @@ reg [3:0] vgaBlue ;
 
 assign color = {vgaRed, vgaGreen, vgaBlue};
 
-localparam CMD_MEM_SIZE = 128,
-           ADDR_CMD_MEM_SIZE = $clog2(CMD_MEM_SIZE),
-           COP_SIZE = $clog2(CMD_COUNT);
+localparam CMD_MEM_SIZE      = 128;
+localparam ADDR_CMD_MEM_SIZE = $clog2(CMD_MEM_SIZE);
+localparam COP_SIZE          = $clog2(CMD_COUNT);
 
 localparam PIXL = 0 ,
            ASCI = 1 ,
@@ -169,7 +168,7 @@ always @(posedge clk) begin
                     EROR: begin
                         case (literal)
                             10'd1: pc <= 10;  // Jump to wait reset sequence (in cpu_mem.mem) after incorrect cmd
-                            10'd2: pc <= 100; // Jump to wait reset sequence (in cpu_mem.mem) after incorrect value
+                            10'd2: pc <= 25; // Jump to wait reset sequence (in cpu_mem.mem) after incorrect value
                         endcase
                     end
                     CRX1: x1_coord <= literal[9:0];
