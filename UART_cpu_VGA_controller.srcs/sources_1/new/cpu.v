@@ -40,7 +40,7 @@ reg [3:0] vgaBlue ;
 
 assign color = {vgaRed, vgaGreen, vgaBlue};
 
-localparam CMD_MEM_SIZE      = 128;
+localparam CMD_MEM_SIZE      = 511;
 localparam ADDR_CMD_MEM_SIZE = $clog2(CMD_MEM_SIZE);
 localparam COP_SIZE          = $clog2(CMD_COUNT);
 
@@ -76,7 +76,7 @@ localparam PIXL = 0 ,
 reg [BUS_WIDTH - 1 : 0] cmd_mem [0 : CMD_MEM_SIZE - 1];
 reg [BUS_WIDTH - 1 : 0] cmd;                 // Current command
 // reg [CMD_SIZE - 1 : 0] prev_extern_command; // Previous extern command
-
+reg [1:0] vga_command;
 reg [ADDR_CMD_MEM_SIZE - 1 : 0] pc;         // Program counter
 reg [1:0] stage_counter;
 
@@ -167,8 +167,8 @@ always @(posedge clk) begin
                 case (cop)
                     EROR: begin
                         case (literal)
-                            10'd1: pc <= 10;  // Jump to wait reset sequence (in cpu_mem.mem) after incorrect cmd
-                            10'd2: pc <= 25; // Jump to wait reset sequence (in cpu_mem.mem) after incorrect value
+                            10'd1: pc <= 248;  // Jump to wait reset sequence (in cpu_mem.mem) after incorrect cmd
+                            10'd2: pc <= 267; // Jump to wait reset sequence (in cpu_mem.mem) after incorrect value
                         endcase
                     end
                     CRX1: x1_coord <= literal[9:0];
@@ -185,14 +185,17 @@ always @(posedge clk) begin
                     PIXL: begin
                         vga_cmd_ready <= 1;
                         vga_command_flag <= 1;
+                        vga_command <= 1;
                     end
                     ASCI: begin // for draw string from user
                         vga_cmd_ready <= 1;
                         vga_command_flag <= 2;
+                        vga_command <= 2;
                     end
                     TRIG: begin
                         vga_cmd_ready <= 1;
                         vga_command_flag <= 3;
+                        vga_command <= 3;
                     end
                     CSTR: begin // for draw string from cpu
                         vga_cmd_ready <= 1;
@@ -220,27 +223,35 @@ always @(posedge clk) begin
         end
         
         if (stage_counter == 2) begin
-            case (cop)
-                PIXL, ASCI, TRIG, CSTR,
-                ENDL, DRAW: begin
-                    vga_cmd_ready <= 0;
-                    pc <= pc + 1;
-                end
-                CCHR: begin
-                    cpu_char_rdy <= 0;
-                    pc <= pc + 1;
-                end
-                UCHR: begin
-                    write_char_en <= 0;
-                    pc <= pc + 1;
-                end
-                USLN, CSLN,CRX1, CRY1,
-                CRX2, CRY2, CRX3, CRY3,
-                CLRR, CLRG, CLRB: begin
-                    pc <= pc + 1;
-                end
-            endcase
-            stage_counter <= 0;
+            if ((vga_command == 1 && pc == 133) ||
+                (vga_command == 2 && pc == 168)||
+                (vga_command == 3 && pc == 248)) begin
+                    cmd <= WAIT;
+                    pc <= (CMD_MEM_SIZE - 1);
+            end else if (vga_command == 3 && pc == 133) begin
+                pc <= 168;
+            end else begin
+                case (cop)
+                    PIXL, ASCI, TRIG, CSTR,
+                    ENDL, DRAW: begin
+                        vga_cmd_ready <= 0;
+                        pc <= pc + 1;
+                    end
+                    CCHR: begin
+                        cpu_char_rdy <= 0;
+                        pc <= pc + 1;
+                    end
+                    UCHR: begin
+                        write_char_en <= 0;
+                    end
+                    USLN, CSLN,CRX1, CRY1,
+                    CRX2, CRY2, CRX3, CRY3,
+                    CLRR, CLRG, CLRB: begin
+                        pc <= pc + 1;
+                    end
+                endcase
+                stage_counter <= 0;
+            end
         end
     end
 end

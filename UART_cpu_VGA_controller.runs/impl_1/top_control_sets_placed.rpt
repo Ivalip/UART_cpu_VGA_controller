@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Sun Sep 13 17:57:34 2026
+| Date         : Sun Sep 13 21:43:10 2026
 | Host         : Samsung-Galaxybook-4 running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
 | Design       : top
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |    34 |
-|    Minimum number of control sets                        |    34 |
+| Total control sets                                       |    96 |
+|    Minimum number of control sets                        |    96 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |   117 |
+| Unused register locations in slices containing registers |   241 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,15 +39,15 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |    34 |
+| Total control sets |    96 |
 | >= 0 to < 4        |     0 |
-| >= 4 to < 6        |    12 |
-| >= 6 to < 8        |     2 |
-| >= 8 to < 10       |     3 |
-| >= 10 to < 12      |     7 |
+| >= 4 to < 6        |    11 |
+| >= 6 to < 8        |    63 |
+| >= 8 to < 10       |     5 |
+| >= 10 to < 12      |     6 |
 | >= 12 to < 14      |     2 |
 | >= 14 to < 16      |     2 |
-| >= 16              |     6 |
+| >= 16              |     7 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -58,12 +58,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              84 |           49 |
+| No           | No                    | No                     |              90 |           40 |
 | No           | No                    | Yes                    |               0 |            0 |
 | No           | Yes                   | No                     |              15 |            5 |
-| Yes          | No                    | No                     |             240 |           96 |
+| Yes          | No                    | No                     |             709 |          359 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |              32 |           10 |
+| Yes          | Yes                   | No                     |              33 |           16 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -73,40 +73,102 @@ Table of Contents
 +----------------+--------------------------------------------------------+-----------------------------------------------------+------------------+----------------+--------------+
 |  Clock Signal  |                      Enable Signal                     |                   Set/Reset Signal                  | Slice Load Count | Bel Load Count | Bels / Slice |
 +----------------+--------------------------------------------------------+-----------------------------------------------------+------------------+----------------+--------------+
-|  clk_IBUF_BUFG | VGA_cpu/vgaGreen                                       |                                                     |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG | VGA_cpu/vgaRed                                         |                                                     |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG | VGA_cpu/vgaBlue                                        |                                                     |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG | VGA_manager/x_char[3]_i_2_n_0                          | VGA_manager/x_char[3]_i_1_n_0                       |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG | VGA_manager/y_char[3]_i_2_n_0                          | VGA_manager/y_char[3]_i_1_n_0                       |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG | VGA_manager/x_char[3]_i_2_n_0                          | VGA_manager/x_char[3]_i_1_n_0                       |                2 |              4 |         2.00 |
 |  clk_IBUF_BUFG | uart_input_manager/uart_rx/bit_counter                 |                                                     |                2 |              4 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/y_char[3]_i_2_n_0                          | VGA_manager/y_char[3]_i_1_n_0                       |                2 |              4 |         2.00 |
+|  clk_IBUF_BUFG | VGA_cpu/vgaGreen[3]_i_1_n_0                            |                                                     |                2 |              4 |         2.00 |
+|  clk_IBUF_BUFG | VGA_cpu/vgaBlue                                        |                                                     |                3 |              4 |         1.33 |
+|  clk_IBUF_BUFG | VGA_cpu/vgaRed                                         |                                                     |                4 |              4 |         1.00 |
 |  clk_IBUF_BUFG | cmd_handler/translator/j                               |                                                     |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG | VGA_manager/char_counter[4]_i_2_n_0                    | VGA_manager/char_counter[4]_i_1_n_0                 |                2 |              5 |         2.50 |
-|  clk_IBUF_BUFG | VGA_cpu/sys_string_len[4]_i_1_n_0                      |                                                     |                1 |              5 |         5.00 |
-|  clk_IBUF_BUFG | VGA_cpu/cmd                                            | VGA_cpu/cmd[9]_i_1_n_0                              |                1 |              5 |         5.00 |
+|  clk_IBUF_BUFG | VGA_cpu/sys_string_len[4]_i_1_n_0                      |                                                     |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG | VGA_manager/char_counter_reg[4]_i_2_n_0                | VGA_manager/char_counter[4]_i_1_n_0                 |                2 |              5 |         2.50 |
 |  clk_IBUF_BUFG | VGA_cpu/user_string_len[4]_i_1_n_0                     |                                                     |                2 |              5 |         2.50 |
 |  clk_IBUF_BUFG | cmd_handler/translator/Translator_busy_reg_2           |                                                     |                4 |              5 |         1.25 |
-|  clk_IBUF_BUFG | uart_input_manager/simpleFIFO/data_out_reg[0]_0        | uart_input_manager/out[5]_i_1_n_0                   |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG | VGA_cpu/pc[6]_i_1_n_0                                  |                                                     |                3 |              7 |         2.33 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[12][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[6][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[1][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[23][0]_i_1_n_0              |                                                     |                1 |              6 |         6.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[16][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[24][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[29][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[13][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[7][0]_i_1_n_0               |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[20][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[14][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[8][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[26][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[28][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[18][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg                             |                                                     |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[10][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[17][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[2][0]_i_1_n_0               |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[22][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[3][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[4][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[15][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[19][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[3][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[6][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[9][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[11][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[24][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg                             |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[27][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[19][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[23][0]_i_1_n_0              |                                                     |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[8][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[10][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[13][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[16][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[17][0]_i_1_n_0              |                                                     |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[18][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[28][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[20][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[22][0]_i_1_n_0              |                                                     |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[26][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[4][0]_i_1_n_0               |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[7][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[29][0]_i_1_n_0              |                                                     |                1 |              6 |         6.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[21][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[2][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[25][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[15][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[14][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[5][0]_i_1_n_0               |                                                     |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[12][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_manager/usr_string_reg[1][0]_i_1_n_0               |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | uart_input_manager/simpleFIFO/data_out_reg[0]_0        | uart_input_manager/out[5]_i_1_n_0                   |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG | VGA_cpu/cmd[14]_i_1_n_0                                | VGA_cpu/cmd[13]_i_1_n_0                             |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[21][0]_i_1_n_0              |                                                     |                1 |              6 |         6.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[9][0]_i_1_n_0               |                                                     |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | VGA_cpu/sys_char[5]_i_1_n_0                            |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[11][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[27][0]_i_1_n_0              |                                                     |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[5][0]_i_1_n_0               |                                                     |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG | VGA_manager/sys_string_reg[25][0]_i_1_n_0              |                                                     |                3 |              6 |         2.00 |
 |  clk_IBUF_BUFG | uart_input_manager/simpleFIFO/data_out0_0              |                                                     |                2 |              8 |         4.00 |
 |  clk_IBUF_BUFG | uart_input_manager/uart_rx/UART_RX_Data_Out[7]_i_2_n_0 | uart_input_manager/uart_rx/stopBitIsGood0           |                2 |              8 |         4.00 |
 |  clk_IBUF_BUFG | cmd_handler/translator/command[41]_i_1_n_0             |                                                     |                2 |              8 |         4.00 |
-|  vga_clk_BUFG  | vga/line_done_reg_n_0                                  |                                                     |                6 |             10 |         1.67 |
+|  clk_IBUF_BUFG | VGA_cpu/cmd[14]_i_1_n_0                                |                                                     |                7 |              9 |         1.29 |
+|  clk_IBUF_BUFG | VGA_cpu/pc[8]_i_1_n_0                                  |                                                     |                6 |              9 |         1.50 |
 |  clk_IBUF_BUFG | VGA_manager/x_coord[9]_i_1_n_0                         |                                                     |                4 |             10 |         2.50 |
-|  clk_IBUF_BUFG | VGA_manager/y_coord[9]_i_1_n_0                         |                                                     |                2 |             10 |         5.00 |
-|  clk_IBUF_BUFG | VGA_cpu/cmd                                            |                                                     |                5 |             10 |         2.00 |
-|  clk_IBUF_BUFG | cmd_handler/translator/command[9]_i_1_n_0              |                                                     |                4 |             10 |         2.50 |
+|  clk_IBUF_BUFG | VGA_cpu/cmd_reg[11]_0                                  |                                                     |                3 |             10 |         3.33 |
 |  clk_IBUF_BUFG | VGA_cpu/cmd_reg[13]_0                                  |                                                     |                4 |             10 |         2.50 |
-|  clk_IBUF_BUFG | VGA_cpu/cmd_reg[14]_0                                  |                                                     |                3 |             10 |         3.33 |
+|  clk_IBUF_BUFG | VGA_manager/y_coord[9]_i_1_n_0                         |                                                     |                2 |             10 |         5.00 |
+|  clk_IBUF_BUFG | cmd_handler/translator/command[9]_i_1_n_0              |                                                     |                3 |             10 |         3.33 |
+|  vga_clk_BUFG  | vga/line_done_reg_n_0                                  |                                                     |                5 |             10 |         2.00 |
 |  clk_IBUF_BUFG | uart_input_manager/uart_rx/UART_RX_Ready_Out_reg_0     |                                                     |                2 |             12 |         6.00 |
-|  clk_IBUF_BUFG | VGA_manager/current_color[11]_i_1_n_0                  |                                                     |                2 |             12 |         6.00 |
+|  clk_IBUF_BUFG | VGA_manager/current_color[11]_i_1_n_0                  |                                                     |                7 |             12 |         1.71 |
 |  clk_IBUF_BUFG |                                                        | uart_input_manager/uart_rx/baud_counter[14]_i_1_n_0 |                5 |             15 |         3.00 |
-|  clk_IBUF_BUFG | cmd_handler/translator/literal[9]_i_1_n_0              |                                                     |                8 |             15 |         1.88 |
+|  clk_IBUF_BUFG | cmd_handler/translator/literal[9]_i_1_n_0              |                                                     |                7 |             15 |         2.14 |
 |  clk_IBUF_BUFG | cmd_handler/translator/Translator_busy_reg_1           |                                                     |                5 |             18 |         3.60 |
-|  clk_IBUF_BUFG | VGA_manager/vram_address_reg[18]_i_1_n_0               |                                                     |               11 |             19 |         1.73 |
-|  clk_IBUF_BUFG | cmd_handler/translator/command[33]_i_1_n_0             |                                                     |                6 |             24 |         4.00 |
-|  clk_IBUF_BUFG | cmd_handler/translator/end_command_pending_reg         |                                                     |               16 |             24 |         1.50 |
-|  vga_clk_BUFG  |                                                        |                                                     |               26 |             42 |         1.62 |
-|  clk_IBUF_BUFG |                                                        |                                                     |               23 |             42 |         1.83 |
+|  clk_IBUF_BUFG | VGA_manager/vram_address_reg[18]_i_1_n_0               |                                                     |               13 |             19 |         1.46 |
+|  clk_IBUF_BUFG | cmd_handler/translator/button_pending_reg              |                                                     |               16 |             24 |         1.50 |
+|  clk_IBUF_BUFG | cmd_handler/translator/command[33]_i_1_n_0             |                                                     |                7 |             24 |         3.43 |
+|  vga_clk_BUFG  |                                                        |                                                     |               20 |             42 |         2.10 |
+|  clk_IBUF_BUFG |                                                        |                                                     |               20 |             48 |         2.40 |
+|  clk_IBUF_BUFG | VGA_manager/char_reg[0][0]_i_1_n_0                     |                                                     |               86 |            102 |         1.19 |
 +----------------+--------------------------------------------------------+-----------------------------------------------------+------------------+----------------+--------------+
 
 

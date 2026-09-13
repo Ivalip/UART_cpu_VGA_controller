@@ -108,6 +108,8 @@ read_xdc {{C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu
 set_property used_in_implementation false [get_files {{C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/constrs_1/new/constraints.xdc}}]
 
 set_param ips.enableIPCacheLiteLoad 1
+
+read_checkpoint -auto_incremental -incremental {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/utils_1/imports/synth_1/top.dcp}
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }

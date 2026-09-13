@@ -3,7 +3,7 @@
 `define CHAR_WIDTH  9
 `define CHAR_HEIGHT 12
 
-`define ALPHABET_SIZE   35
+`define ALPHABET_SIZE   37
 
 `define KERNING         1
 `define MAX_STRING_SIZE 30
@@ -122,10 +122,11 @@ always @(posedge clk) begin
                         char_reg[i] <= alphabet[i][usr_symb];
                     state <= DRAW_SYMBOL;
                 end else if (cpu_char_rdy) begin
-                    VGA_busy <= 1'b1;
-                    for (i = 0; i < `CHAR_HEIGHT; i = i + 1)
-                        char_reg[i] <= alphabet[i][sys_char];
-                    state <= DRAW_SYMBOL;
+                    sys_string_reg[char_counter] <= sys_char;
+                    char_counter <= char_counter + 1;
+                end else if (write_char_en) begin
+                    usr_string_reg[char_counter] <= sys_char;
+                    char_counter <= char_counter + 1;
                 end else if (cpu_cmd_ready) begin
                     VGA_busy <= 1'b1;
                     case (cpu_command)
@@ -185,7 +186,6 @@ always @(posedge clk) begin
                 end
             end
 
-            //-------------------------------- Доведено до рабочего варианта --------------------------------
             DRAW_CPU_STRING: begin
                 write_enable <= 1'd0;
                 if (char_counter == sys_string_len) begin
@@ -229,7 +229,7 @@ always @(posedge clk) begin
                     vram_address <= vram_address + 1;
                 end
             end
-            // ----------------------------------------------------------------
+
             DRAW_USER_STRING: begin
                 write_enable <= 1'd0;
                 if (char_counter == user_string_len) begin
@@ -276,7 +276,6 @@ always @(posedge clk) begin
 
             DRAW_SYMBOL: begin
                 if (y_char == `CHAR_HEIGHT) begin
-                    char_counter <= char_counter + 1;
                     x_coord <= x_coord + `CHAR_WIDTH + `KERNING;
                     write_enable <= 1'd0;
                     state <= END_EXEC;

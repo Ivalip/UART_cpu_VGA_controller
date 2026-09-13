@@ -8,21 +8,26 @@
   **** SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
   **** IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
   **** SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-  **** Start of session at: Sun Sep 13 17:55:38 2026
+  **** Start of session at: Sun Sep 13 21:41:18 2026
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source top.tcl -notrace
+Command: read_checkpoint -auto_incremental -incremental {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/utils_1/imports/synth_1/top.dcp}
+INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/utils_1/imports/synth_1/top.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
 Command: synth_design -top top -part xc7a100tcsg324-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 3292
+INFO: [Synth 8-7075] Helper process launched with PID 18444
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1224.102 ; gain = 496.418
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1221.039 ; gain = 495.957
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-11241] undeclared symbol 'reset', assumed default net type 'wire' [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/top.v:61]
 INFO: [Synth 8-6157] synthesizing module 'top' [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/top.v:3]
@@ -61,7 +66,7 @@ INFO: [Synth 8-3876] $readmem data file 'CPU_mem.mem' is read successfully [C:/U
 WARNING: [Synth 8-311] ignoring non-constant assignment in initial block [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:116]
 INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:169]
 INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:167]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:223]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:234]
 INFO: [Synth 8-6155] done synthesizing module 'cpu' (0#1) [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:3]
 INFO: [Synth 8-6157] synthesizing module 'divider' [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/divider.v:3]
 	Parameter MOD bound to: 8192 - type: integer 
@@ -75,127 +80,126 @@ INFO: [Synth 8-6157] synthesizing module 'divider__parameterized0' [C:/Users/Ads
 INFO: [Synth 8-6155] done synthesizing module 'divider__parameterized0' (0#1) [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/divider.v:3]
 INFO: [Synth 8-6157] synthesizing module 'VGA' [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA.v:1]
 INFO: [Synth 8-6155] done synthesizing module 'VGA' (0#1) [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA.v:1]
-INFO: [Synth 8-6157] synthesizing module 'BRAM_mem_gen_12x307200' [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/synth_1/.Xil/Vivado-9052-Samsung-Galaxybook-4/realtime/BRAM_mem_gen_12x307200_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'BRAM_mem_gen_12x307200' (0#1) [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/synth_1/.Xil/Vivado-9052-Samsung-Galaxybook-4/realtime/BRAM_mem_gen_12x307200_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'BRAM_mem_gen_12x307200' [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/synth_1/.Xil/Vivado-2156-Samsung-Galaxybook-4/realtime/BRAM_mem_gen_12x307200_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'BRAM_mem_gen_12x307200' (0#1) [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/synth_1/.Xil/Vivado-2156-Samsung-Galaxybook-4/realtime/BRAM_mem_gen_12x307200_stub.v:6]
 WARNING: [Synth 8-689] width (1) of port connection 'douta' does not match port width (12) of module 'BRAM_mem_gen_12x307200' [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/top.v:165]
 WARNING: [Synth 8-315] illegal expression in output port connection [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/top.v:165]
 INFO: [Synth 8-6157] synthesizing module 'VGA_Manager' [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:11]
-WARNING: [Synth 8-2898] ignoring malformed $readmem task: invalid memory range [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:92]
+INFO: [Synth 8-3876] $readmem data file 'alphabet.mem' is read successfully [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:92]
 WARNING: [Synth 8-6090] variable 'i' is written by both blocking and non-blocking assignments, entire logic could be removed [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:99]
 WARNING: [Synth 8-6090] variable 'j' is written by both blocking and non-blocking assignments, entire logic could be removed [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:100]
 WARNING: [Synth 8-6090] variable 'i' is written by both blocking and non-blocking assignments, entire logic could be removed [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:114]
 WARNING: [Synth 8-6090] variable 'j' is written by both blocking and non-blocking assignments, entire logic could be removed [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:115]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:131]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:164]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:132]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:165]
 INFO: [Synth 8-6155] done synthesizing module 'VGA_Manager' (0#1) [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:11]
 INFO: [Synth 8-6155] done synthesizing module 'top' (0#1) [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/top.v:3]
-WARNING: [Synth 8-3848] Net cmd_mem[26] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[27] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[28] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[29] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[30] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[31] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[32] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[33] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[34] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[35] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[36] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[37] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[38] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[39] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[40] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[41] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[42] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[43] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[44] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[45] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[46] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[47] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[48] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[49] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[50] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[51] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[52] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[53] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[54] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[55] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[56] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[57] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[58] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[59] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[60] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[61] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[62] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[63] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[64] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[65] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[66] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[67] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[68] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[69] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[70] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[71] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[72] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[73] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[74] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[75] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[76] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[77] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[78] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[79] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[80] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[81] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[82] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[83] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[84] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[85] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[86] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[87] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[88] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[89] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[90] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[91] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[92] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[93] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[94] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[95] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[96] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[97] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[98] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[99] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[100] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[101] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[102] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[103] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[104] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[105] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[106] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[107] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[108] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[109] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[110] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[111] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[112] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[113] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[114] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[115] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[116] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[117] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[118] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[119] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[120] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[121] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[122] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[123] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[124] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
-WARNING: [Synth 8-3848] Net cmd_mem[125] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[284] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[285] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[286] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[287] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[288] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[289] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[290] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[291] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[292] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[293] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[294] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[295] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[296] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[297] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[298] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[299] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[300] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[301] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[302] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[303] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[304] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[305] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[306] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[307] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[308] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[309] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[310] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[311] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[312] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[313] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[314] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[315] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[316] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[317] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[318] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[319] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[320] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[321] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[322] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[323] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[324] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[325] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[326] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[327] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[328] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[329] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[330] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[331] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[332] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[333] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[334] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[335] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[336] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[337] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[338] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[339] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[340] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[341] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[342] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[343] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[344] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[345] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[346] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[347] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[348] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[349] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[350] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[351] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[352] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[353] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[354] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[355] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[356] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[357] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[358] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[359] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[360] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[361] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[362] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[363] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[364] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[365] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[366] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[367] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[368] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[369] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[370] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[371] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[372] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[373] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[374] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[375] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[376] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[377] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[378] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[379] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[380] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[381] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[382] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
+WARNING: [Synth 8-3848] Net cmd_mem[383] in module/entity cpu does not have driver. [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v:76]
 INFO: [Common 17-14] Message 'Synth 8-3848' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 WARNING: [Synth 8-7137] Register red_reg_reg in module VGA has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA.v:86]
 WARNING: [Synth 8-7137] Register green_reg_reg in module VGA has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA.v:87]
 WARNING: [Synth 8-7137] Register blue_reg_reg in module VGA has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA.v:88]
 WARNING: [Synth 8-6014] Unused sequential element i_reg was removed.  [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:108]
 WARNING: [Synth 8-6014] Unused sequential element j_reg was removed.  [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v:112]
-WARNING: [Synth 8-7129] Port write_char_en in module VGA_Manager is either unconnected or has no load
 WARNING: [Synth 8-7129] Port x2_coord[9] in module VGA_Manager is either unconnected or has no load
 WARNING: [Synth 8-7129] Port x2_coord[8] in module VGA_Manager is either unconnected or has no load
 WARNING: [Synth 8-7129] Port x2_coord[7] in module VGA_Manager is either unconnected or has no load
@@ -237,18 +241,18 @@ WARNING: [Synth 8-7129] Port y3_coord[2] in module VGA_Manager is either unconne
 WARNING: [Synth 8-7129] Port y3_coord[1] in module VGA_Manager is either unconnected or has no load
 WARNING: [Synth 8-7129] Port y3_coord[0] in module VGA_Manager is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1419.305 ; gain = 691.621
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1369.484 ; gain = 644.402
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1419.305 ; gain = 691.621
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1369.484 ; gain = 644.402
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1419.305 ; gain = 691.621
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1369.484 ; gain = 644.402
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.031 . Memory (MB): peak = 1419.305 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.032 . Memory (MB): peak = 1369.484 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -261,27 +265,29 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1489.703 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1405.250 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1489.703 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1405.250 ; gain = 0.000
 WARNING: [Timing 38-316] Clock period '20.000' specified during out-of-context synthesis of instance 'VGA_MEM' at clock pin 'clka' is different from the actual clock period '10.000', this can lead to different synthesis results.
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1490.492 ; gain = 762.809
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1410.523 ; gain = 685.441
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1490.492 ; gain = 762.809
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1410.523 ; gain = 685.441
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1490.492 ; gain = 762.809
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 1410.523 ; gain = 685.441
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'UART_RX'
 INFO: [Synth 8-802] inferred FSM for state register 'state_r_reg' in module 'CMD_Translator'
@@ -389,7 +395,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'v_state_reg' using encodin
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'VGA_Manager'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1490.492 ; gain = 762.809
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1410.523 ; gain = 685.441
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -401,8 +407,8 @@ Detailed RTL Component Info :
 	   2 Input   13 Bit       Adders := 1     
 	   4 Input   10 Bit       Adders := 1     
 	   2 Input   10 Bit       Adders := 4     
+	   2 Input    9 Bit       Adders := 1     
 	   3 Input    8 Bit       Adders := 1     
-	   2 Input    7 Bit       Adders := 1     
 	   2 Input    5 Bit       Adders := 1     
 	   2 Input    4 Bit       Adders := 4     
 	   2 Input    3 Bit       Adders := 1     
@@ -415,14 +421,13 @@ Detailed RTL Component Info :
 	               13 Bit    Registers := 1     
 	               12 Bit    Registers := 1     
 	               10 Bit    Registers := 12    
-	                9 Bit    Registers := 12    
+	                9 Bit    Registers := 13    
 	                8 Bit    Registers := 3     
-	                7 Bit    Registers := 1     
-	                6 Bit    Registers := 3     
+	                6 Bit    Registers := 62    
 	                5 Bit    Registers := 4     
 	                4 Bit    Registers := 9     
 	                3 Bit    Registers := 3     
-	                2 Bit    Registers := 3     
+	                2 Bit    Registers := 4     
 	                1 Bit    Registers := 25    
 +---RAMs : 
 	               16 Bit	(2 X 8 bit)          RAMs := 1     
@@ -433,15 +438,14 @@ Detailed RTL Component Info :
 	   2 Input   40 Bit        Muxes := 1     
 	   2 Input   19 Bit        Muxes := 2     
 	   8 Input   19 Bit        Muxes := 1     
-	   2 Input   15 Bit        Muxes := 1     
+	   2 Input   15 Bit        Muxes := 3     
 	   4 Input   10 Bit        Muxes := 5     
 	   2 Input   10 Bit        Muxes := 8     
 	   8 Input   10 Bit        Muxes := 2     
-	   2 Input    9 Bit        Muxes := 12    
+	   2 Input    9 Bit        Muxes := 5     
+	   3 Input    9 Bit        Muxes := 1     
 	   8 Input    9 Bit        Muxes := 12    
 	   8 Input    8 Bit        Muxes := 1     
-	   2 Input    7 Bit        Muxes := 2     
-	   3 Input    7 Bit        Muxes := 1     
 	   2 Input    6 Bit        Muxes := 1     
 	   2 Input    5 Bit        Muxes := 15    
 	   4 Input    5 Bit        Muxes := 3     
@@ -453,22 +457,23 @@ Detailed RTL Component Info :
 	   8 Input    4 Bit        Muxes := 2     
 	  21 Input    3 Bit        Muxes := 1     
 	   8 Input    3 Bit        Muxes := 1     
-	   2 Input    3 Bit        Muxes := 4     
+	   2 Input    3 Bit        Muxes := 3     
 	   7 Input    3 Bit        Muxes := 1     
 	   4 Input    3 Bit        Muxes := 1     
 	   4 Input    2 Bit        Muxes := 5     
-	   2 Input    2 Bit        Muxes := 18    
+	   2 Input    2 Bit        Muxes := 20    
 	  23 Input    2 Bit        Muxes := 1     
+	  21 Input    2 Bit        Muxes := 1     
 	   3 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 69    
-	   3 Input    1 Bit        Muxes := 19    
+	   2 Input    1 Bit        Muxes := 109   
+	   3 Input    1 Bit        Muxes := 18    
 	   4 Input    1 Bit        Muxes := 22    
 	   6 Input    1 Bit        Muxes := 2     
 	  23 Input    1 Bit        Muxes := 6     
-	  21 Input    1 Bit        Muxes := 14    
-	   5 Input    1 Bit        Muxes := 7     
+	  21 Input    1 Bit        Muxes := 15    
+	   5 Input    1 Bit        Muxes := 6     
 	   7 Input    1 Bit        Muxes := 4     
-	   8 Input    1 Bit        Muxes := 14    
+	   8 Input    1 Bit        Muxes := 74    
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -496,7 +501,6 @@ DSP Report: operator vram_address1 is absorbed into DSP vram_address0.
 DSP Report: Generating DSP VGA_address, operation Mode is: C+A*(B:0x280).
 DSP Report: operator VGA_address is absorbed into DSP VGA_address.
 DSP Report: operator VGA_address0 is absorbed into DSP VGA_address.
-WARNING: [Synth 8-7129] Port write_char_en in module VGA_Manager is either unconnected or has no load
 WARNING: [Synth 8-7129] Port x2_coord[9] in module VGA_Manager is either unconnected or has no load
 WARNING: [Synth 8-7129] Port x2_coord[8] in module VGA_Manager is either unconnected or has no load
 WARNING: [Synth 8-7129] Port x2_coord[7] in module VGA_Manager is either unconnected or has no load
@@ -538,7 +542,7 @@ WARNING: [Synth 8-7129] Port y3_coord[2] in module VGA_Manager is either unconne
 WARNING: [Synth 8-7129] Port y3_coord[1] in module VGA_Manager is either unconnected or has no load
 WARNING: [Synth 8-7129] Port y3_coord[0] in module VGA_Manager is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 1490.492 ; gain = 762.809
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 1483.008 ; gain = 757.926
 ---------------------------------------------------------------------------------
  Sort Area is  vram_address0_0 : 0 0 : 135 135 : Used 1 time 0
  Sort Area is  VGA_address_4 : 0 0 : 115 115 : Used 1 time 0
@@ -554,7 +558,73 @@ ROM: Preliminary Mapping Report
 |ASCII_To_HEX    | hex_out                       | 128x6         | LUT            | 
 |cpu             | vga_command_flag              | 32x1          | LUT            | 
 |SevenSegmentLED | SEG                           | 64x7          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x6          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x6          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x6          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x7          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x7          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x7          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x8          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x8          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x8          | LUT            | 
 |cpu             | vga_command_flag              | 32x1          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x6          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x6          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x6          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x7          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x7          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x7          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x9          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x8          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x8          | LUT            | 
+|VGA_Manager     | alphabet                      | 64x8          | LUT            | 
 |top             | uart_input_manager/a1/hex_out | 128x6         | LUT            | 
 |top             | seg/SEG                       | 64x7          | LUT            | 
 +----------------+-------------------------------+---------------+----------------+
@@ -586,13 +656,13 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 1613.445 ; gain = 885.762
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 1629.078 ; gain = 903.996
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:29 ; elapsed = 00:00:30 . Memory (MB): peak = 1643.234 ; gain = 915.551
+Finished Timing Optimization : Time (s): cpu = 00:00:34 ; elapsed = 00:00:36 . Memory (MB): peak = 1721.039 ; gain = 995.957
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -612,7 +682,7 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:29 ; elapsed = 00:00:31 . Memory (MB): peak = 1657.742 ; gain = 930.059
+Finished Technology Mapping : Time (s): cpu = 00:00:35 ; elapsed = 00:00:37 . Memory (MB): peak = 1739.117 ; gain = 1014.035
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -630,37 +700,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:32 ; elapsed = 00:00:34 . Memory (MB): peak = 1862.961 ; gain = 1135.277
+Finished IO Insertion : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 1898.727 ; gain = 1173.645
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:32 ; elapsed = 00:00:34 . Memory (MB): peak = 1862.961 ; gain = 1135.277
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 1898.727 ; gain = 1173.645
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:32 ; elapsed = 00:00:34 . Memory (MB): peak = 1862.961 ; gain = 1135.277
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 1898.727 ; gain = 1173.645
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:32 ; elapsed = 00:00:34 . Memory (MB): peak = 1862.961 ; gain = 1135.277
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 1898.727 ; gain = 1173.645
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:32 ; elapsed = 00:00:34 . Memory (MB): peak = 1862.961 ; gain = 1135.277
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 1898.727 ; gain = 1173.645
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:32 ; elapsed = 00:00:34 . Memory (MB): peak = 1862.961 ; gain = 1135.277
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 1898.727 ; gain = 1173.645
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -691,43 +761,43 @@ Report Cell Usage:
 |2     |BUFG                   |     2|
 |3     |CARRY4                 |    19|
 |4     |DSP48E1                |     3|
-|6     |LUT1                   |     9|
-|7     |LUT2                   |    69|
-|8     |LUT3                   |   121|
-|9     |LUT4                   |   132|
-|10    |LUT5                   |   155|
-|11    |LUT6                   |   341|
-|12    |MUXF7                  |    26|
+|6     |LUT1                   |    10|
+|7     |LUT2                   |    87|
+|8     |LUT3                   |   115|
+|9     |LUT4                   |   123|
+|10    |LUT5                   |   209|
+|11    |LUT6                   |  1046|
+|12    |MUXF7                  |    84|
 |13    |RAM32M                 |     1|
 |14    |RAM32X1D               |     2|
-|15    |FDRE                   |   360|
+|15    |FDRE                   |   836|
 |16    |IBUF                   |     2|
 |17    |OBUF                   |    29|
 +------+-----------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:32 ; elapsed = 00:00:34 . Memory (MB): peak = 1862.961 ; gain = 1135.277
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 1898.727 ; gain = 1173.645
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 42 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:24 ; elapsed = 00:00:32 . Memory (MB): peak = 1862.961 ; gain = 1064.090
-Synthesis Optimization Complete : Time (s): cpu = 00:00:32 ; elapsed = 00:00:34 . Memory (MB): peak = 1862.961 ; gain = 1135.277
+Synthesis finished with 0 errors, 0 critical warnings and 41 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:30 ; elapsed = 00:00:38 . Memory (MB): peak = 1898.727 ; gain = 1132.605
+Synthesis Optimization Complete : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 1898.727 ; gain = 1173.645
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1872.152 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 51 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 1907.898 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 109 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1875.789 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1911.594 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 3 instances were transformed.
   RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 1 instance 
   RAM32X1D => RAM32X1D (RAMD32(x2)): 2 instances
 
-Synth Design complete | Checksum: 40574345
+Synth Design complete | Checksum: e2b29add
 INFO: [Common 17-83] Releasing license: Synthesis
-71 Infos, 198 Warnings, 0 Critical Warnings and 0 Errors encountered.
+78 Infos, 195 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:35 ; elapsed = 00:00:39 . Memory (MB): peak = 1875.789 ; gain = 1351.906
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1875.789 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:41 ; elapsed = 00:00:45 . Memory (MB): peak = 1911.594 ; gain = 1387.711
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1911.594 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/synth_1/top.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sun Sep 13 17:56:24 2026...
+INFO: [Common 17-206] Exiting Vivado at Sun Sep 13 21:42:10 2026...

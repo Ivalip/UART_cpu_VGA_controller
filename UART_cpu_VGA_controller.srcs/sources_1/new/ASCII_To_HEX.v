@@ -19,7 +19,7 @@ begin
         8'h37: hex_out = 6'd7;
         8'h38: hex_out = 6'd8;
         8'h39: hex_out = 6'd9;
-               
+        
         // Заглавные буквы A-Z
         8'h41: hex_out = 6'd10;   //A
         8'h42: hex_out = 6'd11;   //B
@@ -76,6 +76,8 @@ begin
         8'h79: hex_out = 6'd34;   //Y
         8'h7A: hex_out = 6'd35;   //Z
 
+        8'h20: hex_out = 6'd36;   //SPACE
+        8'h2D: hex_out = 6'd37;   //MINUS
         // Неизвестный символ
         default: hex_out = 6'd0;
     endcase

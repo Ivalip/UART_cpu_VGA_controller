@@ -3,8 +3,8 @@
 # SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Sun Sep 13 17:58:37 2026
-# Process ID         : 18408
+# Start of session at: Sun Sep 13 21:44:23 2026
+# Process ID         : 15584
 # Current directory  : C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/impl_1
 # Command line       : vivado.exe -log top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source top.tcl -notrace
 # Log file           : C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.runs/impl_1/top.vdi
@@ -19,6 +19,6 @@
 # Host memory        : 16847 MB
 # Swap memory        : 3355 MB
 # Total Virtual      : 20203 MB
-# Available Virtual  : 9759 MB
+# Available Virtual  : 7857 MB
 #-----------------------------------------------------------
 source top.tcl -notrace
