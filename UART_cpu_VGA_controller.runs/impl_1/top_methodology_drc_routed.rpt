@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Sun Sep 13 21:43:59 2026
+| Date         : Mon Sep 14 13:45:20 2026
 | Host         : Samsung-Galaxybook-4 running 64-bit major release  (build 9200)
 | Command      : report_methodology -file top_methodology_drc_routed.rpt -pb top_methodology_drc_routed.pb -rpx top_methodology_drc_routed.rpx
 | Design       : top
@@ -23,13 +23,16 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max checks: <unlimited>
-             Checks found: 157
-+-----------+------------------+-------------------------------+--------+
-| Rule      | Severity         | Description                   | Checks |
-+-----------+------------------+-------------------------------+--------+
-| TIMING-17 | Critical Warning | Non-clocked sequential cell   | 156    |
-| TIMING-18 | Warning          | Missing input or output delay | 1      |
-+-----------+------------------+-------------------------------+--------+
+             Checks found: 207
++-----------+------------------+--------------------------------+--------+
+| Rule      | Severity         | Description                    | Checks |
++-----------+------------------+--------------------------------+--------+
+| TIMING-17 | Critical Warning | Non-clocked sequential cell    | 168    |
+| LUTAR-1   | Warning          | LUT drives async reset alert   | 24     |
+| TIMING-18 | Warning          | Missing input or output delay  | 2      |
+| TIMING-20 | Warning          | Non-clocked latch              | 12     |
+| LATCH-1   | Advisory         | Existing latches in the design | 1      |
++-----------+------------------+--------------------------------+--------+
 
 2. REPORT DETAILS
 -----------------
@@ -630,192 +633,442 @@ Related violations: <none>
 
 TIMING-17#120 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/blue_reg_reg[0]/C is not reached by a timing clock
+The clock pin vga/blue_reg_reg[0]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#121 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/blue_reg_reg[1]/C is not reached by a timing clock
+The clock pin vga/blue_reg_reg[0]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#122 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/blue_reg_reg[2]/C is not reached by a timing clock
+The clock pin vga/blue_reg_reg[1]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#123 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/blue_reg_reg[3]/C is not reached by a timing clock
+The clock pin vga/blue_reg_reg[1]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#124 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/green_reg_reg[0]/C is not reached by a timing clock
+The clock pin vga/blue_reg_reg[2]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#125 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/green_reg_reg[1]/C is not reached by a timing clock
+The clock pin vga/blue_reg_reg[2]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#126 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/green_reg_reg[2]/C is not reached by a timing clock
+The clock pin vga/blue_reg_reg[3]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#127 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/green_reg_reg[3]/C is not reached by a timing clock
+The clock pin vga/blue_reg_reg[3]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#128 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/h_counter_reg[0]/C is not reached by a timing clock
+The clock pin vga/green_reg_reg[0]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#129 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/h_counter_reg[1]/C is not reached by a timing clock
+The clock pin vga/green_reg_reg[0]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#130 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/h_counter_reg[2]/C is not reached by a timing clock
+The clock pin vga/green_reg_reg[1]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#131 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/h_counter_reg[3]/C is not reached by a timing clock
+The clock pin vga/green_reg_reg[1]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#132 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/h_counter_reg[4]/C is not reached by a timing clock
+The clock pin vga/green_reg_reg[2]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#133 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/h_counter_reg[5]/C is not reached by a timing clock
+The clock pin vga/green_reg_reg[2]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#134 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/h_counter_reg[6]/C is not reached by a timing clock
+The clock pin vga/green_reg_reg[3]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#135 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/h_counter_reg[7]/C is not reached by a timing clock
+The clock pin vga/green_reg_reg[3]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#136 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/h_counter_reg[8]/C is not reached by a timing clock
+The clock pin vga/h_counter_reg[0]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#137 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/h_counter_reg[9]/C is not reached by a timing clock
+The clock pin vga/h_counter_reg[1]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#138 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/hsync_reg_reg/C is not reached by a timing clock
+The clock pin vga/h_counter_reg[2]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#139 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/line_done_reg/C is not reached by a timing clock
+The clock pin vga/h_counter_reg[3]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#140 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/red_reg_reg[0]/C is not reached by a timing clock
+The clock pin vga/h_counter_reg[4]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#141 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/red_reg_reg[1]/C is not reached by a timing clock
+The clock pin vga/h_counter_reg[5]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#142 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/red_reg_reg[2]/C is not reached by a timing clock
+The clock pin vga/h_counter_reg[6]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#143 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/red_reg_reg[3]/C is not reached by a timing clock
+The clock pin vga/h_counter_reg[7]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#144 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_counter_reg[0]/C is not reached by a timing clock
+The clock pin vga/h_counter_reg[8]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#145 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_counter_reg[1]/C is not reached by a timing clock
+The clock pin vga/h_counter_reg[9]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#146 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_counter_reg[2]/C is not reached by a timing clock
+The clock pin vga/hsync_reg_reg/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#147 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_counter_reg[3]/C is not reached by a timing clock
+The clock pin vga/line_done_reg/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#148 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_counter_reg[4]/C is not reached by a timing clock
+The clock pin vga/red_reg_reg[0]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#149 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_counter_reg[5]/C is not reached by a timing clock
+The clock pin vga/red_reg_reg[0]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#150 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_counter_reg[6]/C is not reached by a timing clock
+The clock pin vga/red_reg_reg[1]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#151 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_counter_reg[7]/C is not reached by a timing clock
+The clock pin vga/red_reg_reg[1]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#152 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_counter_reg[8]/C is not reached by a timing clock
+The clock pin vga/red_reg_reg[2]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#153 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_counter_reg[9]/C is not reached by a timing clock
+The clock pin vga/red_reg_reg[2]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#154 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_state_reg[0]/C is not reached by a timing clock
+The clock pin vga/red_reg_reg[3]_C/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#155 Critical Warning
 Non-clocked sequential cell  
-The clock pin vga/v_state_reg[1]/C is not reached by a timing clock
+The clock pin vga/red_reg_reg[3]_P/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#156 Critical Warning
 Non-clocked sequential cell  
+The clock pin vga/v_counter_reg[0]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#157 Critical Warning
+Non-clocked sequential cell  
+The clock pin vga/v_counter_reg[1]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#158 Critical Warning
+Non-clocked sequential cell  
+The clock pin vga/v_counter_reg[2]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#159 Critical Warning
+Non-clocked sequential cell  
+The clock pin vga/v_counter_reg[3]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#160 Critical Warning
+Non-clocked sequential cell  
+The clock pin vga/v_counter_reg[4]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#161 Critical Warning
+Non-clocked sequential cell  
+The clock pin vga/v_counter_reg[5]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#162 Critical Warning
+Non-clocked sequential cell  
+The clock pin vga/v_counter_reg[6]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#163 Critical Warning
+Non-clocked sequential cell  
+The clock pin vga/v_counter_reg[7]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#164 Critical Warning
+Non-clocked sequential cell  
+The clock pin vga/v_counter_reg[8]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#165 Critical Warning
+Non-clocked sequential cell  
+The clock pin vga/v_counter_reg[9]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#166 Critical Warning
+Non-clocked sequential cell  
+The clock pin vga/v_state_reg[0]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#167 Critical Warning
+Non-clocked sequential cell  
+The clock pin vga/v_state_reg[1]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#168 Critical Warning
+Non-clocked sequential cell  
 The clock pin vga/vsync_reg_reg/C is not reached by a timing clock
+Related violations: <none>
+
+LUTAR-1#1 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/blue_reg_reg[0]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/blue_reg_reg[0]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#2 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/blue_reg_reg[0]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/blue_reg_reg[0]_C/CLR, vga/blue_reg_reg[0]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#3 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/blue_reg_reg[1]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/blue_reg_reg[1]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#4 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/blue_reg_reg[1]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/blue_reg_reg[1]_C/CLR, vga/blue_reg_reg[1]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#5 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/blue_reg_reg[2]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/blue_reg_reg[2]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#6 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/blue_reg_reg[2]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/blue_reg_reg[2]_C/CLR, vga/blue_reg_reg[2]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#7 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/blue_reg_reg[3]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/blue_reg_reg[3]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#8 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/blue_reg_reg[3]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/blue_reg_reg[3]_C/CLR, vga/blue_reg_reg[3]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#9 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/green_reg_reg[0]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/green_reg_reg[0]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#10 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/green_reg_reg[0]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/green_reg_reg[0]_C/CLR, vga/green_reg_reg[0]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#11 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/green_reg_reg[1]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/green_reg_reg[1]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#12 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/green_reg_reg[1]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/green_reg_reg[1]_C/CLR, vga/green_reg_reg[1]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#13 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/green_reg_reg[2]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/green_reg_reg[2]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#14 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/green_reg_reg[2]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/green_reg_reg[2]_C/CLR, vga/green_reg_reg[2]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#15 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/green_reg_reg[3]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/green_reg_reg[3]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#16 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/green_reg_reg[3]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/green_reg_reg[3]_C/CLR, vga/green_reg_reg[3]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#17 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/red_reg_reg[0]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/red_reg_reg[0]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#18 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/red_reg_reg[0]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/red_reg_reg[0]_C/CLR, vga/red_reg_reg[0]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#19 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/red_reg_reg[1]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/red_reg_reg[1]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#20 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/red_reg_reg[1]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/red_reg_reg[1]_C/CLR, vga/red_reg_reg[1]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#21 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/red_reg_reg[2]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/red_reg_reg[2]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#22 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/red_reg_reg[2]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/red_reg_reg[2]_C/CLR, vga/red_reg_reg[2]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#23 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/red_reg_reg[3]_LDC_i_1, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/red_reg_reg[3]_P/PRE. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#24 Warning
+LUT drives async reset alert  
+LUT cell btn_c_filter/red_reg_reg[3]_LDC_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) vga/red_reg_reg[3]_C/CLR, vga/red_reg_reg[3]_LDC/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
 Related violations: <none>
 
 TIMING-18#1 Warning
 Missing input or output delay  
 An input delay is missing on RsRx relative to the rising and/or falling clock edge(s) of sys_clk_pin.
+Related violations: <none>
+
+TIMING-18#2 Warning
+Missing input or output delay  
+An input delay is missing on rst relative to the rising and/or falling clock edge(s) of sys_clk_pin.
+Related violations: <none>
+
+TIMING-20#1 Warning
+Non-clocked latch  
+The latch vga/blue_reg_reg[0]_LDC cannot be properly analyzed as its control pin vga/blue_reg_reg[0]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#2 Warning
+Non-clocked latch  
+The latch vga/blue_reg_reg[1]_LDC cannot be properly analyzed as its control pin vga/blue_reg_reg[1]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#3 Warning
+Non-clocked latch  
+The latch vga/blue_reg_reg[2]_LDC cannot be properly analyzed as its control pin vga/blue_reg_reg[2]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#4 Warning
+Non-clocked latch  
+The latch vga/blue_reg_reg[3]_LDC cannot be properly analyzed as its control pin vga/blue_reg_reg[3]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#5 Warning
+Non-clocked latch  
+The latch vga/green_reg_reg[0]_LDC cannot be properly analyzed as its control pin vga/green_reg_reg[0]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#6 Warning
+Non-clocked latch  
+The latch vga/green_reg_reg[1]_LDC cannot be properly analyzed as its control pin vga/green_reg_reg[1]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#7 Warning
+Non-clocked latch  
+The latch vga/green_reg_reg[2]_LDC cannot be properly analyzed as its control pin vga/green_reg_reg[2]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#8 Warning
+Non-clocked latch  
+The latch vga/green_reg_reg[3]_LDC cannot be properly analyzed as its control pin vga/green_reg_reg[3]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#9 Warning
+Non-clocked latch  
+The latch vga/red_reg_reg[0]_LDC cannot be properly analyzed as its control pin vga/red_reg_reg[0]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#10 Warning
+Non-clocked latch  
+The latch vga/red_reg_reg[1]_LDC cannot be properly analyzed as its control pin vga/red_reg_reg[1]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#11 Warning
+Non-clocked latch  
+The latch vga/red_reg_reg[2]_LDC cannot be properly analyzed as its control pin vga/red_reg_reg[2]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#12 Warning
+Non-clocked latch  
+The latch vga/red_reg_reg[3]_LDC cannot be properly analyzed as its control pin vga/red_reg_reg[3]_LDC/G is not reached by a timing clock
+Related violations: <none>
+
+LATCH-1#1 Advisory
+Existing latches in the design  
+There are 12 latches found in the design. Inferred latches are often the result of HDL coding mistakes, such as incomplete if or case statements.
 Related violations: <none>
 
 

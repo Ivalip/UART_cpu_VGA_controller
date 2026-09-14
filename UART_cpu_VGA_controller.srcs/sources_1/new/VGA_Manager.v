@@ -211,7 +211,7 @@ always @(posedge clk) begin
                     write_enable <= 1'd0;
                     y_char <= y_char + 1;                              
                     x_char <= 0;                                       
-                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH;
+                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH - 1'b1;
                 end else if (x_char == 0) begin
                     if(char_reg[y_char][0]) begin
                         write_enable <= 1'd1;
@@ -255,7 +255,7 @@ always @(posedge clk) begin
                     write_enable <= 1'd0;
                     y_char <= y_char + 1;                              
                     x_char <= 0;                                       
-                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH;
+                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH - 1'b1;
                 end else if (x_char == 0) begin
                     if(char_reg[y_char][0]) begin
                         write_enable <= 1'd1;
@@ -283,7 +283,7 @@ always @(posedge clk) begin
                     write_enable <= 1'd0;
                     y_char <= y_char + 1;                              
                     x_char <= 0;                                       
-                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH;
+                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH - 1'b1;
                 end else if (x_char == 0) begin
                     if(char_reg[y_char][0]) begin
                         write_enable <= 1'd1;

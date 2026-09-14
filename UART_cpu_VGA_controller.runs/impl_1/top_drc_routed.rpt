@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Sun Sep 13 21:43:56 2026
+| Date         : Mon Sep 14 13:45:15 2026
 | Host         : Samsung-Galaxybook-4 running 64-bit major release  (build 9200)
 | Command      : report_drc -file top_drc_routed.rpt -pb top_drc_routed.pb -rpx top_drc_routed.rpx
 | Design       : top
@@ -24,7 +24,7 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max checks: <unlimited>
-             Checks found: 9
+             Checks found: 21
 +----------+----------+-----------------------------------------------------+--------+
 | Rule     | Severity | Description                                         | Checks |
 +----------+----------+-----------------------------------------------------+--------+
@@ -32,6 +32,7 @@ Table of Contents
 | DPIP-1   | Warning  | Input pipelining                                    | 2      |
 | DPOP-1   | Warning  | PREG Output pipelining                              | 3      |
 | DPOP-2   | Warning  | MREG Output pipelining                              | 3      |
+| PDRC-153 | Warning  | Gated clock check                                   | 12     |
 +----------+----------+-----------------------------------------------------+--------+
 
 2. REPORT DETAILS
@@ -87,6 +88,66 @@ Related violations: <none>
 DPOP-2#3 Warning
 MREG Output pipelining  
 DSP VGA_manager/vram_address0__0 multiplier stage VGA_manager/vram_address0__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+PDRC-153#1 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_14 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[3]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[3]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#2 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_15 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[2]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[2]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#3 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_16 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[1]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[1]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#4 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_17 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[0]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[0]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#5 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_18 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[3]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[3]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#6 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_19 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[2]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[2]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#7 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_20 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[1]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[1]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#8 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_21 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[0]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[0]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#9 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_22 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[3]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[3]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#10 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_23 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[2]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[2]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#11 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_24 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[1]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[1]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#12 Warning
+Gated clock check  
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_25 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[0]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[0]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 

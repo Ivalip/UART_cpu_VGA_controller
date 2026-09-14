@@ -2,20 +2,20 @@
 
 module divider 
 #(
-    MOD = 4,
-    STEP = 1
+    parameter MOD = 4,
+    parameter STEP = 1
 )
 (
     input clk,
     output reg clk_out
 );
 
-localparam COUNTER_VALUE_SIZE = $clog2(MOD);
+localparam HALF_MOD = MOD / 2;
+localparam COUNTER_VALUE_SIZE = $clog2(MOD + 1);
 
 reg [COUNTER_VALUE_SIZE-1:0] counter_value;
 
-initial
-begin
+initial begin
     counter_value <= 0;
     clk_out <= 0;
 end
@@ -23,10 +23,11 @@ end
 always @(posedge clk)
     begin
         counter_value <= counter_value + STEP;
-        clk_out <= 0;
-        if (counter_value == MOD - 1)
-        begin
-            clk_out <= ~clk_out;
+        
+
+        // Переключаем сигнал clk_out каждые HALF_MOD тактов
+        if (counter_value == (HALF_MOD - 1)) begin
+            clk_out       <= ~clk_out;
             counter_value <= 0;
         end
     end

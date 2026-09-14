@@ -2,10 +2,10 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-// Date        : Wed Sep  9 13:57:41 2026
+// Date        : Wed Sep  9 13:57:40 2026
 // Host        : Samsung-Galaxybook-4 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub {c:/Users/Adskiy
-//               Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.gen/sources_1/ip/BRAM_mem_gen_12x307200/BRAM_mem_gen_12x307200_stub.v}
+// Command     : write_verilog -force -mode synth_stub -rename_top BRAM_mem_gen_12x307200 -prefix
+//               BRAM_mem_gen_12x307200_ BRAM_mem_gen_12x307200_stub.v
 // Design      : BRAM_mem_gen_12x307200
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a100tcsg324-1

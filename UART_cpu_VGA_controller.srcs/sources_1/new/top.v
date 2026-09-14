@@ -8,7 +8,8 @@ module top #
     localparam LED_DELITEL = 8192
 ) (
     input  clk,             
-    input  RsRx,            
+    input  RsRx,
+    input  rst,            
     output [7:0] AN,        
     output [6:0] SEG,       
     
@@ -37,7 +38,7 @@ wire end_command, CPU_ready, command_ready;
 // CPU connections
 wire [BUS_WIDTH - 1 :0] CPU_command;
 
-wire VGA_ready;
+wire VGA_ready, reset;
 
 wire cpu_cmd_ready, cpu_char_rdy, write_char_en;
 wire [2:0] cpu_to_vga_command;
@@ -51,6 +52,14 @@ wire [9:0]  x1_coord,
             y2_coord,
             x3_coord,
             y3_coord;
+
+btn_filter btn_c_filter (
+    .CLK(clk),
+    .CLOCK_ENABLE(1'b1),
+    .IN_SIGNAL(rst),
+    .OUT_SIGNAL(),
+    .OUT_SIGNAL_ENABLE(reset)
+);
 
 UART_Input_Manager #(
     .CLOCK_RATE (CLOCK_RATE),
@@ -171,8 +180,8 @@ BRAM_mem_gen_12x307200 VGA_MEM
 );
 
 VGA_Manager VGA_manager (
-    .clk                (clk                ),
-    .reset              (reset              ),
+    .clk                (clk  ),
+    .reset              (reset),
 
     .cpu_cmd_ready   (cpu_cmd_ready),
     .cpu_command     (cpu_to_vga_command),
@@ -185,8 +194,8 @@ VGA_Manager VGA_manager (
     .sys_char        (sys_char),
 
     .color           (CPU_to_VGA_color),
-    .sys_string_len  (sys_string_len),
-    .user_string_len (user_string_len),
+    .sys_string_len  (sys_string_len  ),
+    .user_string_len (user_string_len ),
     .x1_coord        (x1_coord),
     .y1_coord        (y1_coord),
     .x2_coord        (x2_coord),

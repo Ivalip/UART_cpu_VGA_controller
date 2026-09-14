@@ -56,8 +56,10 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param tcl.statsThreshold 360
 set_param chipscope.maxJobs 3
 set_param general.usePosixSpawnForFork 1
+set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tcsg324-1
 
@@ -88,6 +90,7 @@ read_verilog -library xil_defaultlib {
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/UART_RX.v}
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA.v}
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v}
+  {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/btn_filter.v}
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v}
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/divider.v}
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/top.v}
@@ -107,6 +110,8 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 read_xdc {{C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/constrs_1/new/constraints.xdc}}
 set_property used_in_implementation false [get_files {{C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/constrs_1/new/constraints.xdc}}]
 
+read_xdc dont_touch.xdc
+set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 
 read_checkpoint -auto_incremental -incremental {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/utils_1/imports/synth_1/top.dcp}

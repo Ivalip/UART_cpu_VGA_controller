@@ -5,6 +5,7 @@ set_property PACKAGE_PIN C4 [get_ports {RsRx}]
 set_property IOSTANDARD LVCMOS33 [get_ports {RsRx}]
 #set_property PACKAGE_PIN D4 [get_ports {RsTx}]
 #set_property IOSTANDARD LVCMOS33 [get_ports {RsTx}]
+set_property -dict { PACKAGE_PIN C12   IOSTANDARD LVCMOS33 } [get_ports { rst }]; #IO_L9P_T1_DQS_14 Sch=btnc
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN J17 } [ get_ports {AN[0]}] 
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN J18 } [ get_ports {AN[1]}] 
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN T9 } [ get_ports {AN[2]}] 
