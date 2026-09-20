@@ -119,6 +119,8 @@ always @(posedge clk or posedge rst_n) begin
                     ASCI:    cmd_code <= 5'd1;
                     TRIG:    cmd_code <= 5'd2;
                     
+                    DRAW:    cmd_code <= 5'd6;
+                    
                     USLN:    cmd_code <= 5'd8;
                     UCHR:    cmd_code <= 5'd9;
                     
@@ -142,7 +144,7 @@ always @(posedge clk or posedge rst_n) begin
                 case (command[33:10])
                     CLRR, CLRG, CLRB: begin
                         if (command[9:0] > 15) begin
-                            cmd_code <= 5'd15;
+                            cmd_code <= 5'd19;
                             literal  <= 10'd2;
                         end else begin
                             literal  <= command[9:0];
@@ -150,7 +152,7 @@ always @(posedge clk or posedge rst_n) begin
                     end
                     USLN: begin
                         if (command[9:0] > 30) begin
-                            cmd_code <= 5'd15;
+                            cmd_code <= 5'd19;
                             literal  <= 10'd2;
                         end else begin
                             literal  <= command[9:0];
@@ -159,7 +161,7 @@ always @(posedge clk or posedge rst_n) begin
 
                     CRX1, CRX2, CRX3: begin
                         if (command[9:0] > 639) begin
-                            cmd_code <= 5'd15;
+                            cmd_code <= 5'd19;
                             literal  <= 10'd3; 
                         end else begin
                             literal  <= command[9:0];
@@ -168,7 +170,7 @@ always @(posedge clk or posedge rst_n) begin
                     
                     CRY1, CRY2, CRY3: begin
                         if (command[9:0] > 479) begin
-                            cmd_code <= 5'd15;
+                            cmd_code <= 5'd19;
                             literal  <= 10'd4;
                         end else begin
                             literal  <= command[9:0];
@@ -177,7 +179,7 @@ always @(posedge clk or posedge rst_n) begin
                     
                     PIXL, ASCI, TRIG, ENDL: begin
                         if (command[9:0] != 0) begin 
-                            cmd_code <= 5'd15;
+                            cmd_code <= 5'd19;
                             literal  <= 10'd1;
                         end else begin
                             literal  <= command[9:0];
@@ -189,12 +191,12 @@ always @(posedge clk or posedge rst_n) begin
                     end
 
                     EROR: begin
-                        cmd_code <= 5'd15;
+                        cmd_code <= 5'd19;
                         literal  <= command[9:0];
                     end
 
                     default: begin
-                        cmd_code <= 5'd15;
+                        cmd_code <= 5'd19;
                         literal  <= 10'd1;
                     end
                 endcase

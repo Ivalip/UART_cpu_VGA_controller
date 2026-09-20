@@ -7,6 +7,9 @@ module tb_cpu_manager;
 localparam CMD_COUNT = 22, LIT_SIZE = 10, CMD_SIZE  = $clog2(CMD_COUNT);
 localparam BUS_WIDTH = CMD_SIZE + LIT_SIZE;
 
+integer matrix_file;
+reg drawing_active;
+
 reg clk;
 reg reset;
 reg extern_command_ready;
@@ -23,6 +26,10 @@ wire [9:0] x1_coord, y1_coord, x2_coord, y2_coord, x3_coord, y3_coord;
 wire [18:0] vram_address;
 wire [11:0] current_color;
 wire [11:0] cpu_color;
+wire [4:0] cpu_cmd_cop;
+wire [9:0] cpu_cmd_literal;
+assign cpu_cmd_cop = VGA_cpu.cop;
+assign cpu_cmd_literal = VGA_cpu.literal;
 
 localparam PIXL = 5'd0,  ASCI = 5'd1,  TRIG = 5'd2,
            CSLN = 5'd3,  CCHR = 5'd4,  CSTR = 5'd5,
@@ -93,45 +100,101 @@ initial begin
     forever #5 clk = ~clk;
 end
 
-// Основной конвейер симуляции
 initial begin
-    reset = 1;
+    matrix_file = $fopen("symbol_matrix_dump.txt", "w");
+    if (matrix_file == 0) begin
+        $finish;
+    end
     extern_command_ready = 0;
     extern_command = 0;
     usr_symb = 0;
     usr_symb_rdy = 0;
-    @(posedge clk);
     reset = 0;
+    @(posedge clk);
+    do_reset();
     testsuite();
     $stop;
+    $fclose(matrix_file);
+end
+
+always @(posedge clk) begin
+    if (drawing_active) begin
+        if (write_enable) begin
+            $fwrite(matrix_file, "1");
+        end else begin
+            $fwrite(matrix_file, "0");
+        end
+    end
+end
+
+always @(*) begin
+    drawing_active = (monitor_manager.state == monitor_manager.DRAW_CPU_STRING_SYMBOL ||
+                      monitor_manager.state == monitor_manager.DRAW_USER_STRING_SYMBOL||
+                      monitor_manager.state == monitor_manager.DRAW_SYMBOL);
+end
+
+reg prev_drawing_active;
+reg [3:0] prev_x_char;
+
+always @(posedge clk) begin
+    if (reset) begin
+        prev_drawing_active <= 1'b0;
+        prev_x_char         <= 4'd0;
+    end else begin
+        prev_drawing_active <= drawing_active;
+        prev_x_char         <= monitor_manager.x_char;
+        if (drawing_active) begin
+            if (monitor_manager.x_char < 9) begin
+                if (monitor_manager.x_char != prev_x_char || (monitor_manager.x_char == 0 && !prev_drawing_active)) begin
+                    if (write_enable) begin
+                        $fwrite(matrix_file, "1");
+                    end else begin
+                        $fwrite(matrix_file, "0");
+                    end
+                end
+            end
+            if (monitor_manager.x_char == 9 && prev_x_char != 9) begin
+                $fwrite(matrix_file, "\n");
+            end
+        end
+        if (prev_drawing_active && !drawing_active) begin
+            $fwrite(matrix_file, "\n-------------------\n\n"); 
+        end
+    end
 end
 
 task task_send_uart_char;
     input [5:0] char_code;
     begin
-        usr_symb = char_code;
-        usr_symb_rdy = 1'b1;
+        $display("Send %h symbol %d", char_code, $time);
+        usr_symb     <= char_code;
+        usr_symb_rdy <= 1'b1;
         @(posedge clk);
-        usr_symb = 0;
-        usr_symb_rdy = 1'b0;
+        // #0.1;
+        usr_symb     <= 6'd0;
+        usr_symb_rdy <= 1'b0;
     end
 endtask
+
 
 task task_send_extern_cmd;
     input [4:0] cop_code;
     input [9:0] lit_value;
     begin
         wait(CPU_ready);
-        extern_command = {cop_code, lit_value};
-        extern_command_ready = 1'b1; 
+        wait(!VGA_busy);
         @(posedge clk);
-        extern_command_ready = 1'b0;
-        extern_command = 0;
+        $display("Extern_command time %d", $time);
+        extern_command <= {cop_code, lit_value};
+        extern_command_ready <= 1'b1;
+        @(posedge clk);
+        extern_command_ready <= 1'b0;
+        extern_command <= 0;
     end
 endtask
 
-// Комплексный таск имитации посимвольного ввода целой команды по цепочке Handler
 task send_command;
+    input [3:0] chars;
     input [41:0] user_symbols; 
     input [4:0]  cop_code;     
     input [9:0]  lit_value;    
@@ -140,92 +203,72 @@ task send_command;
         if (!CPU_ready) begin
             wait(CPU_ready);
         end
-        
-        for (char_idx = 6; char_idx >= 0; char_idx = char_idx - 1) begin
-            if (user_symbols[char_idx*6 +: 6] != 6'd0) begin
-                task_send_uart_char(user_symbols[char_idx*6 +: 6]);
-                @(posedge clk);
-            end
+        for (char_idx = chars; char_idx >= 0; char_idx = char_idx - 1) begin
+            task_send_uart_char(user_symbols[char_idx*6 +: 6]);
+            repeat (2) @(posedge clk);
+            wait(!VGA_busy);
         end
-        
         task_send_extern_cmd(cop_code, lit_value);
+        repeat (3) @(posedge clk);
     end
 endtask
 
-// =========================================================================
-// КОМПЛЕКСНЫЙ НАБОР ТЕСТОВЫХ ЦЕПОЧЕК (ИЗОЛИРОВАННЫЙ ТЕСТ CPU + VGA)
-// =========================================================================
+task do_reset;
+    begin
+        reset <= 1;
+        @(posedge clk);
+        reset <= 0;
+        @(posedge clk);
+        wait(monitor_manager.state == monitor_manager.WAIT_COMMAND);
+    end
+endtask
+
+task send_PIXL_cmd;
+    begin
+        wait(CPU_ready == 1'b1);
+        send_command(3, {P,I,X,L}, PIXL, 10'd0);
+        send_command(2, {6'd0, 6'd0, 6'd8}, CLRG, 10'd8);
+        send_command(2, {6'd0,6'd0,6'd3}, CLRR, 10'd3);
+        send_command(2, {6'd0,6'd0,6'd2}, CLRB, 10'd2);
+        send_command(2, {6'd0,6'd0,6'd2}, CRX1, 10'd2);
+        send_command(2, {6'd0,6'd0,6'd2}, CRY1, 10'd2);
+        wait(VGA_cpu.pc == 284);
+        send_command(3, {D,R,A,W}, DRAW, 10'd0);
+        wait(monitor_manager.state == monitor_manager.END_EXEC);
+    end
+endtask
+
+task send_ASCI_cmd;
+    begin
+        wait(CPU_ready == 1'b1);
+        send_command(3, {A,S,C,I}, ASCI, 10'd0);
+        send_command(2, {6'd0, 6'd0, 6'd8}, CLRG, 10'd8);
+        send_command(2, {6'd0,6'd0,6'd3}, CLRR, 10'd3);
+        send_command(2, {6'd0,6'd0,6'd2}, CLRB, 10'd2);
+        send_command(2, {6'd0,6'd0,6'd2}, CRX1, 10'd2);
+        send_command(2, {6'd0,6'd0,6'd2}, CRY1, 10'd2);
+        send_command(2, {6'd0,6'd0,6'd6}, USLN, 10'd6);
+        send_command(0, {P}, UCHR, 10'd25);
+        send_command(0, {R}, UCHR, 10'd27);
+        send_command(0, {I}, UCHR, 10'd18);
+        send_command(0, {V}, UCHR, 10'd31);
+        send_command(0, {E}, UCHR, 10'd14);
+        send_command(0, {T}, UCHR, 10'd29);
+        send_command(3, {E, N, D, L}, ENDL, 10'd0);
+        wait(VGA_cpu.pc == 284);
+        send_command(3, {D,R,A,W}, DRAW, 10'd0);
+        wait(monitor_manager.state == monitor_manager.END_EXEC);
+    end
+endtask
+
 task testsuite;
     begin
-        // Шаг 0: Ждем, пока CPU выполнит стартовую инициализацию из ROM и встанет на WAIT
-        wait(CPU_ready == 1'b1);
-        
-        task_send_extern_cmd(CLRR, 10'd15);
-        task_send_extern_cmd(CLRG, 10'd10);
-        task_send_extern_cmd(CLRB, 10'd0);
-        
-        task_send_extern_cmd(CRX1, 10'd320);
-        task_send_extern_cmd(CRY1, 10'd240);
-        
-        task_send_extern_cmd(PIXL, 10'd0);
-        
-        task_send_extern_cmd(ENDL, 10'd0);
-        
-        // Даем время видеокарте зафиксировать точку во VRAM
+        do_reset();
+        send_PIXL_cmd();
+        do_reset();
+        send_ASCI_cmd();
         #100;
-        
-        // -----------------------------------------------------------------
-        // ЦЕПОЧКА 2: Полное формирование параметров для СТРОКИ ТЕКСТА (ASCI)
-        // -----------------------------------------------------------------
-        $display("[TB_INFO] Запуск Цепочки 2 (Посимвольное ОЗУ накопление и ASCI).");
-        wait(CPU_ready == 1'b1);
-        
-        // 1. Меняем цвет каретки на чистый синий (R=0, G=0, B=15)
-        task_send_extern_cmd(CLRR, 10'd0);
-        task_send_extern_cmd(CLRG, 10'd0);
-        task_send_extern_cmd(CLRB, 10'd15);
-        
-        // 2. Ставим новые координаты начала текста на экране (X1=50, Y1=100)
-        task_send_extern_cmd(CRX1, 10'd50);
-        task_send_extern_cmd(CRY1, 10'd100);
-        
-        // 3. Задаем длину пользовательской строки = 5 символов
-        task_send_extern_cmd(USLN, 10'd5);
-        
-        // 4. Посимвольно скармливаем буквы слова "HELLO" через команду UCHR.
-        // Процессор будет на шаге 1 взводить write_char_en, а VGA_Manager - копить их в usr_string_reg
-        $display("[TB_ACTION] Потоковая отправка символов слова 'HELLO' через UCHR.");
-        task_send_extern_cmd(UCHR, {4'd0, H}); // Буква H (ID 17)
-        task_send_extern_cmd(UCHR, {4'd0, E}); // Буква E (ID 14)
-        task_send_extern_cmd(UCHR, {4'd0, L}); // Буква L (ID 21)
-        task_send_extern_cmd(UCHR, {4'd0, L}); // Буква L (ID 21)
-        task_send_extern_cmd(UCHR, {4'd0, O}); // Буква O (ID 24)
-        
-        // 5. Шлем процессору команду ASCI, чтобы запустить массивный вывод накопленной строки
-        $display("[TB_ACTION] Вызов команды ASCI для отрисовки всей строки.");
-        task_send_extern_cmd(ASCI, 10'd0);
-        
-        // 6. Завершаем строку переводом каретки
-        task_send_extern_cmd(ENDL, 10'd0);
-        
-        // Ждем, пока VGA_Manager полностью снимет флаг VGA_busy после отрисовки 5 букв
-        wait(VGA_busy == 1'b0);
-        $display("[TB_SUCCESS] Цепочка ASCI успешно обработана связкой CPU и VGA.");
-        #100;
-
-        // -----------------------------------------------------------------
-        // ЦЕПОЧКА 3: Тестирование аппаратных прерываний (Имитация сбоя EROR)
-        // -----------------------------------------------------------------
-        $display("[TB_INFO] Запуск Цепочки 3 (Симуляция ошибки диапазона EROR).");
-        wait(CPU_ready == 1'b1);
-        
-        // Напрямую шлем процессору команду ошибки EROR с литералом 2 (ошибка формата/значения)
-        // Процессор должен перехватить её на шаге выборки и перебросить pc на адрес 248
-        $display("[TB_ACTION] Ввод аварийного пакета EROR 2.");
-        task_send_extern_cmd(EROR, 10'd2);
-        
-        #50;
-        $display("[TB_SUCCESS] Тестсьют полностью выполнен. Взаимодействие CPU и VGA верифицировано.");
+        $finish;
     end
 endtask
 

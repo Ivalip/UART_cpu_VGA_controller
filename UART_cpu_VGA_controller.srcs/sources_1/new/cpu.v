@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+`include "global_defines.vh"
 
 module cpu #(
     parameter CMD_COUNT = 22,
@@ -38,7 +39,9 @@ reg [3:0] vgaRed  ;
 reg [3:0] vgaGreen;
 reg [3:0] vgaBlue ;
 
-assign color = {vgaRed, vgaGreen, vgaBlue};
+assign color[11:8] = vgaRed  ;
+assign color[7:4] =  vgaGreen;
+assign color[3:0] =  vgaBlue ;
 
 localparam CMD_MEM_SIZE      = 511;
 localparam ADDR_CMD_MEM_SIZE = $clog2(CMD_MEM_SIZE);
@@ -150,7 +153,6 @@ always @(posedge clk) begin
     end else begin
         if (stage_counter == 0) begin
             if (cop == WAIT) begin
-                CPU_ready <= 1;
                 if (extern_command_ready) begin
                     cmd <= extern_command;
                     CPU_ready <= 0;
@@ -226,8 +228,7 @@ always @(posedge clk) begin
             if ((vga_command == 1 && pc == 133) ||
                 (vga_command == 2 && pc == 168)||
                 (vga_command == 3 && pc == 248)) begin
-                    cmd <= WAIT;
-                    pc <= (CMD_MEM_SIZE - 1);
+                    pc <= 283;
             end else if (vga_command == 3 && pc == 133) begin
                 pc <= 168;
             end else begin
@@ -249,6 +250,7 @@ always @(posedge clk) begin
                     CLRR, CLRG, CLRB: begin
                         pc <= pc + 1;
                     end
+                    WAIT: CPU_ready <= 1;
                 endcase
                 stage_counter <= 0;
             end

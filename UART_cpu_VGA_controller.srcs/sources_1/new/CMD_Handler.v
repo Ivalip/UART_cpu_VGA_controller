@@ -48,8 +48,9 @@ localparam ST_IDLE            = 0  ,
            INPUT_Y3_COORD     = 18 ,
            INPUT_STRING_LEN   = 19 ,
            INPUT_STRING       = 20 ,
-           WAIT_CPU_EXECUTION = 21 ,
-           ST_RESET           = 22 ;
+           INPUT_DRAW_CMD     = 21 ,
+           WAIT_CPU_EXECUTION = 22 ,
+           ST_RESET           = 23 ;
 
 reg [$clog2(STATES) - 1 : 0] state;
 
@@ -73,7 +74,8 @@ localparam PIXL = 24'b011001_010010_100001_010101, // P(25) I(18) X(33) L(21)
            ENDL = 24'b001110_010111_010100_010101, // E(14) N(23) D(13) L(21)
            EROR = 24'b001110_011011_011000_011011, // E(14) R(27) O(24) R(27)
            USLN = 24'b011110_011100_010101_010111, // U(30) S(28) L(21) N(23)
-           UCHR = 24'b011110_001100_010001_011011; // U(30) C(12) H(17) R(27)
+           UCHR = 24'b011110_001100_010001_011011, // U(30) C(12) H(17) R(27)
+           DRAW = 24'b010100_011011_001010_100000; // D(13) R(27) A(10) W(32)
 
 CMD_Translator #(
 	.DIGIT_RANK (DIGIT_RANK),
@@ -271,6 +273,7 @@ always @(posedge clk or posedge rst_n) begin
                     button_pending <= 1'b0;
                 end
                 if (end_command_pending && !Translator_busy) begin
+                    end_command_pending <= 1'b0;
                     RES_CMD <= { CLRG, RES_CMD[17:0] }; 
                     state   <= INPUT_RED_CLR;
                 end
@@ -282,6 +285,7 @@ always @(posedge clk or posedge rst_n) begin
                     button_pending <= 1'b0;
                 end
                 if (end_command_pending && !Translator_busy) begin
+                    end_command_pending <= 1'b0;
                     RES_CMD <= { CLRR, RES_CMD[17:0] }; 
                     state   <= INPUT_BLUE_CLR;
                 end
@@ -293,6 +297,7 @@ always @(posedge clk or posedge rst_n) begin
                     button_pending <= 1'b0;
                 end
                 if (end_command_pending && !Translator_busy) begin
+                    end_command_pending <= 1'b0;
                     RES_CMD <= { CLRB, RES_CMD[17:0] }; 
                     state   <= INPUT_X1_COORD;
                 end
@@ -304,6 +309,7 @@ always @(posedge clk or posedge rst_n) begin
                     button_pending <= 1'b0;
                 end
                 if (end_command_pending && !Translator_busy) begin
+                    end_command_pending <= 1'b0;
                     RES_CMD <= { CRX1, RES_CMD[17:0] }; 
                     state   <= INPUT_Y1_COORD;
                 end
@@ -315,10 +321,11 @@ always @(posedge clk or posedge rst_n) begin
                     button_pending <= 1'b0;
                 end
                 if (end_command_pending && !Translator_busy) begin
+                    end_command_pending <= 1'b0;
                     RES_CMD <= { CRY1, RES_CMD[17:0] };
                     case (cmd_code)
                         1: begin
-                            state <= WAIT_CPU_EXECUTION;
+                            state <= INPUT_DRAW_CMD;
                         end
                         2: begin
                             state <= INPUT_STRING_LEN;
@@ -370,7 +377,7 @@ always @(posedge clk or posedge rst_n) begin
                 end
                 if (end_command_pending && !Translator_busy) begin
                     RES_CMD <= { CRY3, RES_CMD[17:0] }; 
-                    state   <= WAIT_CPU_EXECUTION;
+                    state   <= INPUT_DRAW_CMD;
                 end
             end
 
@@ -381,6 +388,7 @@ always @(posedge clk or posedge rst_n) begin
                 end
 
                 if (end_command_pending && !Translator_busy) begin
+                    end_command_pending <= 1'b0;
                     RES_CMD <= { USLN, RES_CMD[17:0] };
                     state <= INPUT_STRING;
                 end
@@ -391,20 +399,27 @@ always @(posedge clk or posedge rst_n) begin
                     RES_CMD <= { UCHR, {12{1'b0}}, symbol };
                     button_pending <= 1'b0;
                 end
-
                 if (end_command_pending && !Translator_busy) begin
+                    end_command_pending <= 1'b0;
                     RES_CMD <= { ENDL, {18{1'b0}} };
-                    state <= WAIT_CPU_EXECUTION;
+                    state <= INPUT_DRAW_CMD;
                 end
             end
 
+            INPUT_DRAW_CMD: begin
+                if (end_command_pending && !Translator_busy) begin
+                    end_command_pending <= 1'b0;
+                    RES_CMD <= { DRAW, 18'd0 };
+                    state <= WAIT_CPU_EXECUTION;
+                end
+            end
             WAIT_CPU_EXECUTION: begin
                 if (!Translator_busy) begin
                     state <= ST_RESET;
                 end
             end
-
-            ST_RESET: begin
+ST_RESET
+            : begin
                 end_command_pending <= 0;
                 RES_CMD <= 0;
                 state <= ST_IDLE;

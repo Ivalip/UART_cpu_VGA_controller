@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_handler_translator_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_handler_translator" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="944.400 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,210.001 ns"></ZoomEndTime>
+      <Cursor1Time time="1,061.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="213"></NameColumnWidth>
+      <ValueColumnWidth column_width="325"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="23" />
+   <wvobject fp_name="/tb_handler_translator/uut/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/rst_n" type="logic">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/symbol" type="array">
+      <obj_property name="ElementShortName">symbol[5:0]</obj_property>
+      <obj_property name="ObjectShortName">symbol[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/symb_ready" type="logic">
+      <obj_property name="ElementShortName">symb_ready</obj_property>
+      <obj_property name="ObjectShortName">symb_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/CPU_ready" type="logic">
+      <obj_property name="ElementShortName">CPU_ready</obj_property>
+      <obj_property name="ObjectShortName">CPU_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/end_command" type="logic">
+      <obj_property name="ElementShortName">end_command</obj_property>
+      <obj_property name="ObjectShortName">end_command</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/cpu_command" type="array">
+      <obj_property name="ElementShortName">cpu_command[14:0]</obj_property>
+      <obj_property name="ObjectShortName">cpu_command[14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/RES_CMD" type="array">
+      <obj_property name="ElementShortName">RES_CMD[41:0]</obj_property>
+      <obj_property name="ObjectShortName">RES_CMD[41:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/Translator_busy" type="logic">
+      <obj_property name="ElementShortName">Translator_busy</obj_property>
+      <obj_property name="ObjectShortName">Translator_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/button_pending" type="logic">
+      <obj_property name="ElementShortName">button_pending</obj_property>
+      <obj_property name="ObjectShortName">button_pending</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/end_command_pending" type="logic">
+      <obj_property name="ElementShortName">end_command_pending</obj_property>
+      <obj_property name="ObjectShortName">end_command_pending</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/start_tx_pulse" type="logic">
+      <obj_property name="ElementShortName">start_tx_pulse</obj_property>
+      <obj_property name="ObjectShortName">start_tx_pulse</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/cmd_code" type="array">
+      <obj_property name="ElementShortName">cmd_code[1:0]</obj_property>
+      <obj_property name="ObjectShortName">cmd_code[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/state" type="array">
+      <obj_property name="ElementShortName">state[4:0]</obj_property>
+      <obj_property name="ObjectShortName">state[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider759">
+      <obj_property name="label">Translator</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/translator/UART_command" type="array">
+      <obj_property name="ElementShortName">UART_command[41:0]</obj_property>
+      <obj_property name="ObjectShortName">UART_command[41:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/translator/command_ready" type="logic">
+      <obj_property name="ElementShortName">command_ready</obj_property>
+      <obj_property name="ObjectShortName">command_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/translator/Translator_busy" type="logic">
+      <obj_property name="ElementShortName">Translator_busy</obj_property>
+      <obj_property name="ObjectShortName">Translator_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/translator/command" type="array">
+      <obj_property name="ElementShortName">command[41:0]</obj_property>
+      <obj_property name="ObjectShortName">command[41:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/translator/cmd_code" type="array">
+      <obj_property name="ElementShortName">cmd_code[4:0]</obj_property>
+      <obj_property name="ObjectShortName">cmd_code[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/translator/literal" type="array">
+      <obj_property name="ElementShortName">literal[9:0]</obj_property>
+      <obj_property name="ObjectShortName">literal[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/translator/state_r" type="array">
+      <obj_property name="ElementShortName">state_r[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state_r[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_handler_translator/uut/translator/j" type="array">
+      <obj_property name="ElementShortName">j[1:0]</obj_property>
+      <obj_property name="ObjectShortName">j[1:0]</obj_property>
+   </wvobject>
+</wave_config>

@@ -8,8 +8,8 @@ module top #
     localparam LED_DELITEL = 8192
 ) (
     input  clk,             
-    input  RsRx,
-    input  rst,            
+    input  RsRx,            
+    input  rst,             
     output [7:0] AN,        
     output [6:0] SEG,       
     

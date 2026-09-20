@@ -1,13 +1,5 @@
 `timescale 1ns / 1ps
-
-`define CHAR_WIDTH  9
-`define CHAR_HEIGHT 12
-
-`define ALPHABET_SIZE   37
-
-`define KERNING         1
-`define MAX_STRING_SIZE 30
-
+`include "global_defines.vh"
 module VGA_Manager (
     input  clk   ,
     input  reset ,
@@ -85,9 +77,9 @@ localparam WAIT_COMMAND             = 4'd0,
 reg [STATE_SIZE-1:0] state;
 
 initial begin
-    current_color <= 12'hFFF;
+    current_color <= 12'h000;
     state <= WAIT_COMMAND;
-    VGA_busy <= 1'd0;
+    VGA_busy <= 1'd1;
     write_enable <= 1'd0;
     $readmemb("alphabet.mem", alphabet);
     for (i = 0; i < `MAX_STRING_SIZE; i = i + 1) begin
@@ -98,13 +90,22 @@ initial begin
 		char_reg[j] <= 0;
     i <= 0;
 	j <= 0;
+    y_coord <= 0;
+    x_coord <= 0;
+    x_char <= 0;
+    y_char <= 0;
+    char_counter <= 0;
+    vram_address <= 0;
+    user_command <= 0;
 end
 
 always @(posedge clk) begin
     if (reset) begin
-        current_color <= 12'hFFF;
-        VGA_busy <= 1'd0;
+        current_color <= 12'h000;
+        state <= RESET_FRAME;
+        VGA_busy <= 1'd1;
         write_enable <= 1'd0;
+        $readmemb("alphabet.mem", alphabet);
         for (i = 0; i < `MAX_STRING_SIZE; i = i + 1) begin
             usr_string_reg[i] <= 0;
             sys_string_reg[i] <= 0;
@@ -113,6 +114,13 @@ always @(posedge clk) begin
             char_reg[j] <= 0;
         i <= 0;
         j <= 0;
+        y_coord <= 0;
+        x_coord <= 0;
+        x_char <= 0;
+        y_char <= 0;
+        char_counter <= 0;
+        vram_address <= 0;
+        user_command <= 0;
     end else begin
         case (state)
             WAIT_COMMAND: begin
@@ -139,7 +147,15 @@ always @(posedge clk) begin
                         3'd3: begin // TRIG
                             user_command <= 3;
                         end
-                        3'd4: begin // CPU ASCI (CSTR) (только после заполнения строки идет отрисовка)
+                        3'd4: begin // CPU ASCI (CSTR)
+                            char_counter <= 0;
+                            if (y_coord < y1_coord) begin
+                                vram_address <= y1_coord * WIDTH + x1_coord;
+                                y_coord <= y1_coord;
+                                x_coord <= x1_coord;
+                            end else begin
+                                vram_address <= y_coord * WIDTH + x_coord;
+                            end
                             state <= DRAW_CPU_STRING;
                         end
                         3'd5: begin // endline
@@ -163,6 +179,11 @@ always @(posedge clk) begin
                 end else begin
                     write_enable <= 0;
                     case (user_command)
+                        2'd0: begin
+                            vram_address <= y1_coord * WIDTH + x1_coord;
+                            current_color <= 12'hFFF;
+                            state <= END_EXEC;
+                        end
                         2'd1: begin
                             vram_address <= y1_coord * WIDTH + x1_coord;
                             current_color <= color;
@@ -211,7 +232,7 @@ always @(posedge clk) begin
                     write_enable <= 1'd0;
                     y_char <= y_char + 1;                              
                     x_char <= 0;                                       
-                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH - 1'b1;
+                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH + 1;
                 end else if (x_char == 0) begin
                     if(char_reg[y_char][0]) begin
                         write_enable <= 1'd1;
@@ -255,7 +276,7 @@ always @(posedge clk) begin
                     write_enable <= 1'd0;
                     y_char <= y_char + 1;                              
                     x_char <= 0;                                       
-                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH - 1'b1;
+                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH + 1;
                 end else if (x_char == 0) begin
                     if(char_reg[y_char][0]) begin
                         write_enable <= 1'd1;
@@ -283,7 +304,7 @@ always @(posedge clk) begin
                     write_enable <= 1'd0;
                     y_char <= y_char + 1;                              
                     x_char <= 0;                                       
-                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH - 1'b1;
+                    vram_address <= vram_address + WIDTH - `CHAR_WIDTH + 1;
                 end else if (x_char == 0) begin
                     if(char_reg[y_char][0]) begin
                         write_enable <= 1'd1;
