@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_top_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_top" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="3,287,211.500 ns"></ZoomStartTime>
+      <ZoomEndTime time="3,287,913.001 ns"></ZoomEndTime>
+      <Cursor1Time time="3,287,405.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="213"></NameColumnWidth>
+      <ValueColumnWidth column_width="250"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="122" />
+   <wvobject fp_name="/tb_top/uart_input_manager/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider110">
+      <obj_property name="label">CPU</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/extern_command_ready" type="logic">
+      <obj_property name="ElementShortName">extern_command_ready</obj_property>
+      <obj_property name="ObjectShortName">extern_command_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/extern_command" type="array">
+      <obj_property name="ElementShortName">extern_command[14:0]</obj_property>
+      <obj_property name="ObjectShortName">extern_command[14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/CPU_ready" type="logic">
+      <obj_property name="ElementShortName">CPU_ready</obj_property>
+      <obj_property name="ObjectShortName">CPU_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/VGA_ready" type="logic">
+      <obj_property name="ElementShortName">VGA_ready</obj_property>
+      <obj_property name="ObjectShortName">VGA_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/stage_counter" type="array">
+      <obj_property name="ElementShortName">stage_counter[1:0]</obj_property>
+      <obj_property name="ObjectShortName">stage_counter[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/pc" type="array">
+      <obj_property name="ElementShortName">pc[8:0]</obj_property>
+      <obj_property name="ObjectShortName">pc[8:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/cop" type="array">
+      <obj_property name="ElementShortName">cop[4:0]</obj_property>
+      <obj_property name="ObjectShortName">cop[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/literal" type="array">
+      <obj_property name="ElementShortName">literal[9:0]</obj_property>
+      <obj_property name="ObjectShortName">literal[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/vga_command_flag" type="array">
+      <obj_property name="ElementShortName">vga_command_flag[2:0]</obj_property>
+      <obj_property name="ObjectShortName">vga_command_flag[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/vga_cmd_ready" type="logic">
+      <obj_property name="ElementShortName">vga_cmd_ready</obj_property>
+      <obj_property name="ObjectShortName">vga_cmd_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/user_string_len" type="array">
+      <obj_property name="ElementShortName">user_string_len[4:0]</obj_property>
+      <obj_property name="ObjectShortName">user_string_len[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/sys_string_len" type="array">
+      <obj_property name="ElementShortName">sys_string_len[4:0]</obj_property>
+      <obj_property name="ObjectShortName">sys_string_len[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/cpu_char_rdy" type="logic">
+      <obj_property name="ElementShortName">cpu_char_rdy</obj_property>
+      <obj_property name="ObjectShortName">cpu_char_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/write_char_en" type="logic">
+      <obj_property name="ElementShortName">write_char_en</obj_property>
+      <obj_property name="ObjectShortName">write_char_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/sys_char" type="array">
+      <obj_property name="ElementShortName">sys_char[5:0]</obj_property>
+      <obj_property name="ObjectShortName">sys_char[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/color" type="array">
+      <obj_property name="ElementShortName">color[11:0]</obj_property>
+      <obj_property name="ObjectShortName">color[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/x1_coord" type="array">
+      <obj_property name="ElementShortName">x1_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">x1_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/y1_coord" type="array">
+      <obj_property name="ElementShortName">y1_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">y1_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/x2_coord" type="array">
+      <obj_property name="ElementShortName">x2_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">x2_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/y2_coord" type="array">
+      <obj_property name="ElementShortName">y2_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">y2_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/x3_coord" type="array">
+      <obj_property name="ElementShortName">x3_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">x3_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/y3_coord" type="array">
+      <obj_property name="ElementShortName">y3_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">y3_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/vgaRed" type="array">
+      <obj_property name="ElementShortName">vgaRed[3:0]</obj_property>
+      <obj_property name="ObjectShortName">vgaRed[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/vgaGreen" type="array">
+      <obj_property name="ElementShortName">vgaGreen[3:0]</obj_property>
+      <obj_property name="ObjectShortName">vgaGreen[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/vgaBlue" type="array">
+      <obj_property name="ElementShortName">vgaBlue[3:0]</obj_property>
+      <obj_property name="ObjectShortName">vgaBlue[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/cmd_mem" type="array">
+      <obj_property name="ElementShortName">cmd_mem[0:510][14:0]</obj_property>
+      <obj_property name="ObjectShortName">cmd_mem[0:510][14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_cpu/vga_command" type="array">
+      <obj_property name="ElementShortName">vga_command[1:0]</obj_property>
+      <obj_property name="ObjectShortName">vga_command[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider759">
+      <obj_property name="label">Handler</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/symbol" type="array">
+      <obj_property name="ElementShortName">symbol[5:0]</obj_property>
+      <obj_property name="ObjectShortName">symbol[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/symb_ready" type="logic">
+      <obj_property name="ElementShortName">symb_ready</obj_property>
+      <obj_property name="ObjectShortName">symb_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/CPU_ready" type="logic">
+      <obj_property name="ElementShortName">CPU_ready</obj_property>
+      <obj_property name="ObjectShortName">CPU_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/end_command" type="logic">
+      <obj_property name="ElementShortName">end_command</obj_property>
+      <obj_property name="ObjectShortName">end_command</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/cpu_command" type="array">
+      <obj_property name="ElementShortName">cpu_command[14:0]</obj_property>
+      <obj_property name="ObjectShortName">cpu_command[14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/command_ready" type="logic">
+      <obj_property name="ElementShortName">command_ready</obj_property>
+      <obj_property name="ObjectShortName">command_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/RES_CMD" type="array">
+      <obj_property name="ElementShortName">RES_CMD[41:0]</obj_property>
+      <obj_property name="ObjectShortName">RES_CMD[41:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/Translator_busy" type="logic">
+      <obj_property name="ElementShortName">Translator_busy</obj_property>
+      <obj_property name="ObjectShortName">Translator_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/button_pending" type="logic">
+      <obj_property name="ElementShortName">button_pending</obj_property>
+      <obj_property name="ObjectShortName">button_pending</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/end_command_pending" type="logic">
+      <obj_property name="ElementShortName">end_command_pending</obj_property>
+      <obj_property name="ObjectShortName">end_command_pending</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/start_tx_pulse" type="logic">
+      <obj_property name="ElementShortName">start_tx_pulse</obj_property>
+      <obj_property name="ObjectShortName">start_tx_pulse</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/cmd_code" type="array">
+      <obj_property name="ElementShortName">cmd_code[1:0]</obj_property>
+      <obj_property name="ObjectShortName">cmd_code[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/state" type="array">
+      <obj_property name="ElementShortName">state[4:0]</obj_property>
+      <obj_property name="ObjectShortName">state[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider121">
+      <obj_property name="label">VGA_Manager</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/cpu_cmd_ready" type="logic">
+      <obj_property name="ElementShortName">cpu_cmd_ready</obj_property>
+      <obj_property name="ObjectShortName">cpu_cmd_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/cpu_command" type="array">
+      <obj_property name="ElementShortName">cpu_command[2:0]</obj_property>
+      <obj_property name="ObjectShortName">cpu_command[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/usr_symb_rdy" type="logic">
+      <obj_property name="ElementShortName">usr_symb_rdy</obj_property>
+      <obj_property name="ObjectShortName">usr_symb_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/usr_symb" type="array">
+      <obj_property name="ElementShortName">usr_symb[5:0]</obj_property>
+      <obj_property name="ObjectShortName">usr_symb[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/cpu_char_rdy" type="logic">
+      <obj_property name="ElementShortName">cpu_char_rdy</obj_property>
+      <obj_property name="ObjectShortName">cpu_char_rdy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/write_char_en" type="logic">
+      <obj_property name="ElementShortName">write_char_en</obj_property>
+      <obj_property name="ObjectShortName">write_char_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/sys_char" type="array">
+      <obj_property name="ElementShortName">sys_char[5:0]</obj_property>
+      <obj_property name="ObjectShortName">sys_char[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/color" type="array">
+      <obj_property name="ElementShortName">color[11:0]</obj_property>
+      <obj_property name="ObjectShortName">color[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/sys_string_len" type="array">
+      <obj_property name="ElementShortName">sys_string_len[4:0]</obj_property>
+      <obj_property name="ObjectShortName">sys_string_len[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/user_string_len" type="array">
+      <obj_property name="ElementShortName">user_string_len[4:0]</obj_property>
+      <obj_property name="ObjectShortName">user_string_len[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/x1_coord" type="array">
+      <obj_property name="ElementShortName">x1_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">x1_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/y1_coord" type="array">
+      <obj_property name="ElementShortName">y1_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">y1_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/x2_coord" type="array">
+      <obj_property name="ElementShortName">x2_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">x2_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/y2_coord" type="array">
+      <obj_property name="ElementShortName">y2_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">y2_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/x3_coord" type="array">
+      <obj_property name="ElementShortName">x3_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">x3_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/y3_coord" type="array">
+      <obj_property name="ElementShortName">y3_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">y3_coord[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/x_coord" type="array">
+      <obj_property name="ElementShortName">x_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">x_coord[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/y_coord" type="array">
+      <obj_property name="ElementShortName">y_coord[9:0]</obj_property>
+      <obj_property name="ObjectShortName">y_coord[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/x_char" type="array">
+      <obj_property name="ElementShortName">x_char[3:0]</obj_property>
+      <obj_property name="ObjectShortName">x_char[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/y_char" type="array">
+      <obj_property name="ElementShortName">y_char[3:0]</obj_property>
+      <obj_property name="ObjectShortName">y_char[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/vram_address" type="array">
+      <obj_property name="ElementShortName">vram_address[18:0]</obj_property>
+      <obj_property name="ObjectShortName">vram_address[18:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/VGA_busy" type="logic">
+      <obj_property name="ElementShortName">VGA_busy</obj_property>
+      <obj_property name="ObjectShortName">VGA_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/write_enable" type="logic">
+      <obj_property name="ElementShortName">write_enable</obj_property>
+      <obj_property name="ObjectShortName">write_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/current_color" type="array">
+      <obj_property name="ElementShortName">current_color[11:0]</obj_property>
+      <obj_property name="ObjectShortName">current_color[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/user_command" type="array">
+      <obj_property name="ElementShortName">user_command[1:0]</obj_property>
+      <obj_property name="ObjectShortName">user_command[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/j" type="array">
+      <obj_property name="ElementShortName">j[31:0]</obj_property>
+      <obj_property name="ObjectShortName">j[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/char_counter" type="array">
+      <obj_property name="ElementShortName">char_counter[4:0]</obj_property>
+      <obj_property name="ObjectShortName">char_counter[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/usr_string_reg" type="array">
+      <obj_property name="ElementShortName">usr_string_reg[0:29][0:5]</obj_property>
+      <obj_property name="ObjectShortName">usr_string_reg[0:29][0:5]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/sys_string_reg" type="array">
+      <obj_property name="ElementShortName">sys_string_reg[0:29][0:5]</obj_property>
+      <obj_property name="ObjectShortName">sys_string_reg[0:29][0:5]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/char_reg" type="array">
+      <obj_property name="ElementShortName">char_reg[0:11][0:8]</obj_property>
+      <obj_property name="ObjectShortName">char_reg[0:11][0:8]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/alphabet" type="array">
+      <obj_property name="ElementShortName">alphabet[0:11][0:37][0:8]</obj_property>
+      <obj_property name="ObjectShortName">alphabet[0:11][0:37][0:8]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_manager/state" type="array">
+      <obj_property name="ElementShortName">state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider115">
+      <obj_property name="label">UART</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/RsRx" type="logic">
+      <obj_property name="ElementShortName">RsRx</obj_property>
+      <obj_property name="ObjectShortName">RsRx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/out" type="array">
+      <obj_property name="ElementShortName">out[5:0]</obj_property>
+      <obj_property name="ObjectShortName">out[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/ready_out" type="logic">
+      <obj_property name="ElementShortName">ready_out</obj_property>
+      <obj_property name="ObjectShortName">ready_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/end_command" type="logic">
+      <obj_property name="ElementShortName">end_command</obj_property>
+      <obj_property name="ObjectShortName">end_command</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/UART_RX_Ready_Out" type="logic">
+      <obj_property name="ElementShortName">UART_RX_Ready_Out</obj_property>
+      <obj_property name="ObjectShortName">UART_RX_Ready_Out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/UART_RX_Data_Out" type="array">
+      <obj_property name="ElementShortName">UART_RX_Data_Out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">UART_RX_Data_Out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/FIFO_write_mode" type="logic">
+      <obj_property name="ElementShortName">FIFO_write_mode</obj_property>
+      <obj_property name="ObjectShortName">FIFO_write_mode</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/FIFO_data_in" type="array">
+      <obj_property name="ElementShortName">FIFO_data_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">FIFO_data_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/FIFO_read_mode" type="logic">
+      <obj_property name="ElementShortName">FIFO_read_mode</obj_property>
+      <obj_property name="ObjectShortName">FIFO_read_mode</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/FIFO_data_out" type="array">
+      <obj_property name="ElementShortName">FIFO_data_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">FIFO_data_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/FIFO_empty" type="logic">
+      <obj_property name="ElementShortName">FIFO_empty</obj_property>
+      <obj_property name="ObjectShortName">FIFO_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/FIFO_full" type="logic">
+      <obj_property name="ElementShortName">FIFO_full</obj_property>
+      <obj_property name="ObjectShortName">FIFO_full</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/FIFO_valid" type="logic">
+      <obj_property name="ElementShortName">FIFO_valid</obj_property>
+      <obj_property name="ObjectShortName">FIFO_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/ASCII_in" type="array">
+      <obj_property name="ElementShortName">ASCII_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">ASCII_in[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/HEX_out" type="array">
+      <obj_property name="ElementShortName">HEX_out[5:0]</obj_property>
+      <obj_property name="ObjectShortName">HEX_out[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uart_input_manager/simpleFIFO/valid" type="logic">
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider428">
+      <obj_property name="label">VGA</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/next_x" type="array">
+      <obj_property name="ElementShortName">next_x[9:0]</obj_property>
+      <obj_property name="ObjectShortName">next_x[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/next_y" type="array">
+      <obj_property name="ElementShortName">next_y[9:0]</obj_property>
+      <obj_property name="ObjectShortName">next_y[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/hsync" type="logic">
+      <obj_property name="ElementShortName">hsync</obj_property>
+      <obj_property name="ObjectShortName">hsync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/vsync" type="logic">
+      <obj_property name="ElementShortName">vsync</obj_property>
+      <obj_property name="ObjectShortName">vsync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/vga_red" type="array">
+      <obj_property name="ElementShortName">vga_red[3:0]</obj_property>
+      <obj_property name="ObjectShortName">vga_red[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/vga_green" type="array">
+      <obj_property name="ElementShortName">vga_green[3:0]</obj_property>
+      <obj_property name="ObjectShortName">vga_green[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/vga_blue" type="array">
+      <obj_property name="ElementShortName">vga_blue[3:0]</obj_property>
+      <obj_property name="ObjectShortName">vga_blue[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/sync" type="logic">
+      <obj_property name="ElementShortName">sync</obj_property>
+      <obj_property name="ObjectShortName">sync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/blank" type="logic">
+      <obj_property name="ElementShortName">blank</obj_property>
+      <obj_property name="ObjectShortName">blank</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/red_reg" type="array">
+      <obj_property name="ElementShortName">red_reg[3:0]</obj_property>
+      <obj_property name="ObjectShortName">red_reg[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/green_reg" type="array">
+      <obj_property name="ElementShortName">green_reg[3:0]</obj_property>
+      <obj_property name="ObjectShortName">green_reg[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vga/blue_reg" type="array">
+      <obj_property name="ElementShortName">blue_reg[3:0]</obj_property>
+      <obj_property name="ObjectShortName">blue_reg[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_color" type="array">
+      <obj_property name="ElementShortName">VGA_color[11:0]</obj_property>
+      <obj_property name="ObjectShortName">VGA_color[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/VGA_address" type="array">
+      <obj_property name="ElementShortName">VGA_address[18:0]</obj_property>
+      <obj_property name="ObjectShortName">VGA_address[18:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider965">
+      <obj_property name="label">Translator</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/translator/UART_command" type="array">
+      <obj_property name="ElementShortName">UART_command[41:0]</obj_property>
+      <obj_property name="ObjectShortName">UART_command[41:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/translator/end_command" type="logic">
+      <obj_property name="ElementShortName">end_command</obj_property>
+      <obj_property name="ObjectShortName">end_command</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/translator/CPU_ready" type="logic">
+      <obj_property name="ElementShortName">CPU_ready</obj_property>
+      <obj_property name="ObjectShortName">CPU_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/translator/cpu_command" type="array">
+      <obj_property name="ElementShortName">cpu_command[14:0]</obj_property>
+      <obj_property name="ObjectShortName">cpu_command[14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/translator/command_ready" type="logic">
+      <obj_property name="ElementShortName">command_ready</obj_property>
+      <obj_property name="ObjectShortName">command_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/translator/Translator_busy" type="logic">
+      <obj_property name="ElementShortName">Translator_busy</obj_property>
+      <obj_property name="ObjectShortName">Translator_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/translator/command" type="array">
+      <obj_property name="ElementShortName">command[41:0]</obj_property>
+      <obj_property name="ObjectShortName">command[41:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/translator/cmd_code" type="array">
+      <obj_property name="ElementShortName">cmd_code[4:0]</obj_property>
+      <obj_property name="ObjectShortName">cmd_code[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/translator/literal" type="array">
+      <obj_property name="ElementShortName">literal[9:0]</obj_property>
+      <obj_property name="ObjectShortName">literal[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/translator/state_r" type="array">
+      <obj_property name="ElementShortName">state_r[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state_r[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/cmd_handler/translator/j" type="array">
+      <obj_property name="ElementShortName">j[1:0]</obj_property>
+      <obj_property name="ObjectShortName">j[1:0]</obj_property>
+   </wvobject>
+</wave_config>

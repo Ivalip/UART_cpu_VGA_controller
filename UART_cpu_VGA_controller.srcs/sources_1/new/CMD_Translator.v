@@ -23,7 +23,6 @@ localparam PIXL = 24'b011001_010010_100001_010101, // P(25) I(18) X(33) L(21)
            TRIG = 24'b011101_011011_010010_010000, // T(29) R(27) I(18) G(16)
            
            DRAW = 24'b010100_011011_001010_100000, // D(13) R(27) A(10) W(32)
-
            USLN = 24'b011110_011100_010101_010111, // U(30) S(28) L(21) N(23)  
            UCHR = 24'b011110_001100_010001_011011, // U(30) C(12) H(17) R(27)
            
@@ -177,7 +176,7 @@ always @(posedge clk or posedge rst_n) begin
                         end
                     end
                     
-                    PIXL, ASCI, TRIG, ENDL: begin
+                    PIXL, ASCI, TRIG, ENDL, DRAW: begin
                         if (command[9:0] != 0) begin 
                             cmd_code <= 5'd19;
                             literal  <= 10'd1;
@@ -195,10 +194,10 @@ always @(posedge clk or posedge rst_n) begin
                         literal  <= command[9:0];
                     end
 
-                    default: begin
-                        cmd_code <= 5'd19;
-                        literal  <= 10'd1;
-                    end
+                    // default: begin
+                    //     cmd_code <= 5'd19;
+                    //     literal  <= 10'd1;
+                    // end
                 endcase
             end
 

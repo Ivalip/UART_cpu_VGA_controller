@@ -3,7 +3,7 @@
 `define WIDTH 640
 `define HEIGHT 480
 
-module VGA (
+module VGA_1_mod (
 
     input  clk,       // 25 MHz
     input  reset,     // Active high

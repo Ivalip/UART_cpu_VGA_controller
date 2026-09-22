@@ -116,7 +116,9 @@ initial begin
     y3_coord <= 0;
 
     $readmemb("CPU_mem.mem", cmd_mem);
-    cmd <= cmd_mem[0];
+    cmd[14:10] <= CRX1;
+    cmd[9:0] <= 10'd5;
+    vga_command <= 0;
 end
 
 always @(posedge clk) begin
@@ -131,6 +133,7 @@ always @(posedge clk) begin
 
         vga_command_flag <= 0;
         vga_cmd_ready <= 0;
+        vga_command <= 0;
 
         cpu_char_rdy  <= 0;
         write_char_en <= 0;
@@ -149,7 +152,6 @@ always @(posedge clk) begin
         y2_coord <= 0;
         x3_coord <= 0;
         y3_coord <= 0;
-        
     end else begin
         if (stage_counter == 0) begin
             if (cop == WAIT) begin
@@ -169,8 +171,8 @@ always @(posedge clk) begin
                 case (cop)
                     EROR: begin
                         case (literal)
-                            10'd1: pc <= 248;  // Jump to wait reset sequence (in cpu_mem.mem) after incorrect cmd
-                            10'd2: pc <= 267; // Jump to wait reset sequence (in cpu_mem.mem) after incorrect value
+                            10'd1: pc <= 259;  // Jump to wait reset sequence (in cpu_mem.mem) after incorrect cmd
+                            10'd2: pc <= 279; // Jump to wait reset sequence (in cpu_mem.mem) after incorrect value
                         endcase
                     end
                     CRX1: x1_coord <= literal[9:0];
@@ -225,12 +227,12 @@ always @(posedge clk) begin
         end
         
         if (stage_counter == 2) begin
-            if ((vga_command == 1 && pc == 133) ||
-                (vga_command == 2 && pc == 168)||
-                (vga_command == 3 && pc == 248)) begin
-                    pc <= 283;
+            if ((vga_command == 1 && pc == 139) ||
+                (vga_command == 2 && pc == 175)||
+                (vga_command == 3 && pc == 258)) begin
+                    pc <= 296;
             end else if (vga_command == 3 && pc == 133) begin
-                pc <= 168;
+                pc <= 175;
             end else begin
                 case (cop)
                     PIXL, ASCI, TRIG, CSTR,
@@ -251,6 +253,12 @@ always @(posedge clk) begin
                         pc <= pc + 1;
                     end
                     WAIT: CPU_ready <= 1;
+                    default: begin
+                        if (pc == CMD_MEM_SIZE) begin
+                            CPU_ready <= 1;
+                            pc <= pc;
+                        end else pc <= pc + 1;
+                    end 
                 endcase
                 stage_counter <= 0;
             end

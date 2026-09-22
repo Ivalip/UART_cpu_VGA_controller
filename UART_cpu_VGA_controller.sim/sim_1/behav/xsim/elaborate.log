@@ -1,21 +1,30 @@
 Vivado Simulator v2025.1.0
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
-Running: C:/Xilinx/2025.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_handler_cpu_behav xil_defaultlib.tb_handler_cpu xil_defaultlib.glbl -log elaborate.log 
+Running: C:/Xilinx/2025.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L blk_mem_gen_v8_4_11 -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_top_behav xil_defaultlib.tb_top xil_defaultlib.glbl -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 4 for port 'vga_red' [C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sim_1/new/tb_UART_CPU_VGA.v:146]
 Completed static elaboration
 Starting simulation data flow analysis
-WARNING: [XSIM 43-4099] "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/CMD_Handler.v" Line 1. Module CMD_Handler_default doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/CMD_Translator.v" Line 1. Module CMD_Translator_default doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/CMD_Handler.v" Line 1. Module CMD_Handler_default doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/CMD_Translator.v" Line 1. Module CMD_Translator_default doesn't have a timescale but at least one module in design has a timescale.
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.UART_RX(BAUD_RATE=2500000)
+Compiling module xil_defaultlib.SimpleFIFO(MEM_SIZE=2,DATA_SIZE=...
+Compiling module xil_defaultlib.ASCII_To_HEX
+Compiling module xil_defaultlib.UART_Input_Manager(BAUD_RATE=250...
 Compiling module xil_defaultlib.CMD_Translator_default
 Compiling module xil_defaultlib.CMD_Handler_default
 Compiling module xil_defaultlib.cpu_default
-Compiling module xil_defaultlib.tb_handler_cpu
+Compiling module xil_defaultlib.divider_default
+Compiling module xil_defaultlib.VGA
+Compiling module blk_mem_gen_v8_4_11.blk_mem_gen_v8_4_11_output_stage...
+Compiling module blk_mem_gen_v8_4_11.blk_mem_gen_v8_4_11_softecc_outp...
+Compiling module blk_mem_gen_v8_4_11.blk_mem_gen_v8_4_11_mem_module(C...
+Compiling module blk_mem_gen_v8_4_11.blk_mem_gen_v8_4_11(C_FAMILY="ar...
+Compiling module xil_defaultlib.BRAM_mem_gen_12x307200
+Compiling module xil_defaultlib.VGA_Manager_default
+Compiling module xil_defaultlib.tb_top
 Compiling module xil_defaultlib.glbl
-Built simulation snapshot tb_handler_cpu_behav
+Built simulation snapshot tb_top_behav

@@ -10,8 +10,8 @@ module top #
     input  clk,             
     input  RsRx,            
     input  rst,             
-    output [7:0] AN,        
-    output [6:0] SEG,       
+//    output [7:0] AN,        
+//    output [6:0] SEG,       
     
     output [3:0] vgaRed,    
     output [3:0] vgaGreen,  
@@ -21,6 +21,7 @@ module top #
     output  Vsync
 );
 
+localparam WIDTH = 640, HEIGHT = 480;
 parameter CMD_COUNT = 22,
           LIT_SIZE = 10,
           CMD_SIZE  = $clog2(CMD_COUNT);
@@ -38,7 +39,7 @@ wire end_command, CPU_ready, command_ready;
 // CPU connections
 wire [BUS_WIDTH - 1 :0] CPU_command;
 
-wire VGA_ready, reset;
+wire VGA_busy, reset;
 
 wire cpu_cmd_ready, cpu_char_rdy, write_char_en;
 wire [2:0] cpu_to_vga_command;
@@ -102,7 +103,7 @@ cpu #(
     .extern_command       (CPU_command),
     .CPU_ready            (CPU_ready),
 
-    .VGA_ready            (!VGA_ready),
+    .VGA_ready            (~VGA_busy),
     .vga_command_flag     (cpu_to_vga_command),
     .vga_cmd_ready        (cpu_cmd_ready),
     .color                (CPU_to_VGA_color),
@@ -125,19 +126,19 @@ cpu #(
 wire seg_clk_div_out;
 wire vga_clk;
 
-divider #(.MOD(LED_DELITEL)) clk_LED_divider (
-    .clk(clk),
-    .clk_out(seg_clk_div_out)
-);
+// divider #(.MOD(LED_DELITEL)) clk_LED_divider (
+//     .clk(clk),
+//     .clk_out(seg_clk_div_out)
+// );
 
-SevenSegmentLED seg(
-    .clk(seg_clk_div_out),
-    .RESET(1'b0),
-    .NUMBER(8'h00),
-    .AN_MASK(8'hFF),
-    .AN(AN),
-    .SEG(SEG)
-);
+// SevenSegmentLED seg(
+//     .clk(seg_clk_div_out),
+//     .RESET(1'b0),
+//     .NUMBER(8'h00),
+//     .AN_MASK(8'hFF),
+//     .AN(AN),
+//     .SEG(SEG)
+// );
 
 divider #(.MOD(4)) VGA_divider
 (
@@ -145,12 +146,42 @@ divider #(.MOD(4)) VGA_divider
     .clk_out (vga_clk)
 );
 
+//initial begin
+//    next_x <= 0;
+//    next_y <= 0;
+//end
+
+//always @(posedge vga_clk) begin
+//    if (next_y == HEIGHT - 1) begin
+//        next_x <= 0;
+//        next_y = 0;
+//    end else begin
+//        if (next_x == WIDTH - 1) begin
+//            next_x <= 0;
+//            next_y <= next_y + 1;
+//        end else next_x <= next_x + 1;
+//    end
+//end
+
 wire [9:0] next_x, next_y;
 wire write_enable;
 wire [18:0] vram_address, VGA_address;
-assign VGA_address = next_y * 640 + next_x;
+assign VGA_address = next_y * WIDTH + next_x;
 
-VGA vga(
+//VGA_2_mod vga_core (
+//    .clk      (clk),          // Тактовая частота 25 МГц с выхода делителя
+//    .mem_data (VGA_color),        // 12-битный цвет пикселя, считанный из BRAM
+//    .mem_addr (VGA_address), // Выходной адрес чтения, генерируемый модулем
+//    .vgaRed   (vgaRed),           // 4-бит Красный
+//    .vgaGreen (vgaGreen),         // 4-бит Зеленый
+//    .vgaBlue  (vgaBlue),          // 4-бит Синий
+//    .Hsync    (Hsync),            // Линия строчной синхронизации
+//    .Vsync    (Vsync),            // Линия кадровой синхронизации		
+//    .vgaBegin (),  
+//    .vgaEnd   ()     
+//);
+
+VGA_1_mod vga(
    .clk          (vga_clk    ),     // 25 MHz
    .reset        (reset      ),     // Active high
    .color_in     (VGA_color  ),
@@ -171,11 +202,11 @@ BRAM_mem_gen_12x307200 VGA_MEM
     .wea   (write_enable ),
     .addra (vram_address ),
     .dina  (current_color),
-    .douta (1'b0         ),
+    .douta (             ),
     .clkb  (vga_clk      ),
     .web   (1'b0         ),
     .addrb (VGA_address  ),
-    .dinb  (1'b0         ),
+    .dinb  (12'b0        ),
     .doutb (VGA_color    )
 );
 
@@ -203,7 +234,7 @@ VGA_Manager VGA_manager (
     .x3_coord        (x3_coord),
     .y3_coord        (y3_coord),
     .vram_address    (vram_address),
-    .VGA_busy        (VGA_ready),
+    .VGA_busy        (VGA_busy),
     .write_enable    (write_enable),
     .current_color   (current_color)
 );

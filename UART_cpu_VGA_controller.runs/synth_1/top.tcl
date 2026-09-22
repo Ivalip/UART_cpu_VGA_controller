@@ -56,10 +56,7 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param tcl.statsThreshold 360
-set_param chipscope.maxJobs 3
 set_param general.usePosixSpawnForFork 1
-set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tcsg324-1
 
@@ -76,6 +73,8 @@ set_property ip_output_repo {c:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_c
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
+read_verilog {{C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/global_defines.vh}}
+set_property file_type "Verilog Header" [get_files {{C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/global_defines.vh}}]
 read_mem {
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/CPU_mem.mem}
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/alphabet.mem}
@@ -84,7 +83,6 @@ read_verilog -library xil_defaultlib {
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/ASCII_To_HEX.v}
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/CMD_Handler.v}
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/CMD_Translator.v}
-  {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/SevenSegmentLED.v}
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/SimpleFIFO.v}
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/UART_Input_Manager.v}
   {C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/UART_RX.v}

@@ -102,9 +102,9 @@ end
 always @(posedge clk) begin
     if (reset) begin
         current_color <= 12'h000;
+        write_enable <= 1'd1;
         state <= RESET_FRAME;
         VGA_busy <= 1'd1;
-        write_enable <= 1'd0;
         $readmemb("alphabet.mem", alphabet);
         for (i = 0; i < `MAX_STRING_SIZE; i = i + 1) begin
             usr_string_reg[i] <= 0;
@@ -161,8 +161,10 @@ always @(posedge clk) begin
                         3'd5: begin // endline
                             x_coord <= 5; // start left position
                             y_coord <= y_coord + (`CHAR_HEIGHT + `KERNING); // new string
+                            vram_address <= (y_coord + (`CHAR_HEIGHT + `KERNING)) * WIDTH + 5;
                         end
                         3'd6: begin // reset frame and draw usr_structure
+                            current_color <= 12'h000;
                             write_enable <= 1;
                             vram_address <= 0;
                             state <= RESET_FRAME;
@@ -174,7 +176,7 @@ always @(posedge clk) begin
             end
 
             RESET_FRAME: begin
-                if (vram_address != MAX_PIXEL_COUNT) begin
+                if (vram_address != MAX_PIXEL_COUNT - 1) begin
                     vram_address <= vram_address + 1;
                 end else begin
                     write_enable <= 0;
@@ -200,10 +202,9 @@ always @(posedge clk) begin
                             state <= DRAW_USER_STRING;
                             vram_address <= y1_coord * WIDTH + x1_coord;
                         end
-                        2'd3: begin
-                        end
+                        // 2'd3: begin
+                        // end
                     endcase
-                    current_color <= color;
                 end
             end
 
@@ -299,6 +300,7 @@ always @(posedge clk) begin
                 if (y_char == `CHAR_HEIGHT) begin
                     x_coord <= x_coord + `CHAR_WIDTH + `KERNING;
                     write_enable <= 1'd0;
+                    vram_address <= y_coord * WIDTH + x_coord + `CHAR_WIDTH + `KERNING;
                     state <= END_EXEC;
                 end else if (x_char == `CHAR_WIDTH) begin
                     write_enable <= 1'd0;

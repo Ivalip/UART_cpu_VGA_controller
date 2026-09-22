@@ -86,8 +86,6 @@ initial begin
     forever #5 clk = ~clk;
 end
 
-
-
 task do_system_reset;
     begin
         rst_n <= 1;

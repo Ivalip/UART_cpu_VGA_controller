@@ -71,7 +71,7 @@ wire [DIGIT_RANK-1:0] HEX_out;
 ASCII_To_HEX a1(ASCII_in, HEX_out);
 
 // Автомат
-reg state; // Регистр текущего состояния автомата
+// reg state; // Регистр текущего состояния автомата
 localparam RESET = 0, READ_FIFO = 1;
 localparam CR = 8'h0D;
 

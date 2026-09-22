@@ -1,8 +1,22 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.gen/sources_1/ip/BRAM_mem_gen_12x307200/sim/BRAM_mem_gen_12x307200.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BRAM_mem_gen_12x307200
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/ASCII_To_HEX.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ASCII_To_HEX
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/CMD_Handler.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module CMD_Handler
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/CMD_Translator.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module CMD_Translator
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/SimpleFIFO.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SimpleFIFO
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/UART_Input_Manager.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module UART_Input_Manager
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/UART_RX.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module UART_RX
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/VGA_Manager.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module VGA_Manager
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/cpu.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module cpu
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sim_1/new/tb_handler_cpu.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module tb_handler_cpu
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sources_1/new/divider.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module divider
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Adskiy Perez/VivadoProjects/UART_cpu_VGA_controller/UART_cpu_VGA_controller.srcs/sim_1/new/tb_UART_CPU_VGA.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_top

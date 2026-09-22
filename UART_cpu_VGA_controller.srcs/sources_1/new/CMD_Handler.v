@@ -121,13 +121,12 @@ always @(posedge clk or posedge rst_n) begin
             button_pending <= 1'b1; 
         end
         
-        if (RES_CMD[41:18] != 24'd0 && !start_tx_pulse && !Translator_busy) begin
+        if (end_command_pending && !start_tx_pulse) begin
             start_tx_pulse <= 1'b1;
         end 
         
         else if (start_tx_pulse && Translator_busy) begin
             start_tx_pulse      <= 1'b0;
-            end_command_pending <= 1'b0;
             RES_CMD             <= 42'd0;
         end
 
@@ -183,6 +182,7 @@ always @(posedge clk or posedge rst_n) begin
                     if (symbol == 6'd21) begin
                         RES_CMD <= { PIXL, {18{1'b0}} };
                         cmd_code <= 1;
+                        start_tx_pulse <= 1'b1;
                         state   <= INPUT_GREEN_CLR;
                     end else begin
                         RES_CMD <= { EROR, {16{1'b0}}, 2'd1 };
@@ -221,6 +221,7 @@ always @(posedge clk or posedge rst_n) begin
                     if (symbol == 6'd18) begin
                         RES_CMD <= { ASCI, {18{1'b0}} };
                         cmd_code <= 2;
+                        start_tx_pulse <= 1'b1;
                         state   <= INPUT_GREEN_CLR;
                     end else begin
                         RES_CMD <= { EROR, {16{1'b0}}, 2'd1 };
@@ -259,6 +260,7 @@ always @(posedge clk or posedge rst_n) begin
                     if (symbol == 6'd16) begin
                         RES_CMD <= { TRIG, {18{1'b0}} };
                         cmd_code <= 3;
+                        start_tx_pulse <= 1'b1;
                         state   <= INPUT_GREEN_CLR;
                     end else begin
                         RES_CMD <= { EROR, {16{1'b0}}, 2'd1 };
@@ -397,6 +399,7 @@ always @(posedge clk or posedge rst_n) begin
             INPUT_STRING: begin
                 if (button_pending && !Translator_busy) begin
                     RES_CMD <= { UCHR, {12{1'b0}}, symbol };
+                    start_tx_pulse <= 1'b1;
                     button_pending <= 1'b0;
                 end
                 if (end_command_pending && !Translator_busy) begin
@@ -418,8 +421,7 @@ always @(posedge clk or posedge rst_n) begin
                     state <= ST_RESET;
                 end
             end
-ST_RESET
-            : begin
+            ST_RESET: begin
                 end_command_pending <= 0;
                 RES_CMD <= 0;
                 state <= ST_IDLE;
