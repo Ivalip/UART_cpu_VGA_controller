@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Tue Sep 22 19:41:16 2026
+| Date         : Wed Sep 23 12:02:40 2026
 | Host         : Samsung-Galaxybook-4 running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
 | Design       : top
@@ -23,8 +23,8 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |   134 |
-|    Minimum number of control sets                        |   134 |
+| Total control sets                                       |   135 |
+|    Minimum number of control sets                        |   135 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
 | Unused register locations in slices containing registers |   504 |
@@ -39,14 +39,14 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |   134 |
+| Total control sets |   135 |
 | >= 0 to < 4        |    36 |
-| >= 4 to < 6        |    11 |
+| >= 4 to < 6        |    12 |
 | >= 6 to < 8        |    62 |
 | >= 8 to < 10       |     4 |
-| >= 10 to < 12      |     8 |
+| >= 10 to < 12      |     9 |
 | >= 12 to < 14      |     2 |
-| >= 14 to < 16      |     2 |
+| >= 14 to < 16      |     1 |
 | >= 16              |     9 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
@@ -58,12 +58,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              31 |           17 |
-| No           | No                    | Yes                    |              52 |           40 |
-| No           | Yes                   | No                     |              52 |           29 |
-| Yes          | No                    | No                     |              12 |            3 |
-| Yes          | No                    | Yes                    |             137 |           66 |
-| Yes          | Yes                   | No                     |             612 |          324 |
+| No           | No                    | No                     |              33 |           21 |
+| No           | No                    | Yes                    |              52 |           38 |
+| No           | Yes                   | No                     |              50 |           27 |
+| Yes          | No                    | No                     |              32 |           17 |
+| Yes          | No                    | Yes                    |             137 |           64 |
+| Yes          | Yes                   | No                     |             592 |          325 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -73,140 +73,141 @@ Table of Contents
 +----------------------------------------+--------------------------------------------------------+-----------------------------------------------------+------------------+----------------+--------------+
 |              Clock Signal              |                      Enable Signal                     |                   Set/Reset Signal                  | Slice Load Count | Bel Load Count | Bels / Slice |
 +----------------------------------------+--------------------------------------------------------+-----------------------------------------------------+------------------+----------------+--------------+
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_16 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_8                |                1 |              1 |         1.00 |
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_18 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_6                |                1 |              1 |         1.00 |
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_22 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_2                |                1 |              1 |         1.00 |
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_23 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_1                |                1 |              1 |         1.00 |
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_19 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_5                |                1 |              1 |         1.00 |
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_15 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_9                |                1 |              1 |         1.00 |
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_13 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_11               |                1 |              1 |         1.00 |
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_0  |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_12               |                1 |              1 |         1.00 |
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_14 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_10               |                1 |              1 |         1.00 |
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_17 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_7                |                1 |              1 |         1.00 |
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_20 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_4                |                1 |              1 |         1.00 |
-|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_21 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_3                |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_14 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_12               |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_16 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_10               |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_15 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_11               |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_17 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_9                |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_18 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_8                |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_19 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_7                |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_20 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_6                |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_21 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_5                |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_22 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_4                |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_1  |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_13               |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_23 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_3                |                1 |              1 |         1.00 |
+|  btn_c_filter/OUT_SIGNAL_ENABLE_reg_24 |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_2                |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_18               |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_17               |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_15               |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_6                |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_4                |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_16               |                1 |              1 |         1.00 |
 |  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_13               |                1 |              1 |         1.00 |
 |  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_12               |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_11               |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_1                |                1 |              1 |         1.00 |
 |  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_9                |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_8                |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_15               |                1 |              1 |         1.00 |
 |  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_14               |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_4                |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_10               |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_24               |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_7                |                1 |              1 |         1.00 |
 |  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_2                |                1 |              1 |         1.00 |
 |  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_19               |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_22               |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_18               |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_7                |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_16               |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_6                |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_3                |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_10               |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_5                |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_0                |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_23               |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_21               |                1 |              1 |         1.00 |
 |  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_20               |                1 |              1 |         1.00 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_17               |                1 |              1 |         1.00 |
-|  clk_IBUF_BUFG                         | uart_input_manager/uart_rx/bit_counter                 |                                                     |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG                         | VGA_cpu/vgaBlue[3]_i_1_n_0                             | btn_c_filter/reset                                  |                2 |              4 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_cpu/vgaRed[3]_i_1_n_0                              | btn_c_filter/reset                                  |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG                         | cmd_handler/translator/j                               | btn_c_filter/reset                                  |                2 |              4 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_cpu/vgaGreen[3]_i_1_n_0                            | btn_c_filter/reset                                  |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/y_char[3]_i_1_n_0                          | btn_c_filter/reset                                  |                1 |              4 |         4.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_21               |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_22               |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_11               |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_1                |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_23               |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_8                |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_3                |                1 |              1 |         1.00 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/OUT_SIGNAL_ENABLE_reg_5                |                1 |              1 |         1.00 |
+|  clk_IBUF_BUFG                         | VGA_cpu/vgaBlue                                        | btn_c_filter/reset                                  |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG                         | cmd_handler/translator/j                               | btn_c_filter/reset                                  |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG                         | VGA_cpu/vgaRed                                         | btn_c_filter/reset                                  |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG                         | VGA_cpu/vgaGreen                                       | btn_c_filter/reset                                  |                1 |              4 |         4.00 |
 |  clk_IBUF_BUFG                         | VGA_manager/x_char[3]_i_1_n_0                          | btn_c_filter/reset                                  |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/char_counter[4]_i_1_n_0                    | btn_c_filter/reset                                  |                3 |              5 |         1.67 |
-|  clk_IBUF_BUFG                         | VGA_cpu/sys_string_len[4]_i_1_n_0                      | btn_c_filter/reset                                  |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG                         | VGA_cpu/cmd[14]_i_1_n_0                                | VGA_cpu/cmd[9]_i_1_n_0                              |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG                         | uart_input_manager/uart_rx/bit_counter                 |                                                     |                2 |              4 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/y_char[3]_i_1_n_0                          | btn_c_filter/reset                                  |                2 |              4 |         2.00 |
 |  clk_IBUF_BUFG                         | cmd_handler/translator/cmd_code_0                      | btn_c_filter/reset                                  |                5 |              5 |         1.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/char_counter[4]_i_1_n_0                    | btn_c_filter/reset                                  |                4 |              5 |         1.25 |
 |  clk_IBUF_BUFG                         | VGA_cpu/user_string_len[4]_i_1_n_0                     | btn_c_filter/reset                                  |                1 |              5 |         5.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[4][0]_i_1_n_0               | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[10][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[1][0]_i_1_n_0               | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[18][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[2][0]_i_1_n_0               | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | uart_input_manager/simpleFIFO/E[0]                     | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg                             | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[28][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[22][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[12][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[6][0]_i_1_n_0               | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[26][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[3][0]_i_1_n_0               | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[25][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[11][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[5][0]_i_1_n_0               | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[19][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[8][0]_i_1_n_0               | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[20][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[23][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[16][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[17][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[24][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[2][0]_i_1_n_0               | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[7][0]_i_1_n_0               | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[12][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[5][0]_i_1_n_0               | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg                             | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[19][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[21][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[15][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[18][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[8][0]_i_1_n_0               | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[22][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[25][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[16][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[27][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[9][0]_i_1_n_0               | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[29][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[10][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[26][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[28][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[13][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[6][0]_i_1_n_0               | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[3][0]_i_1_n_0               | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[17][0]_i_1_n_0              | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[14][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[1][0]_i_1_n_0               | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
-|  clk_IBUF_BUFG                         | VGA_cpu/sys_char[5]_i_1_n_0                            | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[11][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[23][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[20][0]_i_1_n_0              | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[29][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[27][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[13][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_cpu/sys_string_len[4]_i_1_n_0                      | btn_c_filter/reset                                  |                2 |              5 |         2.50 |
 |  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[21][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[14][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[4][0]_i_1_n_0               | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[15][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[22][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[17][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[26][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[3][0]_i_1_n_0               | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
 |  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[9][0]_i_1_n_0               | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[28][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[11][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[16][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[4][0]_i_1_n_0               | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[5][0]_i_1_n_0               | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[6][0]_i_1_n_0               | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[2][0]_i_1_n_0               | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg                             | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
 |  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[7][0]_i_1_n_0               | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[24][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
-|  clk_IBUF_BUFG                         | uart_input_manager/uart_rx/UART_RX_Data_Out[7]_i_2_n_0 | uart_input_manager/uart_rx/stopBitIsGood0           |                2 |              8 |         4.00 |
-|  clk_IBUF_BUFG                         | cmd_handler/translator/command[41]_i_1_n_0             | btn_c_filter/reset                                  |                3 |              8 |         2.67 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[22][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[23][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[28][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[29][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[15][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[9][0]_i_1_n_0               | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[10][0]_i_1_n_0              | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[1][0]_i_1_n_0               | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[14][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[15][0]_i_1_n_0              | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[20][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[2][0]_i_1_n_0               | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[12][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[16][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[17][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[19][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[24][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[25][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[18][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[26][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[27][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[5][0]_i_1_n_0               | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[8][0]_i_1_n_0               | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg                             | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[21][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[11][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[13][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[7][0]_i_1_n_0               | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[6][0]_i_1_n_0               | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[3][0]_i_1_n_0               | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_cpu/sys_char[5]_i_1_n_0                            | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | uart_input_manager/simpleFIFO/valid_reg_1              | uart_input_manager/simpleFIFO/valid_reg_0           |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/usr_string_reg[4][0]_i_1_n_0               | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[1][0]_i_1_n_0               | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[20][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[8][0]_i_1_n_0               | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[10][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[24][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[14][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[18][0]_i_1_n_0              | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[25][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[27][0]_i_1_n_0              | btn_c_filter/reset                                  |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[13][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[23][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[19][0]_i_1_n_0              | btn_c_filter/reset                                  |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[29][0]_i_1_n_0              | btn_c_filter/reset                                  |                4 |              6 |         1.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/sys_string_reg[12][0]_i_1_n_0              | btn_c_filter/reset                                  |                5 |              6 |         1.20 |
+|  clk_IBUF_BUFG                         | cmd_handler/translator/command[41]_i_1_n_0             | btn_c_filter/reset                                  |                4 |              8 |         2.00 |
+|  clk_IBUF_BUFG                         | uart_input_manager/uart_rx/UART_RX_Data_Out[7]_i_2_n_0 | uart_input_manager/uart_rx/stopBitIsGood0           |                3 |              8 |         2.67 |
 |  clk_IBUF_BUFG                         | uart_input_manager/simpleFIFO/data_out1                |                                                     |                2 |              8 |         4.00 |
-|  clk_IBUF_BUFG                         | VGA_cpu/pc[8]_i_1_n_0                                  | btn_c_filter/reset                                  |                8 |              9 |         1.12 |
-|  clk_IBUF_BUFG                         | cmd_handler/translator/command[9]_i_1_n_0              | btn_c_filter/reset                                  |                5 |             10 |         2.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/CEC                                        | btn_c_filter/reset                                  |                3 |             10 |         3.33 |
-|  clk_IBUF_BUFG                         | cmd_handler/translator/literal                         | btn_c_filter/reset                                  |                8 |             10 |         1.25 |
-|  clk_IBUF_BUFG                         | VGA_manager/y_coord[9]_i_1_n_0                         | btn_c_filter/reset                                  |                6 |             10 |         1.67 |
+|  clk_IBUF_BUFG                         | VGA_cpu/pc[8]_i_1_n_0                                  |                                                     |                4 |              9 |         2.25 |
+|  clk_IBUF_BUFG                         | cmd_handler/translator/literal                         | btn_c_filter/reset                                  |                7 |             10 |         1.43 |
+|  clk_IBUF_BUFG                         | cmd_handler/translator/command[9]_i_1_n_0              | btn_c_filter/reset                                  |                4 |             10 |         2.50 |
+|  clk_IBUF_BUFG                         | VGA_manager/y_coord[9]_i_1_n_0                         | btn_c_filter/reset                                  |                3 |             10 |         3.33 |
+|  clk_IBUF_BUFG                         | VGA_manager/CEC                                        | btn_c_filter/reset                                  |                5 |             10 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_cpu/cmd_reg[14]_0[0]                               | btn_c_filter/reset                                  |                4 |             10 |         2.50 |
 |  clk_IBUF_BUFG                         | VGA_cpu/E[0]                                           | btn_c_filter/reset                                  |                4 |             10 |         2.50 |
-|  clk_IBUF_BUFG                         | VGA_cpu/stage_counter_reg[1]_0[0]                      | btn_c_filter/reset                                  |                4 |             10 |         2.50 |
 |  vga_clk_BUFG                          | vga/line_done_reg_n_0                                  | btn_c_filter/reset                                  |                6 |             10 |         1.67 |
-|  vga_clk_BUFG                          |                                                        |                                                     |                8 |             11 |         1.38 |
+|  clk_IBUF_BUFG                         | VGA_cpu/cmd[14]_i_1_n_0                                |                                                     |                9 |             11 |         1.22 |
+|  vga_clk_BUFG                          |                                                        |                                                     |               11 |             11 |         1.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/current_color[11]_i_1_n_0                  | btn_c_filter/reset                                  |                2 |             12 |         6.00 |
 |  clk_IBUF_BUFG                         | uart_input_manager/uart_rx/UART_RX_Ready_Out_reg_0     |                                                     |                2 |             12 |         6.00 |
-|  clk_IBUF_BUFG                         | VGA_manager/current_color[11]_i_1_n_0                  | btn_c_filter/reset                                  |                3 |             12 |         4.00 |
 |  clk_IBUF_BUFG                         |                                                        | uart_input_manager/uart_rx/baud_counter[14]_i_1_n_0 |                5 |             15 |         3.00 |
-|  clk_IBUF_BUFG                         | VGA_cpu/cmd[14]_i_1_n_0                                | btn_c_filter/reset                                  |                9 |             15 |         1.67 |
-|  clk_IBUF_BUFG                         | cmd_handler/translator/E[0]                            | btn_c_filter/reset                                  |                7 |             18 |         2.57 |
-|  clk_IBUF_BUFG                         | VGA_manager/vram_address[18]_i_1_n_0                   | btn_c_filter/reset                                  |               17 |             19 |         1.12 |
-|  vga_clk_BUFG                          |                                                        | btn_c_filter/reset                                  |                9 |             19 |         2.11 |
-|  clk_IBUF_BUFG                         |                                                        |                                                     |                9 |             20 |         2.22 |
-|  clk_IBUF_BUFG                         | cmd_handler/translator/command[33]_i_1_n_0             | btn_c_filter/reset                                  |                8 |             24 |         3.00 |
-|  clk_IBUF_BUFG                         | cmd_handler/translator/E[1]                            | btn_c_filter/reset                                  |               12 |             24 |         2.00 |
+|  clk_IBUF_BUFG                         | cmd_handler/translator/E[0]                            | btn_c_filter/reset                                  |                6 |             18 |         3.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/vram_address[18]_i_1_n_0                   | btn_c_filter/reset                                  |               13 |             19 |         1.46 |
+|  vga_clk_BUFG                          |                                                        | btn_c_filter/reset                                  |                8 |             19 |         2.38 |
+|  clk_IBUF_BUFG                         |                                                        |                                                     |               10 |             22 |         2.20 |
+|  clk_IBUF_BUFG                         | cmd_handler/translator/command[33]_i_1_n_0             | btn_c_filter/reset                                  |               11 |             24 |         2.18 |
 |  clk_IBUF_BUFG                         | cmd_handler/translator/FSM_onehot_state_reg[22][0]     | btn_c_filter/reset                                  |               10 |             24 |         2.40 |
-|  clk_IBUF_BUFG                         |                                                        | btn_c_filter/reset                                  |               19 |             34 |         1.79 |
-|  clk_IBUF_BUFG                         | VGA_manager/char_reg[0][0]_i_1_n_0                     | btn_c_filter/reset                                  |               67 |            102 |         1.52 |
+|  clk_IBUF_BUFG                         | cmd_handler/translator/E[1]                            | btn_c_filter/reset                                  |               10 |             24 |         2.40 |
+|  clk_IBUF_BUFG                         |                                                        | btn_c_filter/reset                                  |               16 |             32 |         2.00 |
+|  clk_IBUF_BUFG                         | VGA_manager/char_reg[0][0]_i_1_n_0                     | btn_c_filter/reset                                  |               68 |            102 |         1.50 |
 +----------------------------------------+--------------------------------------------------------+-----------------------------------------------------+------------------+----------------+--------------+
 
 

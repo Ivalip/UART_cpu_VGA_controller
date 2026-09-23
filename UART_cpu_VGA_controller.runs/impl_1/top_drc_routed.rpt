@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Tue Sep 22 19:42:01 2026
+| Date         : Wed Sep 23 12:03:42 2026
 | Host         : Samsung-Galaxybook-4 running 64-bit major release  (build 9200)
 | Command      : report_drc -file top_drc_routed.rpt -pb top_drc_routed.pb -rpx top_drc_routed.rpx
 | Design       : top
@@ -102,62 +102,62 @@ Related violations: <none>
 
 PDRC-153#1 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_0 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[3]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[3]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_1 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[3]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[3]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#2 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_13 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[2]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[2]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_14 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[2]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[2]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#3 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_14 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[1]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[1]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_15 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[1]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[1]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#4 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_15 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[0]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[0]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_16 is a gated clock net sourced by a combinational pin btn_c_filter/red_reg_reg[0]_LDC_i_1/O, cell btn_c_filter/red_reg_reg[0]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#5 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_16 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[3]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[3]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_17 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[3]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[3]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#6 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_17 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[2]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[2]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_18 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[2]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[2]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#7 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_18 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[1]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[1]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_19 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[1]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[1]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#8 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_19 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[0]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[0]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_20 is a gated clock net sourced by a combinational pin btn_c_filter/green_reg_reg[0]_LDC_i_1/O, cell btn_c_filter/green_reg_reg[0]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#9 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_20 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[3]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[3]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_21 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[3]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[3]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#10 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_21 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[2]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[2]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_22 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[2]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[2]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#11 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_22 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[1]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[1]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_23 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[1]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[1]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#12 Warning
 Gated clock check  
-Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_23 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[0]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[0]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net btn_c_filter/OUT_SIGNAL_ENABLE_reg_24 is a gated clock net sourced by a combinational pin btn_c_filter/blue_reg_reg[0]_LDC_i_1/O, cell btn_c_filter/blue_reg_reg[0]_LDC_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 

@@ -417,7 +417,7 @@ always @(posedge clk or posedge rst_n) begin
                 end
             end
             WAIT_CPU_EXECUTION: begin
-                if (!Translator_busy) begin
+                if (start_tx_pulse && Translator_busy) begin
                     state <= ST_RESET;
                 end
             end

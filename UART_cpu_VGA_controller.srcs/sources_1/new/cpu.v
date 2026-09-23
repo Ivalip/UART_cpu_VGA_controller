@@ -43,7 +43,7 @@ assign color[11:8] = vgaRed  ;
 assign color[7:4] =  vgaGreen;
 assign color[3:0] =  vgaBlue ;
 
-localparam CMD_MEM_SIZE      = 511;
+localparam CMD_MEM_SIZE      = 299;
 localparam ADDR_CMD_MEM_SIZE = $clog2(CMD_MEM_SIZE);
 localparam COP_SIZE          = $clog2(CMD_COUNT);
 
@@ -227,12 +227,14 @@ always @(posedge clk) begin
         end
         
         if (stage_counter == 2) begin
-            if ((vga_command == 1 && pc == 139) ||
+            if ((vga_command == 1 && pc == 138) ||
                 (vga_command == 2 && pc == 175)||
-                (vga_command == 3 && pc == 258)) begin
+                (vga_command == 3 && pc == 259)) begin
+                    vga_cmd_ready <= 0;
                     pc <= 296;
-            end else if (vga_command == 3 && pc == 133) begin
-                pc <= 175;
+                    stage_counter <= 0;
+            end else if (vga_command == 3 && pc == 138) begin
+                pc <= 176;
             end else begin
                 case (cop)
                     PIXL, ASCI, TRIG, CSTR,
@@ -247,16 +249,17 @@ always @(posedge clk) begin
                     UCHR: begin
                         write_char_en <= 0;
                     end
-                    USLN, CSLN,CRX1, CRY1,
+                    USLN, CSLN, CRX1, CRY1,
                     CRX2, CRY2, CRX3, CRY3,
                     CLRR, CLRG, CLRB: begin
                         pc <= pc + 1;
                     end
-                    WAIT: CPU_ready <= 1;
+                    WAIT: begin
+                        CPU_ready <= 1;
+                    end 
                     default: begin
                         if (pc == CMD_MEM_SIZE) begin
-                            CPU_ready <= 1;
-                            pc <= pc;
+                            CPU_ready <= 0;
                         end else pc <= pc + 1;
                     end 
                 endcase

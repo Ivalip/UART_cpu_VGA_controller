@@ -311,6 +311,7 @@ initial begin
     reset = 1'b0;
     wait (CPU_ready == 1'b1 && VGA_manager.VGA_busy == 1'b0);
     task_send_uart_sequence(2'd1);
+    repeat (300) @(posedge clk);
     wait (CPU_ready == 1'b1 && VGA_manager.VGA_busy == 1'b0);
     reset = 1'b1;
     #200; 

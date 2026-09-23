@@ -6,8 +6,8 @@ blk_mem_gen_v8_4_11 collision detected at time: 135000, Instance: tb_top.VGA_MEM
 blk_mem_gen_v8_4_11 collision detected at time: 175000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
 blk_mem_gen_v8_4_11 collision detected at time: 215000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
 blk_mem_gen_v8_4_11 collision detected at time: 4212975000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 14986, B  ra`d address: 14986
-blk_mem_gen_v8_4_11 collision detected at time: 6449815000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
-blk_mem_gen_v8_4_11 collision detected at time: 6449855000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
-blk_mem_gen_v8_4_11 collision detected at time: 6449895000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
-blk_mem_gen_v8_4_11 collision detected at time: 6449935000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
-blk_mem_gen_v8_4_11 collision detected at time: 6449975000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
+blk_mem_gen_v8_4_11 collision detected at time: 6446455000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
+blk_mem_gen_v8_4_11 collision detected at time: 6446495000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
+blk_mem_gen_v8_4_11 collision detected at time: 6446535000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
+blk_mem_gen_v8_4_11 collision detected at time: 6446575000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
+blk_mem_gen_v8_4_11 collision detected at time: 6446615000, Instance: tb_top.VGA_MEM.inst.native_mem_module.blk_mem_gen_v8_4_11_inst, A write address: 0, B  ra`d address: 0
